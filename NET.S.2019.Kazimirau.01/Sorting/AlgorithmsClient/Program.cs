@@ -20,7 +20,7 @@ namespace AlgorithmsClient
             sw.Start();
             alg.Sort();
             sw.Stop();
-            //alg.Show();
+            alg.Show();
             Console.WriteLine($"\nTotal time: {sw.Elapsed.TotalMilliseconds.ToString("0.00 ms")}");
 
             sw.Reset();
@@ -32,7 +32,7 @@ namespace AlgorithmsClient
             sw.Start();
             alg.Sort();
             sw.Stop();
-            //alg.Show();
+            alg.Show();
             Console.WriteLine($"\nTotal time: {sw.Elapsed.TotalMilliseconds.ToString("0.00 ms")}");
 
             Console.ReadLine();
