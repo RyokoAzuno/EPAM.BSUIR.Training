@@ -33,5 +33,23 @@ namespace Algorithms
                 Console.Write($" {item} ");
             }
         }
+
+        /// <summary>
+        /// Generate random array
+        /// </summary>
+        /// <param name="size"> size of the random array</param>
+        /// <returns> new random array </returns>
+        public static int[] CreateRandomArray(int size)
+        {
+            int[] arr = new int[size];
+            Random rnd = new Random();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = rnd.Next(-size, size);
+            }
+
+            return arr;
+        }
     }
 }
