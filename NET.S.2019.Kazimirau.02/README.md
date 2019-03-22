@@ -1,4 +1,2 @@
-**TO DO(deadline: - 20.00, 21.03.2019):**
-- *Richter J. - CLR via C#. Part 1. CLR Basis(1 week to read)*
-- *Create a multi-file assembly; build a strong name assembly; add and remove assembly from GAC*
-- *Implement both Qucksort and Mergesort algorithms for an array of int values. Test all the algorithms via NUnit or Console application*
+**TO DO(deadline: - 21.00, 24.03.2019):**
+1.	Даны два целых знаковых четырех байтовых числа и две позиции битов i и j (i<j). Реализовать алгоритм InsertNumber вставки битов с j-ого по i-ый бит одного числа в другое так, чтобы биты второго числа занимали позиции с бита j по бит i (биты нумеруются справа налево). Разработать модульные тесты (NUnit и(!) MS Unit Test) для тестирования метода. (Ниже пояснение к алгоритму)
