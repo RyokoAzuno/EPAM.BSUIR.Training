@@ -38,5 +38,14 @@ namespace Tasks.Day02.Tests
         [TestCase(20, ExpectedResult = -1)]
         public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n);
         #endregion
+
+        #region FilterDigit
+        [Test]
+        public void FilterDigit_Test()
+        {
+            var arr = new[] { 7, 1, 2, 3, 4, 5, 6, 7, 68, 69, 70, 15, 17 };
+            CollectionAssert.AreEqual(new[] { 7, 7, 70, 17 }, Tasks.FilterDigit(arr, 7));
+        }
+        #endregion
     }
 }
