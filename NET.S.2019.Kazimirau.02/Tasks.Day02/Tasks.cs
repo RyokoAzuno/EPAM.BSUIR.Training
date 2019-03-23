@@ -131,22 +131,40 @@ namespace Tasks.Day02
         #endregion
 
         #region FindNthRoot
-        public static double FindNthRoot(double number, int n, double eps)
+        /// <summary>
+        /// Find N-th root of number with with a given accuracy epsilon
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="n"> root degree </param>
+        /// <param name="eps"> accuracy </param>
+        /// <returns> N-th root of the number </returns>
+        public static double FindNthRoot(double number, int n, double epsilon)
         {
-            if (eps < 0)
+            if (epsilon < 0)
                 throw new ArgumentOutOfRangeException();
 
-            double x = 1;
+            double x = n % 2 == 0 ? 0.3 : 0.1; // <= ;o..o;
+
             while (true)
             {
                 double nx = ((n - 1) * x + number / Math.Pow(x, n - 1)) / n;
-                if (Math.Abs(x - nx) < eps)
+                //double nx = x * (1 - (1 - (number / Math.Pow(x, n - 1))) / n);
+                if (Math.Abs(x - nx) < epsilon)
                     break;
                 x = nx;
             }
-            string str = string.Format("{0:0.###}", x);
+            //string str = string.Format("{0:0.###}", x);
 
-            return Convert.ToDouble(str);
+            return Math.Round(x, 3);//Convert.ToDouble(str);
+        }
+
+        private static double Pow(double a, int pow)
+        {
+            double result = 1;
+            for (int i = 0; i < pow; i++)
+                result *= a;
+
+            return result;
         }
         #endregion
     }
