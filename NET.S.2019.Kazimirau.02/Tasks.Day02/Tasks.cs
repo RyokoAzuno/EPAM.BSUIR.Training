@@ -8,7 +8,7 @@ namespace Tasks.Day02
     {
         #region InsertNumber
         /// <summary>
-        /// Insert bits from second number into first number
+        /// Insert bits(from i to j) from second number into first number
         /// </summary>
         /// <param name="a"> a first number </param>
         /// <param name="b"> a second number </param>
@@ -32,11 +32,12 @@ namespace Tasks.Day02
         /// Find next bigger number consists from n-argument digits
         /// </summary>
         /// <param name="n"></param>
-        /// <returns> -1 - if there is no such number and integer value vice versa</returns>
+        /// <returns> -1 - if there is no such number and integer value vice versa </returns>
         public static int FindNextBiggerNumber(int n)
         {
             string str = n.ToString();
             int tmp = n + 1;
+
             while (tmp < int.MaxValue)
             {
                 string s = tmp.ToString();
@@ -51,8 +52,10 @@ namespace Tasks.Day02
                 }
                 tmp++;
             }
+
             return -1;
         }
+
         /// <summary>
         /// Check if any two strings are absolutely equivalent
         /// </summary>
@@ -65,11 +68,13 @@ namespace Tasks.Day02
             char[] arr2 = str2.ToArray();
             Array.Sort(arr1);
             Array.Sort(arr2);
+
             for (int i = 0; i < arr1.Length; i++)
             {
                 if (arr1[i] != arr2[i])
                     return false;
             }
+
             return true;
         }
         #endregion
@@ -86,6 +91,7 @@ namespace Tasks.Day02
             string[] strs = IntArrayToStringArray(arr);
             List<string> lst = new List<string>();
             int count = 0;
+
             for (int i = 0; i < strs.Length; i++)
             {
                 foreach (var item in strs[i])
@@ -106,6 +112,7 @@ namespace Tasks.Day02
 
             return result;
         }
+
         /// <summary>
         /// Convert array of integers into array of strings
         /// </summary>
@@ -119,7 +126,27 @@ namespace Tasks.Day02
                 str[i] = arr[i].ToString();
             }
 
-            return str;
+            return str; 
+        }
+        #endregion
+
+        #region FindNthRoot
+        public static double FindNthRoot(double number, int n, double eps)
+        {
+            if (eps < 0)
+                throw new ArgumentOutOfRangeException();
+
+            double x = 1;
+            while (true)
+            {
+                double nx = ((n - 1) * x + number / Math.Pow(x, n - 1)) / n;
+                if (Math.Abs(x - nx) < eps)
+                    break;
+                x = nx;
+            }
+            string str = string.Format("{0:0.###}", x);
+
+            return Convert.ToDouble(str);
         }
         #endregion
     }
