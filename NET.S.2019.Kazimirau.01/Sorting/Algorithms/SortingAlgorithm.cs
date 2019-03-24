@@ -5,7 +5,7 @@ namespace Algorithms
     public abstract class SortingAlgorithm
     {
         /// <summary>
-        /// Array which refers to array we want to sort
+        /// An array which refers to array we want to sort
         /// </summary>
         protected int[] _arr;
 
@@ -35,7 +35,7 @@ namespace Algorithms
         }
 
         /// <summary>
-        /// Generate random array
+        /// Generate a random array of integers
         /// </summary>
         /// <param name="size"> size of the random array</param>
         /// <returns> new random array </returns>

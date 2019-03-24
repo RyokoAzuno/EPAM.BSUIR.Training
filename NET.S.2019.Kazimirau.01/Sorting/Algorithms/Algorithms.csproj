@@ -52,6 +52,7 @@
     <Compile Include="QuickSortAlgorithm.cs" />
     <Compile Include="SortingAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortingContext.cs" />
     <Compile Include="Tests\MyTest.cs" />
   </ItemGroup>
   <ItemGroup />

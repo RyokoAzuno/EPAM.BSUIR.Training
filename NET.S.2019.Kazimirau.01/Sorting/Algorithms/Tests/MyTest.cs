@@ -6,13 +6,21 @@ namespace Algorithms.Tests
     [TestFixture]
     public class MyTest
     {
+        private SortingContext _sortingContext;
+
+        [SetUp]
+        public void Init()
+        {
+            _sortingContext = new SortingContext();
+        }
+
         #region QuickSort Tests
         [Test]
         public void QuickSort_Test()
         {
             int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
-            SortingAlgorithm alg = new QuickSortAlgorithm(array);
-            alg.Sort();
+            _sortingContext.SetAlgorithm(new QuickSortAlgorithm(array));
+            _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
         }
@@ -28,8 +36,8 @@ namespace Algorithms.Tests
                 expectedArr[i] = array[i];
             }
 
-            SortingAlgorithm alg = new QuickSortAlgorithm(array);
-            alg.Sort();
+            _sortingContext.SetAlgorithm(new QuickSortAlgorithm(array));
+            _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(expectedArr, array);
         }
@@ -45,11 +53,11 @@ namespace Algorithms.Tests
         [Test]
         public void MergeSort_Test()
         {
-            int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
-            SortingAlgorithm alg = new MergeSortAlgorithm(array);
-            alg.Sort();
+            int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0, -8 };
+            _sortingContext.SetAlgorithm(new MergeSortAlgorithm(array));
+            _sortingContext.Sort();
 
-            CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
+            CollectionAssert.AreEquivalent(new[] { -8, -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
         }
 
         [Test]
@@ -63,8 +71,8 @@ namespace Algorithms.Tests
                 expectedArr[i] = array[i];
             }
 
-            SortingAlgorithm alg = new MergeSortAlgorithm(array);
-            alg.Sort();
+            _sortingContext.SetAlgorithm(new MergeSortAlgorithm(array));
+            _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(expectedArr, array);
         }
