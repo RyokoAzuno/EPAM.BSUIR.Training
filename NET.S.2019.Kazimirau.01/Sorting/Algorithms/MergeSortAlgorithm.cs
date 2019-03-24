@@ -1,5 +1,8 @@
 ﻿namespace Algorithms
 {
+    /// <summary>
+    /// Concrete strategy for MergeSort algorithm
+    /// </summary>
     public class MergeSortAlgorithm : SortingAlgorithm
     {
         /// <summary>

@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace AlgorithmsClient
 {
     /// <summary>
-    /// Client for testing our sorting algorithms
+    /// Client for testing our sorting algorithms strategies
     /// </summary>
     class Program
     {
@@ -15,30 +15,26 @@ namespace AlgorithmsClient
             int[] array2 = { -8, 5, -1, 33, 81, -2, -3, 4, 0 };
             SortingContext sortingContext = new SortingContext(new QuickSortAlgorithm(array1));
             Stopwatch sw = new Stopwatch();
+
             Console.WriteLine("Quicksort:");
-            //SortingAlgorithm alg = new QuickSortAlgorithm(SortingAlgorithm.CreateRandomArray(20000000)); // ~6000 ms
-            //SortingAlgorithm alg = new QuickSortAlgorithm(array1);
             sw.Start();
-            //alg.Sort();
             sortingContext.Sort();
             sw.Stop();
-            //alg.Show();
             sortingContext.Show();
+
             Console.WriteLine($"\nTotal time: {sw.Elapsed.TotalMilliseconds.ToString("0.00 ms")}");
 
             sw.Reset();
             Console.WriteLine();
 
             Console.WriteLine("Mergesort:");
-            //alg = new MergeSortAlgorithm(SortingAlgorithm.CreateRandomArray(20000000)); //~11000 ms
-            //alg = new MergeSortAlgorithm(array2);
             sortingContext.SetAlgorithm(new MergeSortAlgorithm(array2));
+
             sw.Start();
-            //alg.Sort();
             sortingContext.Sort();
             sw.Stop();
-            //alg.Show();
             sortingContext.Show();
+
             Console.WriteLine($"\nTotal time: {sw.Elapsed.TotalMilliseconds.ToString("0.00 ms")}");
 
             Console.ReadLine();

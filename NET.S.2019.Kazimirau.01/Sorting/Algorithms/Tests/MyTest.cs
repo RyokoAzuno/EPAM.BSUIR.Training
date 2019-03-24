@@ -83,5 +83,14 @@ namespace Algorithms.Tests
             Assert.Throws<ArgumentNullException>(() => new MergeSortAlgorithm(null));
         }
         #endregion
+
+        #region SortingContext Tests
+        [Test]
+        public void SortingContext_ConstructorAndMethod_ArgumentNullException_Test()
+        {
+            Assert.Throws<ArgumentNullException>(() => new SortingContext(null));
+            Assert.Throws<ArgumentNullException>(() => new SortingContext().SetAlgorithm(null));
+        }
+        #endregion
     }
 }

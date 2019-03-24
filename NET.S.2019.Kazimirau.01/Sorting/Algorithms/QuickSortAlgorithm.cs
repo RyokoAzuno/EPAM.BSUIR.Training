@@ -1,7 +1,7 @@
 ﻿namespace Algorithms
 {
     /// <summary>
-    /// Concrete implementation of SortingAlgorithm strategy
+    /// Concrete strategy for QuickSort algorithm
     /// </summary>
     public class QuickSortAlgorithm : SortingAlgorithm
     {

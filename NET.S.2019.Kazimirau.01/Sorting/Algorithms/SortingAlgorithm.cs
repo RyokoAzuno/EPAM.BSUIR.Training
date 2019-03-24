@@ -2,6 +2,9 @@
 
 namespace Algorithms
 {
+    /// <summary>
+    /// Define an abstract base strategy class for sorting strategies
+    /// </summary>
     public abstract class SortingAlgorithm
     {
         /// <summary>
