@@ -16,7 +16,7 @@
         }
 
         /// <summary>
-        /// Main algorithm interface
+        /// Main algorithm interface is a wrapper for MergeSort method
         /// </summary>
         public override void Sort()
         {

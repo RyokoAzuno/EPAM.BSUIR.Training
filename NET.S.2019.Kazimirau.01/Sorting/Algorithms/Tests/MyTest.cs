@@ -1,28 +1,79 @@
 ﻿using NUnit.Framework;
+using System;
 
 namespace Algorithms.Tests
 {
     [TestFixture]
     public class MyTest
     {
+        #region QuickSort Tests
         [Test]
         public void QuickSort_Test()
         {
-            int[] array1 = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
-            SortingAlgorithm alg = new QuickSortAlgorithm(array1);
+            int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
+            SortingAlgorithm alg = new QuickSortAlgorithm(array);
             alg.Sort();
 
-            CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array1);
+            CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
         }
 
         [Test]
-        public void MergeSort_Test()
+        public void QuickSort_Random_LargeArray_Test()
         {
-            int[] array1 = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
-            SortingAlgorithm alg = new MergeSortAlgorithm(array1);
+            int[] array = SortingAlgorithm.CreateRandomArray(5000);
+            int[] expectedArr = new int[5000];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                expectedArr[i] = array[i];
+            }
+
+            SortingAlgorithm alg = new QuickSortAlgorithm(array);
             alg.Sort();
 
-            CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array1);
+            CollectionAssert.AreEquivalent(expectedArr, array);
         }
+
+        [Test]
+        public void QuickSort_ArgumentNullException_Test()
+        {
+            Assert.Throws<ArgumentNullException>(() => new QuickSortAlgorithm(null));
+        }
+        #endregion
+
+        #region MergeSort Tests
+        [Test]
+        public void MergeSort_Test()
+        {
+            int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
+            SortingAlgorithm alg = new MergeSortAlgorithm(array);
+            alg.Sort();
+
+            CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
+        }
+
+        [Test]
+        public void MergeSort_Random_LargeArray_Test()
+        {
+            int[] array = SortingAlgorithm.CreateRandomArray(5000);
+            int[] expectedArr = new int[5000];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                expectedArr[i] = array[i];
+            }
+
+            SortingAlgorithm alg = new MergeSortAlgorithm(array);
+            alg.Sort();
+
+            CollectionAssert.AreEquivalent(expectedArr, array);
+        }
+
+        [Test]
+        public void MergeSort_ArgumentNullException_Test()
+        {
+            Assert.Throws<ArgumentNullException>(() => new MergeSortAlgorithm(null));
+        }
+        #endregion
     }
 }

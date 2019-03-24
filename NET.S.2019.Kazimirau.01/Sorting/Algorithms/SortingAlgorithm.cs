@@ -15,7 +15,7 @@ namespace Algorithms
         /// <param name="arr"> array to sort </param>
         public SortingAlgorithm(int[] arr)
         {
-            _arr = arr;
+            _arr = arr ?? throw new ArgumentNullException();
         }
 
         /// <summary>

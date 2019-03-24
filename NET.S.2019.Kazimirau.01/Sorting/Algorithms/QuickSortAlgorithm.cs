@@ -14,7 +14,7 @@
         }
 
         /// <summary>
-        /// Main algorithm interface
+        /// Main algorithm interface is a wrapper for QuickSort method
         /// </summary>
         public override void Sort()
         {
