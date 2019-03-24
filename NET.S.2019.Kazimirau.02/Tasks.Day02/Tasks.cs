@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Tasks.Day02
 {
+    /// <summary>
+    /// Class wrapper for tasks
+    /// </summary>
     public static class Tasks
     {
         #region InsertNumber
@@ -35,8 +38,14 @@ namespace Tasks.Day02
         /// <returns> -1 - if there is no such number and integer value vice versa </returns>
         public static int FindNextBiggerNumber(int n)
         {
+            if (n < 0 || n > int.MaxValue)
+                throw new ArgumentException();
+
             string str = n.ToString();
             int tmp = n + 1;
+
+            if (IsConsistOfTheSameDigit(str))
+                return -1;
 
             while (tmp < int.MaxValue)
             {
@@ -76,6 +85,25 @@ namespace Tasks.Day02
             }
 
             return true;
+        }
+        /// <summary>
+        /// Check if current string consists of the same char(3333, 999999, etc.)
+        /// </summary>
+        /// <param name="str"> String to check</param>
+        /// <returns> True or false</returns>
+        private static bool IsConsistOfTheSameDigit(string str)
+        {
+            int count = 0;
+            char pattern = str[0];
+            foreach (var item in str)
+            {
+                if (item == pattern)
+                    ++count;
+            }
+            if (str.Length == count)
+                return true;
+
+            return false;
         }
         #endregion
 

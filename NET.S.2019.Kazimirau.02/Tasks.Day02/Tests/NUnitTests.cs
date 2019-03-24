@@ -37,7 +37,15 @@ namespace Tasks.Day02.Tests
         [TestCase(3456432, ExpectedResult = 3462345)]
         [TestCase(10, ExpectedResult = -1)]
         [TestCase(20, ExpectedResult = -1)]
+        [TestCase(22222222, ExpectedResult = -1)]
+        [TestCase(777777777, ExpectedResult = -1)]
         public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n);
+
+        [Test]
+        public void FindNextBiggerNumber_ArgumentException_Test()
+        {
+            Assert.Throws<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2));
+        }
         #endregion
 
         #region FilterDigitTests
