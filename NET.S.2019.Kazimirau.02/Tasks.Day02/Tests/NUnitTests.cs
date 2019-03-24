@@ -6,6 +6,12 @@ namespace Tasks.Day02.Tests
     [TestFixture]
     public class NUnitTests
     {
+        private double _time;
+        [SetUp]
+        public void Init()
+        {
+            _time = 0.0d;
+        }
         #region InsertNumberTests
         [Test]
         public void InsertNumber_Test1()
@@ -39,12 +45,12 @@ namespace Tasks.Day02.Tests
         [TestCase(20, ExpectedResult = -1)]
         [TestCase(22222222, ExpectedResult = -1)]
         [TestCase(777777777, ExpectedResult = -1)]
-        public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n);
+        public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n, out _time);
 
         [Test]
         public void FindNextBiggerNumber_ArgumentException_Test()
         {
-            Assert.Throws<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2, out _time));
         }
         #endregion
 
@@ -54,6 +60,12 @@ namespace Tasks.Day02.Tests
         {
             var arr = new[] { 7, 1, 2, 3, 4, 5, 6, 7, 68, 69, 70, 15, 17 };
             CollectionAssert.AreEqual(new[] { 7, 7, 70, 17 }, Tasks.FilterDigit(arr, 7));
+        }
+
+        [Test]
+        public void FilterDigit_ArgumentException_Test()
+        {
+            Assert.Throws<ArgumentNullException>(() => Tasks.FilterDigit(null, -2));
         }
         #endregion
 

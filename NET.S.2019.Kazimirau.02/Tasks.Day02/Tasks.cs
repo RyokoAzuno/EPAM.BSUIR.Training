@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Tasks.Day02
@@ -32,14 +33,19 @@ namespace Tasks.Day02
 
         #region FindNextBiggerNumber
         /// <summary>
-        /// Find next bigger number consists from n-argument digits
+        /// Find next bigger number consists from n-argument digits and calculate performance measurement
         /// </summary>
-        /// <param name="n"></param>
+        /// <param name="n"> Initial number consists of digits</param>
+        /// <param name="time"></param>
         /// <returns> -1 - if there is no such number and integer value vice versa </returns>
-        public static int FindNextBiggerNumber(int n)
+        public static int FindNextBiggerNumber(int n, out double time)
         {
             if (n < 0 || n > int.MaxValue)
                 throw new ArgumentException();
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            time = 0.0d;
 
             string str = n.ToString();
             int tmp = n + 1;
@@ -56,6 +62,9 @@ namespace Tasks.Day02
                 {
                     if (AreEqual(str, s))
                     {
+                        sw.Stop();
+                        time = sw.Elapsed.TotalMilliseconds;
+
                         return Convert.ToInt32(s);
                     }
                 }
@@ -116,6 +125,9 @@ namespace Tasks.Day02
         /// <returns> new int array where each element consists of number value </returns>
         public static int[] FilterDigit(int[] arr, int number)
         {
+            if (arr == null)
+                throw new ArgumentNullException();
+
             string[] strs = IntArrayToStringArray(arr);
             List<string> lst = new List<string>();
             int count = 0;
