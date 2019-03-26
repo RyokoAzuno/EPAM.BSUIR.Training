@@ -22,6 +22,11 @@ namespace GCD.Tests
         {
             Assert.Throws<System.ArgumentException>(() => MyGCD.BinaryGcd(0, 0));
         }
+
+        [TestCase(85886, 94344, 73964, 42448, ExpectedResult = 2)]
+        [TestCase(85884, 94344, 73464, 42448, ExpectedResult = 4)]
+        [TestCase(85888, 94848, 73464, 42448, 98888, ExpectedResult = 8)]
+        public int BinaryGcd_WithParams_Tests(params int[] arr) => MyGCD.BinaryGcd(arr);
         #endregion
 
         #region EuclideanGcd
@@ -41,11 +46,13 @@ namespace GCD.Tests
         {
             Assert.Throws<System.ArgumentException>(() => MyGCD.EuclideanGcd(0, 0));
         }
-        #endregion
 
         [TestCase(85886, 94344, 73964, 42448, ExpectedResult = 2)]
         [TestCase(85884, 94344, 73464, 42448, ExpectedResult = 4)]
         [TestCase(85888, 94848, 73464, 42448, 98888, ExpectedResult = 8)]
         public int EuclideanGcd_WithParams_Tests(params int[] arr) => MyGCD.EuclideanGcd(arr);
+        #endregion
+
+
     }
 }

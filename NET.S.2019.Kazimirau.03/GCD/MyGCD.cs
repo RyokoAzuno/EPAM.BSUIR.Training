@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace GCD
 {
@@ -41,7 +42,63 @@ namespace GCD
 
             return result;
         }
-        ///
+
+        /// <summary>
+        /// Binary GCD(Stein's algorithm) algorithm: An alternative method of computing the gcd, method which uses only
+        /// subtraction and division by 2 (gcd(a, b) = a * 2^d).
+        /// BinaryGCD: https://en.wikipedia.org/wiki/Greatest_common_divisor
+        /// </summary>
+        /// <param name="a"> Number a </param>
+        /// <param name="b"> Number b </param>
+        /// <param name="time"> Performance measurement time </param>
+        /// <returns> Greatest common divisor </returns>
+        public static int BinaryGcd(int a, int b, out double time)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            int result = BinaryGcd(a, b);
+            sw.Stop();
+            time = sw.Elapsed.TotalMilliseconds;
+
+            return result;
+        }
+
+        public static int BinaryGcd(out double time, params int[] numbers)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            int result = BinaryGcd(numbers);
+            sw.Stop();
+            time = sw.Elapsed.TotalMilliseconds;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Binary GCD(Stein's algorithm) algorithm: An alternative method of computing the gcd of MANY!! numbers,
+        /// method which uses only subtraction and division by 2 (gcd(a, b) = a * 2^d).
+        /// BinaryGCD: https://en.wikipedia.org/wiki/Greatest_common_divisor
+        /// </summary>
+        /// <param name="numbers"> Numbers for which we need to find GCD </param>
+        /// <returns> Greatest common divisor </returns>
+        public static int BinaryGcd(params int[] numbers)
+        {
+            if (numbers.Length < 2)
+                throw new ArgumentException();
+
+            var elts = Binary(numbers[0], numbers[1]);
+            int result = elts.Item1 * Convert.ToInt32(Math.Pow(2, elts.Item2));
+
+            if (numbers.Length > 2)
+            {
+                for (int i = 2; i < numbers.Length; i++)
+                {
+                    elts = Binary(result, numbers[i]);
+                    result = BinaryGcd(result, numbers[i]);
+                }
+            }          
+
+            return result;
+        }
+        // Main BinaryGcd algorithm implementation
         private static (int, int) Binary(int a, int b)
         {
             int g = 0;                      // keeper for the first number(a)
@@ -118,18 +175,52 @@ namespace GCD
             return a;
         }
 
-        public static int EuclideanGcd(params int[] nums)
+        /// <summary>
+        ///  Euclidean algorithm, is a method for computing the greatest common divisor (GCD) of MANY!! numbers.
+        ///  Euclidean algorithm: https://en.wikipedia.org/wiki/Euclidean_algorithm
+        /// </summary>
+        /// <param name="nums"> Numbers for which we need to find GCD </param>
+        /// <returns> Greatest common divisor </returns>
+        public static int EuclideanGcd(params int[] numbers)
         {
-            if (nums.Length < 2)
+            if (numbers.Length < 2)
                 throw new ArgumentException();
 
-            int result = EuclideanGcd(nums[0], nums[1]);
+            int result = EuclideanGcd(numbers[0], numbers[1]);
 
-            if (nums.Length > 2)
+            if (numbers.Length > 2)
             {
-                for (int i = 2; i < nums.Length; i++)
-                    result = EuclideanGcd(result, nums[i]);
+                for (int i = 2; i < numbers.Length; i++)
+                    result = EuclideanGcd(result, numbers[i]);
             }
+
+            return result;
+        }
+
+        /// <summary>
+        ///  Euclidean algorithm, is a method for computing the greatest common divisor (GCD) of two numbers.
+        ///  Euclidean algorithm: https://en.wikipedia.org/wiki/Euclidean_algorithm
+        /// </summary>
+        /// <param name="a"> Number a</param>
+        /// <param name="b"> Number b</param>
+        /// <param name="time"> Performance measurement time </param>
+        /// <returns> Greatest common divisor </returns>
+        public static int EuclideanGcd(int a, int b, out double time)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            int result = EuclideanGcd(a, b);
+            sw.Stop();
+            time = sw.Elapsed.TotalMilliseconds;
+
+            return result;
+        }
+
+        public static int EuclideanGcd(out double time, params int[] numbers)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            int result = EuclideanGcd(numbers);
+            sw.Stop();
+            time = sw.Elapsed.TotalMilliseconds;
 
             return result;
         }
