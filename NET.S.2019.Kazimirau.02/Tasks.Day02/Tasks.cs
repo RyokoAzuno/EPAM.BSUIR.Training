@@ -121,12 +121,15 @@ namespace Tasks.Day02
         /// Filter elements of the array where arr[i] contains number
         /// </summary>
         /// <param name="arr"> array of ints</param>
-        /// <param name="number"> a value-filter </param>
+        /// <param name="number"> value-filter </param>
         /// <returns> new int array where each element consists of number value </returns>
         public static int[] FilterDigit(int[] arr, int number)
         {
             if (arr == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("Can't be null");
+
+            if (number < 0)
+                throw new ArgumentNullException("Can't be less than zero");
 
             string[] strs = IntArrayToStringArray(arr);
             List<string> lst = new List<string>();
@@ -161,6 +164,7 @@ namespace Tasks.Day02
         private static string[] IntArrayToStringArray(int[] arr)
         {
             string[] str = new string[arr.Length];
+
             for (int i = 0; i < arr.Length; i++)
             {
                 str[i] = arr[i].ToString();
@@ -174,16 +178,22 @@ namespace Tasks.Day02
         /// <summary>
         /// Find N-th root of number with with a given accuracy epsilon
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="n"> root degree </param>
-        /// <param name="eps"> accuracy </param>
+        /// <param name="number"> Number </param>
+        /// <param name="n"> Root degree </param>
+        /// <param name="eps"> Accuracy </param>
         /// <returns> N-th root of the number </returns>
         public static double FindNthRoot(double number, int n, double epsilon)
         {
-            if (epsilon < 0)
-                throw new ArgumentOutOfRangeException();
+            if (number == 0)
+                return 0;
 
-            double x = n % 2 == 0 ? 0.3 : 0.1; // <= ;o..o;
+            if (epsilon > 1 || epsilon < 0)
+                throw new ArgumentException("Epsilon must be: 0 < epsilon < 1");
+
+            if (n < 1)
+                throw new ArgumentException("Root degree must be positive");
+
+            double x = n % 2 == 0 ? 0.3 : 0.1; //!!!!!! <= ;o..o;
 
             while (true)
             {
@@ -193,18 +203,8 @@ namespace Tasks.Day02
                     break;
                 x = nx;
             }
-            //string str = string.Format("{0:0.###}", x);
 
-            return Math.Round(x, 3);//Convert.ToDouble(str);
-        }
-
-        private static double Pow(double a, int pow)
-        {
-            double result = 1;
-            for (int i = 0; i < pow; i++)
-                result *= a;
-
-            return result;
+            return Math.Round(x, 3);
         }
         #endregion
     }

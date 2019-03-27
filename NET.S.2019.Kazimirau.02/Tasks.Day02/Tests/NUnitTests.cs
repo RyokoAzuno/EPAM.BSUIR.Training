@@ -63,9 +63,10 @@ namespace Tasks.Day02.Tests
         }
 
         [Test]
-        public void FilterDigit_ArgumentException_Test()
+        public void FilterDigit_ArgumentException_Tests()
         {
-            Assert.Throws<ArgumentNullException>(() => Tasks.FilterDigit(null, -2));
+            Assert.Throws<ArgumentNullException>(() => Tasks.FilterDigit(null, 2));
+            Assert.Throws<ArgumentNullException>(() => Tasks.FilterDigit(new[] { 3, 2 ,12 }, -2));
         }
         #endregion
 
@@ -82,10 +83,13 @@ namespace Tasks.Day02.Tests
         public double FindNthRoot_Test(double number, int n, double eps) => Tasks.FindNthRoot(number, n, eps);
 
         [Test]
-        public void FindNthRoot_ArgumentOutOfRangeException_Test()
+        public void FindNthRoot_ArgumentException_Test()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Tasks.FindNthRoot(8, 15, -7));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Tasks.FindNthRoot(8, 15, -0.6));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -7));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -0.6));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, 2));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -3));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -3));
         }
         #endregion
     }

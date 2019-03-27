@@ -92,10 +92,13 @@ namespace Tasks.Day02.Tests
         }
 
         [TestMethod]
-        public void FindNthRoot_ArgumentOutOfRangeException_Test()
+        public void FindNthRoot_ArgumentException_Test()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Tasks.FindNthRoot(8, 15, -7));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Tasks.FindNthRoot(8, 15, -0.6));
+            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -7));
+            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -0.6));
+            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNthRoot(8, 15, 2));
+            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -3));
+            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -3));
         }
         #endregion
     }
