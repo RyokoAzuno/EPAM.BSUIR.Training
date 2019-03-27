@@ -30,7 +30,7 @@
         private void QuickSort(int leftIdx, int rightIdx)
         {
             // Calculate pivot element
-            int pivot = _arr[(leftIdx + rightIdx) / 2];
+            int pivot = _arr[leftIdx + (rightIdx - leftIdx) / 2];
             int i = leftIdx;
             int j = rightIdx;
 

@@ -23,6 +23,7 @@ namespace Algorithms.Tests
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
+            CollectionAssert.AreEquivalent(new[] { 0 }, new[] { 0 });
         }
 
         [Test]
@@ -58,6 +59,7 @@ namespace Algorithms.Tests
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -8, -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
+            CollectionAssert.AreEquivalent(new[] { 0 }, new[] { 0 });
         }
 
         [Test]

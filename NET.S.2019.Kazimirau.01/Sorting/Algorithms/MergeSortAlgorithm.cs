@@ -33,7 +33,7 @@
         {
             if (leftIdx >= rightIdx)
                 return;
-            // Calculate middle element
+            // Calculate middle element without overflow
             int mid = leftIdx + (rightIdx - leftIdx) / 2;
             // Recursively split and merge left and right parts on every step
             MergeSort(leftIdx, mid);
