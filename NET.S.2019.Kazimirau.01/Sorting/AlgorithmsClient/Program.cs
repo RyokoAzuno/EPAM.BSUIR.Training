@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace AlgorithmsClient
 {
     /// <summary>
-    /// Client for testing our sorting algorithms strategies
+    /// Client for testing sorting algorithms strategies
     /// </summary>
     class Program
     {

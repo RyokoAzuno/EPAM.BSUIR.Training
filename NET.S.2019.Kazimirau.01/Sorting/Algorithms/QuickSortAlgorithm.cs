@@ -18,7 +18,7 @@
         /// </summary>
         public override void Sort()
         {
-            QuickSort(_arr, 0, _arr.Length - 1);
+            QuickSort(0, _arr.Length - 1);
         }
 
         /// <summary>
@@ -27,26 +27,24 @@
         /// <param name="arr"> array to sort </param>
         /// <param name="leftIdx"> most left index </param>
         /// <param name="rightIdx"> most right index </param>
-        private void QuickSort(int[] arr, int leftIdx, int rightIdx)
+        private void QuickSort(int leftIdx, int rightIdx)
         {
             // Calculate pivot element
-            int pivot = arr[(leftIdx + rightIdx) / 2];
+            int pivot = _arr[(leftIdx + rightIdx) / 2];
             int i = leftIdx;
             int j = rightIdx;
 
             do
             {
-                while ((arr[i] < pivot) && (i < rightIdx))
+                while ((_arr[i] < pivot) && (i < rightIdx))
                     ++i;
-                while ((arr[j] > pivot) && (j > leftIdx))
+                while ((_arr[j] > pivot) && (j > leftIdx))
                     --j;
                 if (i <= j)
                 {
-                    if (arr[i] != arr[j])
+                    if (_arr[i] != _arr[j])
                     {
-                        arr[i] ^= arr[j];
-                        arr[j] ^= arr[i];
-                        arr[i] ^= arr[j];
+                        Swap(i, j);
                     }
                     ++i;
                     --j;
@@ -54,9 +52,9 @@
             } while (i <= j);
 
             if (leftIdx < j)
-                QuickSort(arr, leftIdx, j);
+                QuickSort(leftIdx, j);
             if (i < rightIdx)
-                QuickSort(arr, i, rightIdx);
+                QuickSort(i, rightIdx);
         }
     }
 }

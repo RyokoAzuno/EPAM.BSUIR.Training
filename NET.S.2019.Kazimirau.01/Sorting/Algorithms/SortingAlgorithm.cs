@@ -27,7 +27,7 @@ namespace Algorithms
         public abstract void Sort();
 
         /// <summary>
-        /// Print all elements of the array to console
+        /// Prints all elements of the array to console
         /// </summary>
         public void Show()
         {
@@ -53,6 +53,13 @@ namespace Algorithms
             }
 
             return arr;
+        }
+
+        protected void Swap(int i, int j)
+        {
+            _arr[i] ^= _arr[j];
+            _arr[j] ^= _arr[i];
+            _arr[i] ^= _arr[j];
         }
     }
 }
