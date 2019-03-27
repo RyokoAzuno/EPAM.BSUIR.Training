@@ -21,6 +21,9 @@ namespace Tasks.Day02
         /// <returns> new integer number </returns>
         public static int InsertNumber(int a, int b, int i, int j)
         {
+            if (i < 0 || j > 31)
+                throw new IndexOutOfRangeException();
+
             string result = string.Empty;
             string numA = new string(Convert.ToString(a, 2).PadLeft(32, '0').Reverse().ToArray());
             string numB = new string(Convert.ToString(b, 2).PadLeft(32, '0').Reverse().ToArray());
