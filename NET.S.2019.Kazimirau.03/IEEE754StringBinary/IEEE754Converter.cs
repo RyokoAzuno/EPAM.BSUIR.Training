@@ -32,20 +32,23 @@ namespace IEEE754StringBinary
             if (length < 64)
                 result = result.PadRight(64, '0');
             return result;
+        }
 
-            //byte[] numberBytes = BitConverter.GetBytes(number);
-            //BitArray bitArray = new BitArray(numberBytes);
-            //StringBuilder sb = new StringBuilder();
+        public static string BuiltInConvert(double number)
+        {
+            byte[] numberBytes = BitConverter.GetBytes(number);
+            BitArray bitArray = new BitArray(numberBytes);
+            StringBuilder sb = new StringBuilder();
 
-            //for (int i = bitArray.Length - 1; i >= 0; i--)
-            //{
-            //    if (bitArray[i])
-            //        sb.Append('1');
-            //    else
-            //        sb.Append('0');
-            //}
+            for (int i = bitArray.Length - 1; i >= 0; i--)
+            {
+                if (bitArray[i])
+                    sb.Append('1');
+                else
+                    sb.Append('0');
+            }
 
-            //return sb.ToString();
+            return sb.ToString();
         }
         private static string GetMantissa(double number)
         {
