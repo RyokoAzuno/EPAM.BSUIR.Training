@@ -90,9 +90,21 @@ namespace Polynomial
             return new Polynomial(degArr, coeffArr);
         }
 
+        /// <summary>
+        /// Represent an object as a string
+        /// </summary>
+        /// <returns> String representation of the object </returns>
         public override string ToString()
         {
-            return $"Test polynom";
+            string result = string.Empty;
+            int length = _degrees.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                result += (i == (length - 1)) ? $"{_coeffs[i]}X^{_degrees[i]}" : $"{_coeffs[i]}X^{_degrees[i]}, ";
+            }
+
+            return result;
         }
 
         /// <summary>
