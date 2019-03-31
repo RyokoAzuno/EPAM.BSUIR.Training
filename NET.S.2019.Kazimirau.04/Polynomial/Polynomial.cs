@@ -110,16 +110,16 @@ namespace Polynomial
 
         public static bool operator ==(Polynomial p1, Polynomial p2)
         {
-            if (((object)p1) == null || ((object)p2) == null)
-                return Equals(p1, p2);
+            //if (((object)p1) == null || ((object)p2) == null)
+            //    return Equals(p1, p2);
 
             return p1.Equals(p2);
         }
 
         public static bool operator !=(Polynomial p1, Polynomial p2)
         {
-            if (((object)p1) == null || ((object)p2) == null)
-                return !Equals(p1, p2);
+            //if (((object)p1) == null || ((object)p2) == null)
+            //    return !Equals(p1, p2);
 
             return !(p1.Equals(p2));
         }
@@ -147,7 +147,7 @@ namespace Polynomial
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
+            if(ReferenceEquals(null, obj)) // (obj == null)
                 return false;
 
             if (!(obj is Polynomial p))
