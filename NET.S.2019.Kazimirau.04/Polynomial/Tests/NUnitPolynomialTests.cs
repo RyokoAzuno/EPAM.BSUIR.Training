@@ -53,5 +53,35 @@ namespace Polynomial.Tests
 
             CollectionAssert.AreEqual(new[] { 0.3, 7, 2.4, 3.8, 4.2, -2.7 }, p3.GetCoefficients);
         }
+
+        [Test]
+        public void Polynomial_OperatorEquality_Test()
+        {
+            var degrees1 = new[] { 0, 1, 2, 4, 5 };
+            var degrees2 = new[] { 0, 1, 2, 4, 5 };
+            var coeffs1 = new[] { 0.3, 9.1, 2.4, 0.4, 5.7 };
+            var coeffs2 = new[] { 0.3, 9.1, 2.4, 0.4, 5.7 };
+
+            Polynomial p1 = new Polynomial(degrees1, coeffs1);
+            Polynomial p2 = new Polynomial(degrees2, coeffs2);
+
+            Assert.AreEqual(true, p1 == p2);
+            Assert.AreEqual(true, p1.Equals(p2));
+        }
+
+        [Test]
+        public void Polynomial_OperatorInequality_Test()
+        {
+            var degrees1 = new[] { 0, 1, 2, 4, 5 };
+            var degrees2 = new[] { 1, 4, 5, 6 };
+            var coeffs1 = new[] { 0.3, 9.1, 2.4, 0.4, 5.7 };
+            var coeffs2 = new[] { 2.1, -3.4, 1.5, 2.7 };
+
+            Polynomial p1 = new Polynomial(degrees1, coeffs1);
+            Polynomial p2 = new Polynomial(degrees2, coeffs2);
+
+            Assert.AreEqual(true, p1 != p2);
+            Assert.AreEqual(true, !p1.Equals(p2));
+        }
     }
 }

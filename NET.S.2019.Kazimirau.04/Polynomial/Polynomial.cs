@@ -107,6 +107,22 @@ namespace Polynomial
 
             return p1 + p2;
         }
+
+        public static bool operator ==(Polynomial p1, Polynomial p2)
+        {
+            if (((object)p1) == null || ((object)p2) == null)
+                return Equals(p1, p2);
+
+            return p1.Equals(p2);
+        }
+
+        public static bool operator !=(Polynomial p1, Polynomial p2)
+        {
+            if (((object)p1) == null || ((object)p2) == null)
+                return !Equals(p1, p2);
+
+            return !(p1.Equals(p2));
+        }
         /// <summary>
         /// Represent an object as a string
         /// </summary>
@@ -127,6 +143,27 @@ namespace Polynomial
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            if (!(obj is Polynomial p))
+                return false;
+            else
+            {
+                int length = p.GetNumberOfDegrees;
+
+                for (int i = 0; i < length; i++)
+                {
+                    if ((_degrees[i] != p._degrees[i]) || (_coeffs[i] != p._coeffs[i]))
+                        return false;
+                }
+
+                return true;
+            }
         }
 
         /// <summary>
