@@ -61,12 +61,12 @@ namespace Polynomial
         }
 
         /// <summary>
-        /// Operator + overloading
+        /// Operator plus(+) overloading
         /// </summary>
-        /// <param name="p1"> Left polynom </param>
-        /// <param name="p2"> Right polynom </param>
-        /// <returns> New polynom = Left + Right</returns>
-        public static Polynomial operator+(Polynomial p1, Polynomial p2)
+        /// <param name="p1"> Left polynomial </param>
+        /// <param name="p2"> Right polynomial </param>
+        /// <returns> New polynomial = Left + Right</returns>
+        public static Polynomial operator +(Polynomial p1, Polynomial p2)
         {
             int p1Degrees = p1.GetNumberOfDegrees;
             int p2Degrees = p2.GetNumberOfDegrees;
@@ -91,6 +91,23 @@ namespace Polynomial
         }
 
         /// <summary>
+        /// Operator minus(-) overloading
+        /// </summary>
+        /// <param name="p1"> Left polynomial </param>
+        /// <param name="p2"> Right polynomial </param>
+        /// <returns> New polynomial = Left - Right</returns>
+        public static Polynomial operator -(Polynomial p1, Polynomial p2)
+        {
+            int length = p2.GetNumberOfCoefficients;
+
+            for (int i = 0; i < length; i++)
+            {
+                p2._coeffs[i] = -p2._coeffs[i];
+            }
+
+            return p1 + p2;
+        }
+        /// <summary>
         /// Represent an object as a string
         /// </summary>
         /// <returns> String representation of the object </returns>
@@ -105,6 +122,11 @@ namespace Polynomial
             }
 
             return result;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         /// <summary>
@@ -123,7 +145,7 @@ namespace Polynomial
 
             for (int k = 0; k < resultDegs.Length; k++)
             {
-                if(i >= leftDegs.Length && j < rightDegs.Length)
+                if (i >= leftDegs.Length && j < rightDegs.Length)
                 {
                     resultDegs[k] = rightDegs[j];
                     resultCoeffs[k] = rightCoeffs[j++];
