@@ -15,6 +15,10 @@ namespace JaggedArraySorter
         DescMin
     }
 
+    /// <summary>
+    /// Simple class for sorting rows of a jagged array and elements of the array
+    /// by given criteria
+    /// </summary>
     public class JaggedArraySorter
     {
         /// <summary>
@@ -23,9 +27,12 @@ namespace JaggedArraySorter
         /// <param name="arr"> Array to sort </param>
         public static void Sort(int[][] arr, Func<int, int, bool> comparison)
         {
+            if (arr == null || comparison == null)
+                throw new ArgumentNullException();
+
             for (int i = 0; i < arr.Length; ++i)
             {
-                for (int j = 0; j < arr[i].Length; j++)
+                for (int j = 0; j < arr[i].Length - 1; j++)
                 {
                     for (int k = j + 1; k < arr[i].Length; k++)
                     {
@@ -40,8 +47,11 @@ namespace JaggedArraySorter
         /// </summary>
         /// <param name="arr"> Jagged array </param>
         /// <param name="comparison"> Criteria of swapping</param>
-        public static void SortRows(int[][] arr, Comparisons comparison/*, Func<Func<int[]>, bool> comparison*/)
+        public static void SortRows(int[][] arr, Comparisons comparison)
         {
+            if (arr == null)
+                throw new ArgumentNullException();
+
             for (int i = 0; i < arr.Length; ++i)
             {
                 for (int j = i + 1; j < arr.Length; j++)
@@ -81,8 +91,9 @@ namespace JaggedArraySorter
                                     SwapRows(ref arr[i], ref arr[j]);
                             }
                             break;
+                        default:
+                            throw new ArgumentException();
                     }
-                    
                 }
             }
         }
@@ -111,6 +122,11 @@ namespace JaggedArraySorter
             rowB = rowTmp;
         }
 
+        /// <summary>
+        /// Get a sum of all elements of the array
+        /// </summary>
+        /// <param name="arr"> Array </param>
+        /// <returns> Sum of all alements </returns>
         private static int GetArraySum(int[] arr)
         {
             int sum = 0;
@@ -121,6 +137,11 @@ namespace JaggedArraySorter
             return sum;
         }
 
+        /// <summary>
+        /// Get the max element of the array
+        /// </summary>
+        /// <param name="arr"> Array </param>
+        /// <returns> Max element </returns>
         private static int GetArrayMaxElement(int[] arr)
         {
             int max = arr[0];
@@ -132,6 +153,11 @@ namespace JaggedArraySorter
             return max;
         }
 
+        /// <summary>
+        /// Get the min element of the array
+        /// </summary>
+        /// <param name="arr"> Array </param>
+        /// <returns> Min element </returns>
         private static int GetArrayMinElement(int[] arr)
         {
             int min = arr[0];
