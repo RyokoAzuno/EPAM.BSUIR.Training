@@ -76,7 +76,7 @@ namespace Polynomial
 
             if (p1Degrees != p2Degrees)
             {
-                int size = CalculateArraySize(p1._degrees, p2._degrees);
+                int size = CalculateArraySize(p1.GetDegrees, p2.GetDegrees);
                 degArr = new int[size];
                 coeffArr = new double[size];
             }
@@ -86,7 +86,7 @@ namespace Polynomial
                 coeffArr = new double[p1Degrees];
             }
 
-            MergeDegreesAndCoefficients(coeffArr, degArr, p1._coeffs, p2._coeffs, p1._degrees, p2._degrees); ;
+            MergeDegreesAndCoefficients(coeffArr, degArr, p1.GetCoefficients, p2.GetCoefficients, p1.GetDegrees, p2.GetDegrees);
 
             return new Polynomial(degArr, coeffArr);
         }
@@ -155,7 +155,7 @@ namespace Polynomial
                 p1._coeffs[i] = Math.Round(p1._coeffs[i] * coefficient, 5);
             }
 
-            return new Polynomial(p1._degrees, p1._coeffs);
+            return new Polynomial(p1.GetDegrees, p1.GetCoefficients);
         }
 
         public static bool operator ==(Polynomial p1, Polynomial p2)
@@ -180,7 +180,7 @@ namespace Polynomial
         public override string ToString()
         {
             string result = string.Empty;
-            int length = _degrees.Length;
+            int length = GetNumberOfDegrees;
 
             for (int i = 0; i < length; i++)
             {
