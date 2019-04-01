@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Polynomial
 {
@@ -108,6 +109,55 @@ namespace Polynomial
             return p1 + p2;
         }
 
+        public static Polynomial operator *(Polynomial p1, Polynomial p2)
+        {
+            int length1 = p1.GetNumberOfCoefficients;
+            int length2 = p2.GetNumberOfCoefficients;
+            List<double> coeffs = new List<double>();
+            List<int> degrees = new List<int>();
+
+            for (int i = 0; i < length1; i++)
+            {
+                for (int j = 0; j < length2; j++)
+                {
+                    coeffs.Add(Math.Round(p1._coeffs[i] * p2._coeffs[j], 5));
+                    degrees.Add(p1._degrees[i] + p2._degrees[j]);
+                }
+            }
+
+            for (int i = 0; i < coeffs.Count; i++)
+            {
+                List<int> indicesToRemove = new List<int>();
+                for (int j = i + 1; j < degrees.Count; j++)
+                {
+                    if(degrees[i] == degrees[j])
+                    {
+                        coeffs[i] += coeffs[j];
+                        indicesToRemove.Add(j);
+                    }
+                }
+                for (int k = 0; k < indicesToRemove.Count; k++)
+                {
+                    coeffs.RemoveAt(indicesToRemove[k]);
+                    degrees.RemoveAt(indicesToRemove[k]);
+                }
+            }
+
+            Sort(degrees, coeffs);
+
+            return new Polynomial(degrees.ToArray(), coeffs.ToArray());
+        }
+
+        public static Polynomial operator *(Polynomial p1, double coefficient)
+        {
+            for (int i = 0; i < p1.GetNumberOfCoefficients; i++)
+            {
+                p1._coeffs[i] = Math.Round(p1._coeffs[i] * coefficient, 5);
+            }
+
+            return new Polynomial(p1._degrees, p1._coeffs);
+        }
+
         public static bool operator ==(Polynomial p1, Polynomial p2)
         {
             //if (((object)p1) == null || ((object)p2) == null)
@@ -121,7 +171,7 @@ namespace Polynomial
             //if (((object)p1) == null || ((object)p2) == null)
             //    return !Equals(p1, p2);
 
-            return !(p1.Equals(p2));
+            return !p1.Equals(p2);
         }
         /// <summary>
         /// Represent an object as a string
@@ -140,9 +190,14 @@ namespace Polynomial
             return result;
         }
 
+        /// <summary>
+        /// GetHashCode overriding
+        /// Microsoft already provides a good generic HashCode generator
+        /// Good article: https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode
+        /// </summary>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return new {_degrees, _coeffs }.GetHashCode(); //return base.GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -166,6 +221,30 @@ namespace Polynomial
             }
         }
 
+        /// <summary>
+        /// Sorts degrees and coefficients in ascending order
+        /// </summary>
+        /// <param name="degrees"> List of degrees </param>
+        /// <param name="coeffs"> List of coefficients</param>
+        private static void Sort(List<int> degrees, List<double> coeffs)
+        {
+            for (int i = 0; i < degrees.Count; i++)
+            {
+                for (int j = i + 1; j < degrees.Count; j++)
+                {
+                    if(degrees[i] > degrees[j])
+                    {
+                        degrees[i] ^= degrees[j];
+                        degrees[j] ^= degrees[i];
+                        degrees[i] ^= degrees[j];
+
+                        double tmp = coeffs[i];
+                        coeffs[i] = coeffs[j];
+                        coeffs[j] = tmp;
+                    }
+                }
+            }
+        }
         /// <summary>
         /// Merge degrees and coefficients of the polynom into new resulting arrays
         /// </summary>

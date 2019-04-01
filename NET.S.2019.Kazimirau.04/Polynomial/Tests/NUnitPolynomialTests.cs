@@ -83,5 +83,34 @@ namespace Polynomial.Tests
             Assert.AreEqual(true, p1 != p2);
             Assert.AreEqual(true, !p1.Equals(p2));
         }
+
+        [Test]
+        public void Polynomial_OperatorMultiply_Test()
+        {
+            var degrees1 = new[] { 1, 2, 5 };
+            var degrees2 = new[] { 1, 4 };
+            var coeffs1 = new[] { 0.3, 9.1, 0.4 };
+            var coeffs2 = new[] { 2.1, -3.4 };
+
+            Polynomial p1 = new Polynomial(degrees1, coeffs1);
+            Polynomial p2 = new Polynomial(degrees2, coeffs2);
+            Polynomial p3 = p1 * p2;
+
+            CollectionAssert.AreEqual(new[] { 0.63, 19.11, -1.02, -30.1, -1.36 }, p3.GetCoefficients);
+            CollectionAssert.AreEqual(new[] { 2, 3, 5, 6, 9 }, p3.GetDegrees);
+        }
+
+        [Test]
+        public void Polynomial_OperatorMultiplyOnCoefficient_Test()
+        {
+            var degrees1 = new[] { 0, 1, 2, 4, 5 };
+            var coeffs1 = new[] { -0.3, 9.1, 2.4, -0.4, 5.7 };
+
+            Polynomial p1 = new Polynomial(degrees1, coeffs1);
+            Polynomial p2 = p1 * 2.0;
+
+            CollectionAssert.AreEqual(new[] { -0.6, 18.2, 4.8, -0.8, 11.4 }, p2.GetCoefficients);
+            CollectionAssert.AreEqual(new[] { 0, 1, 2, 4, 5 }, p2.GetDegrees);
+        }
     }
 }
