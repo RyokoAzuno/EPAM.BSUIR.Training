@@ -59,6 +59,9 @@ namespace Tasks.Day02.Tests
         [TestCase(20, ExpectedResult = -1)]
         [TestCase(22222222, ExpectedResult = -1)]
         [TestCase(777777777, ExpectedResult = -1)]
+        [TestCase(987654321, ExpectedResult = -1)]
+        [TestCase(777000000, ExpectedResult = -1)]
+        [TestCase(777070000, ExpectedResult = 777700000)]
         public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n);
 
         [Test]

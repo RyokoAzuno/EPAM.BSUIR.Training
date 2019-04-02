@@ -60,6 +60,9 @@ namespace Tasks.Day02.Tests
         [DataRow(20, -1)]
         [DataRow(22222222, -1)]
         [DataRow(777777777, -1)]
+        [DataRow(987654321, -1)]
+        [DataRow(777000000, -1)]
+        [DataRow(777070000, 777700000)]
         public void FindNextBiggerNumber_Test(int n, int result)
         {
             Assert.AreEqual(result, Tasks.FindNextBiggerNumber(n));

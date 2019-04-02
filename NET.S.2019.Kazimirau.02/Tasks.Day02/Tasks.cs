@@ -95,28 +95,36 @@ namespace Tasks.Day02
                 throw new ArgumentException();
 
             string str = n.ToString();
-            int tmp = n + 1;
+            int nextNumber = n + 1;
 
             if (IsConsistOfTheSameDigit(str))
                 return -1;
 
-            while (tmp < int.MaxValue)
+            if (IsFullySortedInDescendingOrder(str))
+                return -1;
+
+            while (nextNumber < int.MaxValue)
             {
-                string s = tmp.ToString();
+                string s = nextNumber.ToString();
+
                 if (str.Length < s.Length)
                     break;
+
                 if (s.Length == str.Length)
                 {
-                    if (AreEqual(str, s))
+                    if (AreConsistOfTheSimilarDigits(str, s))
                     {
                         return Convert.ToInt32(s);
                     }
                 }
-                tmp++;
+                nextNumber++;
             }
 
             return -1;
         }
+        /// <summary>
+        /// FindNextBiggerNumber for performance measurement
+        /// </summary>
         public static int FindNextBiggerNumber(int n, out double time)
         {
             Stopwatch sw = new Stopwatch();
@@ -129,13 +137,27 @@ namespace Tasks.Day02
 
             return result;
         }
+
+        private static bool IsFullySortedInDescendingOrder(string str)
+        {
+            for (int i = 0; i < str.Length; i++)
+            {
+                for (int j = i + 1; j < str.Length; j++)
+                {
+                    if (str[i] < str[j])
+                        return false;
+                }
+            }
+
+            return true;
+        }
         /// <summary>
         /// Check if any two strings are absolutely equivalent
         /// </summary>
         /// <param name="str1"> first string </param>
         /// <param name="str2"> second string </param>
         /// <returns> are they equal? </returns>
-        private static bool AreEqual(string str1, string str2)
+        private static bool AreConsistOfTheSimilarDigits(string str1, string str2)
         {
             char[] arr1 = str1.ToArray();
             char[] arr2 = str2.ToArray();
@@ -157,17 +179,15 @@ namespace Tasks.Day02
         /// <returns> True or false</returns>
         private static bool IsConsistOfTheSameDigit(string str)
         {
-            int count = 0;
             char pattern = str[0];
+
             foreach (var item in str)
             {
-                if (item == pattern)
-                    ++count;
+                if (item != pattern)
+                    return false;
             }
-            if (str.Length == count)
-                return true;
 
-            return false;
+            return true;
         }
         #endregion
 
