@@ -6,13 +6,7 @@ namespace Tasks.Day02.Tests
     [TestFixture]
     public class NUnitTests
     {
-        private double _time;
-        [SetUp]
-        public void Init()
-        {
-            _time = 0.0d;
-        }
-        #region InsertNumberTests
+        #region InsertNumber Tests
         [Test]
         public void InsertNumber_Test1()
         {
@@ -32,7 +26,27 @@ namespace Tasks.Day02.Tests
         }
         #endregion
 
-        #region FindNextBiggerNumberTests
+        #region InsertNumberLINQ Tests
+        [Test]
+        public void InsertNumberLINQ_Test1()
+        {
+            Assert.AreEqual(120, Tasks.InsertNumberLINQ(8, 15, 3, 8));
+        }
+
+        [Test]
+        public void InsertNumberLINQ_Test2()
+        {
+            Assert.AreEqual(15, Tasks.InsertNumberLINQ(15, 15, 0, 0));
+        }
+
+        [Test]
+        public void InsertNumberLINQ_Test3()
+        {
+            Assert.AreEqual(9, Tasks.InsertNumberLINQ(8, 15, 0, 0));
+        }
+        #endregion
+
+        #region FindNextBiggerNumber Tests
         [TestCase(12, ExpectedResult = 21)]
         [TestCase(513, ExpectedResult = 531)]
         [TestCase(2017, ExpectedResult = 2071)]
@@ -45,16 +59,16 @@ namespace Tasks.Day02.Tests
         [TestCase(20, ExpectedResult = -1)]
         [TestCase(22222222, ExpectedResult = -1)]
         [TestCase(777777777, ExpectedResult = -1)]
-        public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n, out _time);
+        public int FindNextBiggerNumber_Test(int n) => Tasks.FindNextBiggerNumber(n);
 
         [Test]
         public void FindNextBiggerNumber_ArgumentException_Test()
         {
-            Assert.Throws<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2, out _time));
+            Assert.Throws<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2));
         }
         #endregion
 
-        #region FilterDigitTests
+        #region FilterDigit Tests
         [Test]
         public void FilterDigit_Test()
         {
@@ -70,12 +84,11 @@ namespace Tasks.Day02.Tests
         }
         #endregion
 
-        #region FindNthRootTests
+        #region FindNthRoot Tests
         [TestCase(1, 5, 0.0001, ExpectedResult = 1)]
         [TestCase(8, 3, 0.0001, ExpectedResult = 2)]
         [TestCase(0.001, 3, 0.0001, ExpectedResult = 0.1)]
         [TestCase(0.04100625, 4, 0.0001, ExpectedResult = 0.45)]
-        [TestCase(8, 3, 0.0001, ExpectedResult = 2)]
         [TestCase(0.0279936, 7, 0.0001, ExpectedResult = 0.6)]
         [TestCase(0.0081, 4, 0.1, ExpectedResult = 0.3)]
         [TestCase(-0.008, 3, 0.1, ExpectedResult = -0.2)]

@@ -6,14 +6,6 @@ namespace Tasks.Day02.Tests
     [TestClass]
     public class MSTests
     {
-        private double _time;
-
-        [TestInitialize]
-        public void Init()
-        {
-            _time = 0.0d;
-        }
-
         #region InsertNumberTests
         [TestMethod]
         public void InsertNumber_Test1()
@@ -34,6 +26,26 @@ namespace Tasks.Day02.Tests
         }
         #endregion
 
+        #region InsertNumberLINQTests
+        [TestMethod]
+        public void InsertNumberLINQ_Test1()
+        {
+            Assert.AreEqual(120, Tasks.InsertNumberLINQ(8, 15, 3, 8));
+        }
+
+        [TestMethod]
+        public void InsertNumberLINQ_Test2()
+        {
+            Assert.AreEqual(15, Tasks.InsertNumberLINQ(15, 15, 0, 0));
+        }
+
+        [TestMethod]
+        public void InsertNumberLINQ_Test3()
+        {
+            Assert.AreEqual(9, Tasks.InsertNumberLINQ(8, 15, 0, 0));
+        }
+        #endregion
+
         #region FindNextBiggerNumberTests
         [TestMethod]
         [DataRow(12, 21)]
@@ -50,13 +62,13 @@ namespace Tasks.Day02.Tests
         [DataRow(777777777, -1)]
         public void FindNextBiggerNumber_Test(int n, int result)
         {
-            Assert.AreEqual(result, Tasks.FindNextBiggerNumber(n, out _time));
+            Assert.AreEqual(result, Tasks.FindNextBiggerNumber(n));
         }
 
         [TestMethod]
         public void FindNextBiggerNumber_ArgumentException_Test()
         {
-            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2, out _time));
+            Assert.ThrowsException<ArgumentException>(() => Tasks.FindNextBiggerNumber(-2));
         }
         #endregion
 

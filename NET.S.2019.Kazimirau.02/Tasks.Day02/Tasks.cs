@@ -24,6 +24,20 @@ namespace Tasks.Day02
             if (i < 0 || j > 31)
                 throw new IndexOutOfRangeException();
 
+            int[] bits = GetBitsFromNumber(b, i, j);
+            int result = SetBitsInNumber(a, bits, i, j);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Insert bits by LINQ
+        /// </summary>
+        public static int InsertNumberLINQ(int a, int b, int i, int j)
+        {
+            if (i < 0 || j > 31)
+                throw new IndexOutOfRangeException();
+
             string result = string.Empty;
             string numA = new string(Convert.ToString(a, 2).PadLeft(32, '0').Reverse().ToArray());
             string numB = new string(Convert.ToString(b, 2).PadLeft(32, '0').Reverse().ToArray());
@@ -31,6 +45,40 @@ namespace Tasks.Day02
             result = new string(numA.Remove(i, j - i + 1).Insert(i, bitsToInsert).Reverse().ToArray());
 
             return Convert.ToInt32(result, 2);
+        }
+
+        /// <summary>
+        /// Get bits from i to j in a given number
+        /// </summary>
+        /// <param name="number"> Number </param>
+        /// <param name="i"> First bit </param>
+        /// <param name="j"> Last bit </param>
+        /// <returns> Array of extracted bits from number</returns>
+        private static int[] GetBitsFromNumber(int number, int i, int j)
+        {
+            int[] result = new int[j - i + 1];
+
+            for (int k = 0; k < result.Length; k++)
+            {
+                result[k] = (number >> k) & 1;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Set bits from i to j positions of a given number
+        /// </summary>
+        private static int SetBitsInNumber(int number, int[] bits, int i, int j)
+        {
+            int result = number;
+
+            for (int k = 0, l = i; k < bits.Length; k++, l++)
+            {
+                result = result | (bits[k] << l);      //(result & ~(1 << l));
+            }
+
+            return result;
         }
         #endregion
 
@@ -41,14 +89,10 @@ namespace Tasks.Day02
         /// <param name="n"> Initial number consists of digits</param>
         /// <param name="time"></param>
         /// <returns> -1 - if there is no such number and integer value vice versa </returns>
-        public static int FindNextBiggerNumber(int n, out double time)
+        public static int FindNextBiggerNumber(int n)
         {
             if (n < 0 || n > int.MaxValue)
                 throw new ArgumentException();
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            time = 0.0d;
 
             string str = n.ToString();
             int tmp = n + 1;
@@ -65,9 +109,6 @@ namespace Tasks.Day02
                 {
                     if (AreEqual(str, s))
                     {
-                        sw.Stop();
-                        time = sw.Elapsed.TotalMilliseconds;
-
                         return Convert.ToInt32(s);
                     }
                 }
@@ -76,7 +117,18 @@ namespace Tasks.Day02
 
             return -1;
         }
+        public static int FindNextBiggerNumber(int n, out double time)
+        {
+            Stopwatch sw = new Stopwatch();
 
+            sw.Start();
+            int result = FindNextBiggerNumber(n);
+            sw.Stop();
+
+            time = sw.Elapsed.TotalMilliseconds;
+
+            return result;
+        }
         /// <summary>
         /// Check if any two strings are absolutely equivalent
         /// </summary>
