@@ -303,6 +303,9 @@ namespace Tasks.Day02
             if (number == 0)
                 return 0;
 
+            if (n == 1)
+                return number;
+
             if (epsilon > 1 || epsilon < 0)
                 throw new ArgumentException("Epsilon must be: 0 < epsilon < 1");
 
@@ -311,16 +314,17 @@ namespace Tasks.Day02
 
             double x = n % 2 == 0 ? 0.3 : 0.1; //!!!!!! <= ;o..o;
 
-            while (true)
+            while(true)
             {
-                double nx = ((n - 1) * x + number / Math.Pow(x, n - 1)) / n;
+                double nxt = ((n - 1) * x + number / Math.Pow(x, n - 1)) / n;
                 //double nx = x * (1 - (1 - (number / Math.Pow(x, n - 1))) / n);
-                if (Math.Abs(x - nx) < epsilon)
+                if (Math.Abs(x - nxt) < epsilon) // if (Math.Abs(x - nx) < epsilon / 100)
                     break;
-                x = nx;
+
+                x = nxt;
             }
 
-            return Math.Round(x, 3);
+            return Math.Round(x, 5);
         }
         #endregion
     }
