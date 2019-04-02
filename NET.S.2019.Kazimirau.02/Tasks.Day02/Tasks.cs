@@ -186,6 +186,47 @@ namespace Tasks.Day02
             if (number < 0)
                 throw new ArgumentNullException("Can't be less than zero");
 
+            List<int> result = new List<int>();
+            
+            foreach (var item in arr)
+            {
+                if (IsConsistOfDigit(item, number))
+                    result.Add(item);
+            }
+
+            return result.ToArray();
+        }
+        /// <summary>
+        /// Check if a given number consist of a given digit
+        /// </summary>
+        /// <param name="number"> Number </param>
+        /// <param name="digit"> Digit </param>
+        /// <returns> Returns true if the number consists of the digit </returns>
+        private static bool IsConsistOfDigit(int number, int digit)
+        {
+            while (number != 0)
+            {
+                if (number % 10 == digit)
+                    return true;
+
+                number /= 10;
+            }
+
+            return false;
+        }
+
+        #region FilterDigitInefficient
+        /// <summary>
+        /// Inefficient implementation of FilterDigit
+        /// </summary>
+        public static int[] FilterDigitInefficient(int[] arr, int number)
+        {
+            if (arr == null)
+                throw new ArgumentNullException("Can't be null");
+
+            if (number < 0)
+                throw new ArgumentNullException("Can't be less than zero");
+
             string[] strs = IntArrayToStringArray(arr);
             List<string> lst = new List<string>();
             int count = 0;
@@ -210,7 +251,6 @@ namespace Tasks.Day02
 
             return result;
         }
-
         /// <summary>
         /// Convert array of integers into array of strings
         /// </summary>
@@ -227,6 +267,7 @@ namespace Tasks.Day02
 
             return str; 
         }
+        #endregion
         #endregion
 
         #region FindNthRoot
