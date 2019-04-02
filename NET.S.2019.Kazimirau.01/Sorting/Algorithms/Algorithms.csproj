@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SelectionSortAlgorithm.cs" />
+    <Compile Include="BubbleSortAlgorithm.cs" />
     <Compile Include="MergeSortAlgorithm.cs" />
     <Compile Include="QuickSortAlgorithm.cs" />
     <Compile Include="SortingAlgorithm.cs" />
