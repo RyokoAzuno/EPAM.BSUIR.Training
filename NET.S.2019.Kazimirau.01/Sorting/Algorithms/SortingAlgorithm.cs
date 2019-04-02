@@ -1,7 +1,17 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Algorithms
 {
+    [StructLayout(LayoutKind.Explicit)]
+    public struct MagicBox
+    {
+        [FieldOffset(0)]
+        public double d;
+        [FieldOffset(0)]
+        public long l;
+    };
+
     /// <summary>
     /// Define an abstract base strategy class for sorting strategies
     /// </summary>
@@ -61,5 +71,25 @@ namespace Algorithms
             _arr[j] ^= _arr[i];
             _arr[i] ^= _arr[j];
         }
+
+        //protected void Swap(int i, int j)
+        //{
+        //    if (i != j)
+        //    {
+        //        MagicBox mb1 = new MagicBox
+        //        {
+        //            d = i
+        //        };
+        //        MagicBox mb2 = new MagicBox
+        //        {
+        //            d = j
+        //        };
+        //        mb1.l ^= mb2.l;
+        //        mb2.l ^= mb1.l;
+        //        mb1.l ^= mb2.l;
+        //        i = mb1.d;
+        //        j = mb2.d;
+        //    }
+        //}
     }
 }
