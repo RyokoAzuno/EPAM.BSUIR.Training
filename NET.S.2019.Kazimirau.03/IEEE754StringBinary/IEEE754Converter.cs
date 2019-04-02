@@ -22,7 +22,7 @@ namespace IEEE754StringBinary
             {
                 return "1111111111111000000000000000000000000000000000000000000000000000";
             }
-            
+
             char sign = number >= 0 ? '0' : '1';            
             string exponent = GetExponenta(number);
             string mantissa = GetMantissa(number);
@@ -31,9 +31,12 @@ namespace IEEE754StringBinary
 
             if (length < 64)
                 result = result.PadRight(64, '0');
+
             return result;
         }
-
+        /// <summary>
+        /// Convert double number into IEEE 754 standart binary value
+        /// </summary>
         public static string BuiltInConvert(double number)
         {
             byte[] numberBytes = BitConverter.GetBytes(number);
@@ -50,6 +53,9 @@ namespace IEEE754StringBinary
 
             return sb.ToString();
         }
+        /// <summary>
+        /// Get mantissa
+        /// </summary>
         private static string GetMantissa(double number)
         {
             string wholePart = GetWholePart(number);
@@ -59,9 +65,9 @@ namespace IEEE754StringBinary
             return result.Length == 52 ? result : result.Length < 52 ? result.PadRight(52, '0') : result.Substring(result.Length - 52);
         }
 
-        private static string GetWholePart(double number, int numBits = 52)
+        private static string GetWholePart(double number)
         {
-            StringBuilder sb = new StringBuilder(numBits);
+            StringBuilder sb = new StringBuilder();
 
             long whole = (long)Math.Abs(number);
             long reminder = 0;
@@ -101,6 +107,9 @@ namespace IEEE754StringBinary
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Get exponenta
+        /// </summary>
         private static string GetExponenta(double number)
         {
             string result = string.Empty;
