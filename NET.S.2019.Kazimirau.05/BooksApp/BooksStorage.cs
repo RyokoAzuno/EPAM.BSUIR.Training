@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace BooksApp
 {
-    public sealed class BooksStorage : IPrintable
+    public static class BooksStorage
     {
         public static List<Book> Books = new List<Book> {
             new Book{ ISBN = "1-61-729453-5", Author = "Jon Skeet", Name = "C# in Depth", NumberOfPages = 528, Price = 43m, Publisher = "Manning Publications", Year = 2019 },
@@ -67,14 +68,23 @@ namespace BooksApp
             Books.Sort(comparer);
         }
 
-        public void Print()
+        public new static string ToString()
         {
             string result = string.Empty;
-            foreach (var item in Books)
+            foreach (var book in Books)
             {
-                result += $"{item.ISBN}-{item.Author}-{item.Name}-{item.Publisher}-{item.Year}-{item.NumberOfPages}-{item.Price}\n";
+                //result += $"ISBN:       {item.ISBN}{Environment.NewLine}";
+                //result += $"Author:     {item.Author}{Environment.NewLine}";
+                //result += $"Name:       {item.Name}{Environment.NewLine}";
+                //result += $"Publisher:  {item.Publisher}{Environment.NewLine}";
+                //result += $"Year:       {item.Year}{Environment.NewLine}";
+                //result += $"Pages:      {item.NumberOfPages}{Environment.NewLine}";
+                //result += $"Price:      {item.Price}{Environment.NewLine}";
+                //result += "***********************************************" + Environment.NewLine;
+                result += $"{book.ToString()}";
             }
-            
+
+            return result;
         }
     }
 }
