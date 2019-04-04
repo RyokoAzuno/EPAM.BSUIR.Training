@@ -13,13 +13,9 @@ namespace Books.WebApp.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            byte[] bytes = BooksStorage.Serialize();
-            List<Book> books = BooksStorage.Deserialize(bytes);
-            BookComparer cmp = new BookComparer
-            {
-                Comparer = SortBy.ISBN
-            };
-            books.Sort(cmp);
+            //byte[] bytes = BooksStorage.Serialize();
+            //List<Book> books = BooksStorage.Deserialize(bytes);
+            BooksStorage.RestoreInitialState();
             return View();
         }
     }

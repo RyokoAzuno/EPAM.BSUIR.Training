@@ -25,7 +25,7 @@
             NumberOfPages: $scope.NumberOfPages,
             Price: $scope.Price
         };
-        debugger;
+        //debugger;
         $http.post("api/book/AddBook", bookData).success(function (data) {
             $location.path('/BookList');
         }).error(function (data) {
@@ -51,7 +51,7 @@
 
     //Update the book records
     $scope.Update = function () {
-        debugger;
+        //debugger;
         var bookData = {
             ISBN: $scope.ISBN,
             Author: $scope.Author,
