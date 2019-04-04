@@ -1,0 +1,40 @@
+﻿<a href="#/AddBook" class="btn btn-primary btn-primary" >Add New Book</a>
+<br /><br />
+<div class="table-responsive">
+    <table id="mytable" class="tcontainer">
+        <thead class="bg-primary">
+            <tr>
+                <th>ISBN</th>
+                <th>Author</th>
+                <th>Name</th>
+                <th>Publisher</th>
+                <th>Year</th>
+                <th>Pages</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in ListOfBooks">
+                <td>{{item.ISBN}}</td>
+                <td>{{item.Author}}</td>
+                <td>{{item.Name}}</td>
+                <td>{{item.Publisher}}</td>
+                <td>{{item.Year}}</td>
+                <td>{{item.NumberOfPages}}</td>
+                <td>{{item.Price}}</td>
+                <td><a class="btn btn-primary btn-primary" href="#/EditBook/{{item.ISBN}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a class="btn btn-danger btn-danger" href="#/DeleteBook/{{item.ISBN}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<div class="clearfix"></div>
+    <ul class="pagination pull-right">
+        <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+    </ul>-->
+</div>

@@ -1,0 +1,62 @@
+﻿<div  id="edit" aria-labelledby="edit" aria-hidden="true">   
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal mixbox" id="edit-form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="edit-modal-label">Update Book</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="edit-isbn" class="col-sm-2 control-label">ISBN</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-isbn" name="isbn" placeholder="ISBN" ng-model="ISBN" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-author" class="col-sm-2 control-label">Author</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-author" name="author" placeholder="Author" ng-model="Author" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-name" name="name" placeholder="Name" ng-model="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-publisher" class="col-sm-2 control-label">Publisher</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-publisher" name="publisher" placeholder="Publisher" ng-model="Publisher" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-year" class="col-sm-2 control-label">Year</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-year" name="year" placeholder="Year" ng-model="Year" required> [ex: 1990-01-21]
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-numofpages" class="col-sm-2 control-label">Number of Pages</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-numofpages" name="numofpages" placeholder="Number of pages" ng-model="NumberOfPages" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-dob" class="col-sm-2 control-label">Price</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-price" name="price" placeholder="Price" ng-model="Price" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" ng-click="Close()">Close</button>
+                    <button type="submit" class="btn btn-primary" ng-click="Update()">Update</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
