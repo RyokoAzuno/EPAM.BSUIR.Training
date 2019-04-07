@@ -1,4 +1,6 @@
-﻿namespace BankAccount
+﻿using System;
+
+namespace BankAccount
 {
     public enum AccountType { Base, Gold, Platinum }
 
@@ -49,6 +51,11 @@
         public void Close()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}\nOwner: {Owner}\nBalance: {Balance}\nPoints: {Points}\nType: {Type}";
         }
     }
 }
