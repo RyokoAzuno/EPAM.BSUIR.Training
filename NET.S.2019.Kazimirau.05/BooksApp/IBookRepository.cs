@@ -12,5 +12,9 @@ namespace BooksApp
         void Create(Book book);
         void Update(Book book);
         void Delete(string isbn);
+        byte[] StoreBooksInMemory();
+        IEnumerable<Book> RestoreBooksFromMemory();
+        void SortByTag(IComparer<Book> tag);
+        Book this[int index] { get; set; }
     }
 }

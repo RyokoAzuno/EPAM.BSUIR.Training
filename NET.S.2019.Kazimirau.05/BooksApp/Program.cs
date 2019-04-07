@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BooksApp
 {
@@ -7,13 +8,14 @@ namespace BooksApp
     {
         static void Main(string[] args)
         {
-            byte[] booksToBytes = BooksStorage.Serialize();
-            List<Book> books = BooksStorage.Deserialize(booksToBytes);
+            IBookRepository service = new BookService();
+            byte[] booksToBytes = service.StoreBooksInMemory();
+            List<Book> books = service.RestoreBooksFromMemory().ToList();
             bool areEqual = true;
 
             for (int i = 0; i < books.Count; i++)
             {
-                if(!books[i].Equals(BooksStorage.Books[i]))
+                if(!books[i].Equals(service[i]))
                 {
                     areEqual = false;
                     break;
