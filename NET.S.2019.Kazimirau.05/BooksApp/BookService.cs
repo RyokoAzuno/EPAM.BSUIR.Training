@@ -6,17 +6,24 @@ namespace BooksApp
 {
     public class BookService : IBookRepository
     {
-        public void Create(Book item)
+        public void Create(Book book)
         {
-            if (item != null)
-                BooksStorage.Books.Add(item);
+            if (book != null)
+            {
+                if (!BooksStorage.Books.Contains(book))
+                    BooksStorage.Books.Add(book);
+                else
+                    throw new ArgumentException("The book is in the BooksStorage!");
+            }
         }
 
-        public void Delete(string id)
+        public void Delete(string isbn)
         {
-            Book book = GetById(id);
-            if(book != null)
+            Book book = GetById(isbn);
+            if (book != null)
                 BooksStorage.Books.Remove(book);
+            else
+                throw new ArgumentException("There is no such book in the BooksStorage!");
         }
 
         public Book Find(Func<Book, bool> filter)
@@ -24,14 +31,24 @@ namespace BooksApp
             return BooksStorage.Books.Where(filter).FirstOrDefault();
         }
 
+        public Book FindBookByTag(string tag)
+        {
+            foreach (var item in BooksStorage.Books)
+            {
+                if (tag.Equals(item.ISBN) || tag.Equals(item.Name) || tag.Equals(item.Author) || tag.Equals(item.Publisher))
+                    return item;
+            }
+            return null;
+        }
+
         public IEnumerable<Book> GetAll()
         {
             return BooksStorage.Books;
         }
 
-        public Book GetById(string id)
+        public Book GetById(string isbn)
         {
-            return BooksStorage.Books.Where(b => b.ISBN.Equals(id)).FirstOrDefault();
+            return BooksStorage.Books.Where(b => b.ISBN.Equals(isbn)).FirstOrDefault();
         }
 
         public void Update(Book item)

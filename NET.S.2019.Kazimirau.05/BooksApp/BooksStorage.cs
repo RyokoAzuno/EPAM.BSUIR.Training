@@ -63,9 +63,9 @@ namespace BooksApp
             return books;
         }
 
-        public static void SortByTag(IComparer<Book> comparer)
+        public static void SortByTag(IComparer<Book> tag)
         {
-            Books.Sort(comparer);
+            Books.Sort(tag);
         }
 
         public new static string ToString()

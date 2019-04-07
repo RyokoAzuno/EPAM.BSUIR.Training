@@ -6,10 +6,11 @@ namespace BooksApp
     public interface IBookRepository
     {
         IEnumerable<Book> GetAll();
-        Book GetById(string id);
+        Book GetById(string isbn);
         Book Find(Func<Book, bool> filter);
-        void Create(Book item);
-        void Update(Book item);
-        void Delete(string id);
+        Book FindBookByTag(string tag);
+        void Create(Book book);
+        void Update(Book book);
+        void Delete(string isbn);
     }
 }

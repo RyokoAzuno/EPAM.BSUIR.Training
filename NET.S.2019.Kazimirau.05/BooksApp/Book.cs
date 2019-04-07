@@ -21,7 +21,7 @@ namespace BooksApp
 
         public int CompareTo(Book book)
         {
-            if (Year == book.Year)
+            if (Year.Equals(book.Year))
                 return Name.CompareTo(book.Name);
 
             return Year.CompareTo(book.Year);
@@ -36,33 +36,33 @@ namespace BooksApp
             if (GetType() != book.GetType())
                 return false;
 
-            if (ISBN.Length != book.ISBN.Length)
+            if (!ISBN.Length.Equals(book.ISBN.Length))
                 return false;
             if (!ISBN.Equals(book.ISBN))
                 return false;
 
-            if (Author.Length != book.Author.Length)
+            if (!Author.Length.Equals(book.Author.Length))
                 return false;
             if (!Author.Equals(book.Author))
                 return false;
 
-            if (Name.Length != book.Name.Length)
+            if (!Name.Length.Equals(book.Name.Length))
                 return false;
             if (!Name.Equals(book.Name))
                 return false;
 
-            if (Publisher.Length != book.Publisher.Length)
+            if (!Publisher.Length.Equals(book.Publisher.Length))
                 return false;
             if (!Publisher.Equals(book.Publisher))
                 return false;
 
-            if (Year != book.Year)
+            if (!Year.Equals(book.Year))
                 return false;
 
-            if (NumberOfPages != book.NumberOfPages)
+            if (!NumberOfPages.Equals(book.NumberOfPages))
                 return false;
 
-            if (Price != book.Price)
+            if (!Price.Equals(book.Price))
                 return false;
 
             return true;
@@ -75,7 +75,7 @@ namespace BooksApp
 
         public override string ToString()
         {
-            return $"ISBN: {ISBN}\nAuthor: {Author}\nName: {Name}\nPublisher: {Publisher}\nYear: {Year}\nPrice: {Price}";
+            return $"ISBN: {ISBN}\nAuthor:  {Author}\nName: {Name}\nPublisher:  {Publisher}\nYear:  {Year}\nPrice:  {Price}\n*****\n";
         }
 
         public override int GetHashCode()
