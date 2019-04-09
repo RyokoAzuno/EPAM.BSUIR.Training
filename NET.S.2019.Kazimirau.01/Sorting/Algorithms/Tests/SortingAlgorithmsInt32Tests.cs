@@ -4,14 +4,14 @@ using System;
 namespace Algorithms.Tests
 {
     [TestFixture]
-    public class MyTest
+    public class SortingAlgorithmsInt32Tests
     {
-        private SortingContext _sortingContext;
+        private SortingContext<int> _sortingContext;
 
         [SetUp]
         public void Init()
         {
-            _sortingContext = new SortingContext();
+            _sortingContext = new SortingContext<int>();
         }
 
         #region QuickSort Tests
@@ -19,7 +19,7 @@ namespace Algorithms.Tests
         public void QuickSort_Test()
         {
             int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0 };
-            _sortingContext.SetAlgorithm(new QuickSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new QuickSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
@@ -29,7 +29,7 @@ namespace Algorithms.Tests
         [Test]
         public void QuickSort_Random_LargeArray_Test()
         {
-            int[] array = SortingAlgorithm.CreateRandomArray(5000);
+            int[] array = SortingAlgorithm<int>.CreateInt32RandomArray(5000);
             int[] expectedArr = new int[5000];
 
             for (int i = 0; i < array.Length; i++)
@@ -37,7 +37,7 @@ namespace Algorithms.Tests
                 expectedArr[i] = array[i];
             }
 
-            _sortingContext.SetAlgorithm(new QuickSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new QuickSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(expectedArr, array);
@@ -46,7 +46,7 @@ namespace Algorithms.Tests
         [Test]
         public void QuickSort_ArgumentNullException_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => new QuickSortAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => new QuickSortAlgorithm<int>(null));
         }
         #endregion
 
@@ -55,7 +55,7 @@ namespace Algorithms.Tests
         public void MergeSort_Test()
         {
             int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0, -8 };
-            _sortingContext.SetAlgorithm(new MergeSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new MergeSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -8, -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
@@ -65,7 +65,7 @@ namespace Algorithms.Tests
         [Test]
         public void MergeSort_Random_LargeArray_Test()
         {
-            int[] array = SortingAlgorithm.CreateRandomArray(5000);
+            int[] array = SortingAlgorithm<int>.CreateInt32RandomArray(5000);
             int[] expectedArr = new int[5000];
 
             for (int i = 0; i < array.Length; i++)
@@ -73,7 +73,7 @@ namespace Algorithms.Tests
                 expectedArr[i] = array[i];
             }
 
-            _sortingContext.SetAlgorithm(new MergeSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new MergeSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(expectedArr, array);
@@ -82,7 +82,7 @@ namespace Algorithms.Tests
         [Test]
         public void MergeSort_ArgumentNullException_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => new MergeSortAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => new MergeSortAlgorithm<int>(null));
         }
         #endregion
 
@@ -91,7 +91,7 @@ namespace Algorithms.Tests
         public void BubbleSort_Test()
         {
             int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0, -8 };
-            _sortingContext.SetAlgorithm(new BubbleSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new BubbleSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -8, -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
@@ -101,7 +101,7 @@ namespace Algorithms.Tests
         [Test]
         public void BubbleSort_Random_LargeArray_Test()
         {
-            int[] array = SortingAlgorithm.CreateRandomArray(5000);
+            int[] array = SortingAlgorithm<int>.CreateInt32RandomArray(5000);
             int[] expectedArr = new int[5000];
 
             for (int i = 0; i < array.Length; i++)
@@ -109,7 +109,7 @@ namespace Algorithms.Tests
                 expectedArr[i] = array[i];
             }
 
-            _sortingContext.SetAlgorithm(new BubbleSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new BubbleSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(expectedArr, array);
@@ -118,7 +118,7 @@ namespace Algorithms.Tests
         [Test]
         public void BubbleSort_ArgumentNullException_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => new BubbleSortAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => new BubbleSortAlgorithm<int>(null));
         }
         #endregion
 
@@ -127,7 +127,7 @@ namespace Algorithms.Tests
         public void SelectionSort_Test()
         {
             int[] array = { -2, 5, -1, 3, 1, 2, -3, 4, 0, -8 };
-            _sortingContext.SetAlgorithm(new SelectionSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new SelectionSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(new[] { -8, -3, -2, -1, 0, 1, 2, 3, 4, 5 }, array);
@@ -137,7 +137,7 @@ namespace Algorithms.Tests
         [Test]
         public void SelectionSort_Random_LargeArray_Test()
         {
-            int[] array = SortingAlgorithm.CreateRandomArray(5000);
+            int[] array = SortingAlgorithm<int>.CreateInt32RandomArray(5000);
             int[] expectedArr = new int[5000];
 
             for (int i = 0; i < array.Length; i++)
@@ -145,7 +145,7 @@ namespace Algorithms.Tests
                 expectedArr[i] = array[i];
             }
 
-            _sortingContext.SetAlgorithm(new SelectionSortAlgorithm(array));
+            _sortingContext.SetAlgorithm(new SelectionSortAlgorithm<int>(array));
             _sortingContext.Sort();
 
             CollectionAssert.AreEquivalent(expectedArr, array);
@@ -154,7 +154,7 @@ namespace Algorithms.Tests
         [Test]
         public void SelectionSort_ArgumentNullException_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => new SelectionSortAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => new SelectionSortAlgorithm<int>(null));
         }
         #endregion
 
@@ -162,8 +162,8 @@ namespace Algorithms.Tests
         [Test]
         public void SortingContext_ConstructorAndMethod_ArgumentNullException_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => new SortingContext(null));
-            Assert.Throws<ArgumentNullException>(() => new SortingContext().SetAlgorithm(null));
+            Assert.Throws<ArgumentNullException>(() => new SortingContext<int>(null));
+            Assert.Throws<ArgumentNullException>(() => new SortingContext<int>().SetAlgorithm(null));
         }
         #endregion
 

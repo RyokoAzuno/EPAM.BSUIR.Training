@@ -1,15 +1,17 @@
-﻿namespace Algorithms
+﻿using System;
+
+namespace Algorithms
 {
     /// <summary>
     /// Concrete strategy for QuickSort algorithm
     /// </summary>
-    public class QuickSortAlgorithm : SortingAlgorithm
+    public class QuickSortAlgorithm<T> : SortingAlgorithm<T> where T: struct, IComparable<T>
     {
         /// <summary>
         /// Constructor which initialize protected field _arr through base class
         /// </summary>
         /// <param name="arr"> array to sort </param>
-        public QuickSortAlgorithm(int[] arr) : base(arr)
+        public QuickSortAlgorithm(T[] arr) : base(arr)
         {
         }
 
@@ -30,19 +32,19 @@
         private void QuickSort(int leftIdx, int rightIdx)
         {
             // Calculate pivot element
-            int pivot = _arr[leftIdx + (rightIdx - leftIdx) / 2];
+            T pivot = _arr[leftIdx + (rightIdx - leftIdx) / 2];
             int i = leftIdx;
             int j = rightIdx;
 
             do
             {
-                while ((_arr[i] < pivot) && (i < rightIdx))
+                while ((_arr[i].CompareTo(pivot) < 0) && (i < rightIdx))
                     ++i;
-                while ((_arr[j] > pivot) && (j > leftIdx))
+                while ((_arr[j].CompareTo(pivot) > 0) && (j > leftIdx))
                     --j;
                 if (i <= j)
                 {
-                    if (_arr[i] != _arr[j])
+                    if (_arr[i].CompareTo(_arr[j]) != 0)
                     {
                         Swap(i, j);
                     }

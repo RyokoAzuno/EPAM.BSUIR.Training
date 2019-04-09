@@ -5,12 +5,12 @@ namespace Algorithms
     /// <summary>
     /// Context class, using a concrete strategy for sorting algorithms
     /// </summary>
-    public class SortingContext
+    public class SortingContext<T> where T: struct, IComparable<T>
     {
         /// <summary>
         /// Reference to a concrete sorting strategy that allows to change concrete implementation
         /// </summary>
-        private SortingAlgorithm _sortingAlgorithm;
+        private SortingAlgorithm<T> _sortingAlgorithm;
 
         // Not necessary!!!!!(only for tests simplification)
         public SortingContext()
@@ -21,7 +21,7 @@ namespace Algorithms
         /// Constructor for initializing a sorting strategy
         /// </summary>
         /// <param name="sortingAlgorithm"> Concrete sorting strategy </param>
-        public SortingContext(SortingAlgorithm sortingAlgorithm)
+        public SortingContext(SortingAlgorithm<T> sortingAlgorithm)
         {
             _sortingAlgorithm = sortingAlgorithm ?? throw new ArgumentNullException();
         }
@@ -30,7 +30,7 @@ namespace Algorithms
         /// Method that allows to set a new sorting strategy on runtime
         /// </summary>
         /// <param name="sortingAlgorithm"> New sorting strategy </param>
-        public void SetAlgorithm(SortingAlgorithm sortingAlgorithm)
+        public void SetAlgorithm(SortingAlgorithm<T> sortingAlgorithm)
         {
             _sortingAlgorithm = sortingAlgorithm ?? throw new ArgumentNullException();
         }

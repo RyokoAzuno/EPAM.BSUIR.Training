@@ -15,18 +15,18 @@ namespace Algorithms
     /// <summary>
     /// Define an abstract base strategy class for sorting strategies
     /// </summary>
-    public abstract class SortingAlgorithm
+    public abstract class SortingAlgorithm<T> where T: struct, IComparable<T>
     {
         /// <summary>
         /// An array which refers to array we want to sort
         /// </summary>
-        protected int[] _arr;
+        protected T[] _arr;
 
         /// <summary>
         /// Constructor which initialize encapsulated array _arr
         /// </summary>
         /// <param name="arr"> array to sort </param>
-        public SortingAlgorithm(int[] arr)
+        public SortingAlgorithm(T[] arr)
         {
             _arr = arr ?? throw new ArgumentNullException();
         }
@@ -52,11 +52,10 @@ namespace Algorithms
         /// </summary>
         /// <param name="size"> size of the random array</param>
         /// <returns> new random array </returns>
-        public static int[] CreateRandomArray(int size)
+        public static int[] CreateInt32RandomArray(int size)
         {
             int[] arr = new int[size];
             Random rnd = new Random();
-
             for (int i = 0; i < arr.Length; i++)
             {
                 arr[i] = rnd.Next(-size, size);
@@ -64,13 +63,30 @@ namespace Algorithms
 
             return arr;
         }
+        public static double[] CreateDoubleRandomArray(int size)
+        {
+            double[] arr = new double[size];
+            Random rnd = new Random();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                    arr[i] = rnd.Next(-size, size);
+            }
 
+            return arr;
+        }
         protected void Swap(int i, int j)
         {
-            _arr[i] ^= _arr[j];
-            _arr[j] ^= _arr[i];
-            _arr[i] ^= _arr[j];
+            T tmp = _arr[i];
+            _arr[i] = _arr[j];
+            _arr[j] = tmp;
         }
+
+        //protected void Swap(int i, int j)
+        //{
+        //    _arr[i] ^= _arr[j];
+        //    _arr[j] ^= _arr[i];
+        //    _arr[i] ^= _arr[j];
+        //}
 
         //protected void Swap(int i, int j)
         //{

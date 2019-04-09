@@ -1,20 +1,22 @@
-﻿namespace Algorithms
+﻿using System;
+
+namespace Algorithms
 {
     /// <summary>
     /// Concrete strategy for MergeSort algorithm
     /// </summary>
-    public class MergeSortAlgorithm : SortingAlgorithm
+    public class MergeSortAlgorithm<T> : SortingAlgorithm<T> where T: struct, IComparable<T>
     {
         /// <summary>
         /// Auxiliary array for keeping merged sub-arrays
         /// </summary>
-        private int[] _aux;
+        private T[] _aux;
 
         /// <summary>
         /// Constructor which initialize protected field _arr through base class
         /// </summary>
         /// <param name="arr"> array to sort </param>
-        public MergeSortAlgorithm(int[] arr) : base(arr)
+        public MergeSortAlgorithm(T[] arr) : base(arr)
         {
             _aux = BuildAuxArray();
         }
@@ -63,7 +65,7 @@
                     _arr[k] = _aux[j++];
                 else if (j > rightIdx)
                     _arr[k] = _aux[i++];
-                else if (_aux[j] < _aux[i])
+                else if (_aux[j].CompareTo(_aux[i]) < 0)
                     _arr[k] = _aux[j++];
                 else
                     _arr[k] = _aux[i++];
@@ -74,9 +76,9 @@
         /// Create an auxiliary array
         /// </summary>
         /// <returns> new auxiliary array </returns>
-        private int[] BuildAuxArray()
+        private T[] BuildAuxArray()
         {
-            _aux = new int[_arr.Length];
+            _aux = new T[_arr.Length];
 
             for (int i = 0; i < _arr.Length; i++)
             {
