@@ -40,6 +40,7 @@ namespace BooksApp
                 Console.WriteLine("5- Edit book");
                 Console.WriteLine("6- Sort books");
                 Console.WriteLine("7- Find book by tag");
+                Console.WriteLine("8- To XML file");
                 Console.WriteLine("0- Exit");
                 Console.WriteLine("Select operation:");
                 bool res = int.TryParse(Console.ReadLine(), out int operation);
@@ -219,6 +220,11 @@ namespace BooksApp
                                 Console.WriteLine("Enter tag name:");
                                 string tag = Console.ReadLine();
                                 Console.WriteLine(bookService.FindBookByTag(tag));
+                                break;
+                            }
+                        case 8:
+                            {
+                                bookService.ToXml();
                                 break;
                             }
                         default: break;

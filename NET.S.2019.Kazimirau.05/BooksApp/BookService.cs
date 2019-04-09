@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace BooksApp
 {
@@ -129,6 +131,38 @@ namespace BooksApp
                     b.Author = book.Author;
                     _db.Update(b);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Convert all books to Xml file
+        /// </summary>
+        public void ToXml()
+        {
+            // Get relative path to save our xml file.
+            // Environment.CurrentDirectory - current working directory (i.e. \bin\Debug)
+            // This will get the current PROJECT directory
+            string relativePath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName; ;//AppDomain.CurrentDomain.BaseDirectory;
+            try
+            {
+                // Constuct Xml structure
+                var xEle = new XElement("Books",
+                            from book in _db.Books
+                            select new XElement("Book",
+                                new XAttribute("ISBN", book.ISBN),
+                                new XElement("Author", book.Author),
+                                new XElement("Name", book.Name),
+                                new XElement("Publisher", book.Publisher),
+                                new XElement("Year", book.Year),
+                                new XElement("Pages", book.NumberOfPages),
+                                new XElement("Price", book.Price)
+                                ));
+                // Save Xml document
+                xEle.Save(relativePath + "\\" + "Books.xml");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
         // Convert list of books into array of bytes
