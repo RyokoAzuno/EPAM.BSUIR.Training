@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace BooksApp
@@ -9,29 +10,48 @@ namespace BooksApp
         private BooksStorage _db;
         byte[] _booksInBytes;
 
+        // Constructor
         public BookService()
         {
             _db = new BooksStorage();
             _booksInBytes = _db.Serialize();
         }
-
+        // Get object by index
         public Book this[int index]
         {
             get { return _db[index]; }
             set { _db[index] = value; }
         }
-
+        /// <summary>
+        /// Add new book into BooksStorage
+        /// </summary>
+        /// <param name="book"> Book to add </param>
         public void Create(Book book)
         {
             if (book != null)
             {
-                if (!_db.Books.Contains(book))
-                    _db.Books.Add(book);
+                var results = new List<ValidationResult>();
+                var context = new ValidationContext(book);
+                if (!Validator.TryValidateObject(book, context, results, true))
+                {
+                    foreach (var error in results)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
                 else
-                    throw new ArgumentException("The book is in the BooksStorage!");
+                {
+                    if (!_db.Books.Contains(book))
+                        _db.Books.Add(book);
+                    else
+                        throw new ArgumentException("Duplicated book!");
+                }
             }
         }
-
+        /// <summary>
+        /// Remove a book with a given isbn from BooksStorage
+        /// </summary>
+        /// <param name="isbn"> ISBN </param>
         public void Delete(string isbn)
         {
             Book book = GetById(isbn);
@@ -40,12 +60,16 @@ namespace BooksApp
             else
                 throw new ArgumentException("There is no such book in the BooksStorage!");
         }
-
+        /// <summary>
+        /// Find a book by using a special filter(pridicate)
+        /// </summary>
+        /// <param name="filter"> Filter(pridicate) to find a book </param>
+        /// <returns> Book from BooksStorage </returns>
         public Book Find(Func<Book, bool> filter)
         {
             return _db.Books.Where(filter).FirstOrDefault();
         }
-
+        // Find a book by tag-name
         public Book FindBookByTag(string tag)
         {
             foreach (var item in _db.Books)
@@ -55,36 +79,62 @@ namespace BooksApp
             }
             return null;
         }
-
+        /// <summary>
+        /// Get all books from BooksStorage
+        /// </summary>
+        /// <returns> Add books </returns>
         public IEnumerable<Book> GetAll()
         {
             return _db.Books;
         }
-
+        /// <summary>
+        /// Get a book by ISBN
+        /// </summary>
+        /// <param name="isbn"> ISBN </param>
+        /// <returns> Book from BooksStorage </returns>
         public Book GetById(string isbn)
         {
-            return _db.Books.Where(b => b.ISBN.Equals(isbn)).FirstOrDefault();
-        }
+            Book book = _db.Books.Where(b => b.ISBN.Equals(isbn)).FirstOrDefault();
+            if (book == null)
+                throw new NullReferenceException();
 
-        public void Update(Book item)
+            return book;
+        }
+        /// <summary>
+        /// Update(edit) given book
+        /// </summary>
+        /// <param name="book"> Book to update </param>
+        public void Update(Book book)
         {
-            if (item != null)
+            if (book != null)
             {
-                Book book = GetById(item.ISBN);
-                book.Name = item.Name;
-                book.NumberOfPages = item.NumberOfPages;
-                book.Publisher = item.Publisher;
-                book.Year = item.Year;
-                book.Price = item.Price;
-                book.Author = item.Author;
+                var results = new List<ValidationResult>();
+                var context = new ValidationContext(book);
+                if (!Validator.TryValidateObject(book, context, results, true))
+                {
+                    foreach (var error in results)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+                else
+                {
+                    Book b = GetById(book.ISBN);
+                    b.Name = book.Name;
+                    b.NumberOfPages = book.NumberOfPages;
+                    b.Publisher = book.Publisher;
+                    b.Year = book.Year;
+                    b.Price = book.Price;
+                    b.Author = book.Author;
+                }
             }
         }
-
+        // Convert list of books into array of bytes
         public byte[] StoreBooksInMemory()
         {
             return _booksInBytes;
         }
-
+        // 
         public IEnumerable<Book> RestoreBooksFromMemory()
         {
             return _db.Deserialize(_booksInBytes);
@@ -99,5 +149,18 @@ namespace BooksApp
         {
             return _db.ToString();
         }
+
+        //private void Validate(Book book)
+        //{
+        //    var results = new List<ValidationResult>();
+        //    var context = new ValidationContext(book);
+        //    if (!Validator.TryValidateObject(book, context, results, true))
+        //    {
+        //        foreach (var error in results)
+        //        {
+        //            Console.WriteLine(error.ErrorMessage);
+        //        }
+        //    }
+        //}
     }
 }

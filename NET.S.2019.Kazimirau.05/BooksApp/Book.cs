@@ -5,7 +5,7 @@ namespace BooksApp
 {
     public class Book : IEquatable<Book>, IComparable<Book>
     {
-        [RegularExpression(@"^\d{1}-d{2}-d{6}-d{1}$", ErrorMessage = "Must be: x-xx-xxxxxx-x")]
+        [RegularExpression(@"^\d{1}-\d{2}-\d{6}-\d{1}$", ErrorMessage = "Must be: x-xx-xxxxxx-x")]
         public string ISBN { get; set; }
         [StringLength(maximumLength: 30, MinimumLength = 5, ErrorMessage = "Author name should be between 5 to 30 characters")]
         public string Author { get; set; }
@@ -19,6 +19,7 @@ namespace BooksApp
         public int NumberOfPages { get; set; }
         public decimal Price{ get; set; }
 
+        // Implementation of IComparable<Book> interface
         public int CompareTo(Book book)
         {
             if (Year.Equals(book.Year))
@@ -26,7 +27,7 @@ namespace BooksApp
 
             return Year.CompareTo(book.Year);
         }
-
+        // Implementation of IEquatable<Book> interface
         public bool Equals(Book book)
         {
             if (ReferenceEquals(book, null))
