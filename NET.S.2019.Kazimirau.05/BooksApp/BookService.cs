@@ -14,7 +14,7 @@ namespace BooksApp
         public BookService()
         {
             _db = new BooksStorage();
-            _booksInBytes = _db.Serialize();
+            _booksInBytes = _db.SerializeToBytes();
         }
         // Get object by index
         public Book this[int index]
@@ -42,7 +42,7 @@ namespace BooksApp
                 else
                 {
                     if (!_db.Books.Contains(book))
-                        _db.Books.Add(book);
+                        _db.Add(book);
                     else
                         throw new ArgumentException("Duplicated book!");
                 }
@@ -56,7 +56,7 @@ namespace BooksApp
         {
             Book book = GetById(isbn);
             if (book != null)
-                _db.Books.Remove(book);
+                _db.Remove(book);
             else
                 throw new ArgumentException("There is no such book in the BooksStorage!");
         }
@@ -120,12 +120,14 @@ namespace BooksApp
                 else
                 {
                     Book b = GetById(book.ISBN);
+                    _db.Remove(b);
                     b.Name = book.Name;
                     b.NumberOfPages = book.NumberOfPages;
                     b.Publisher = book.Publisher;
                     b.Year = book.Year;
                     b.Price = book.Price;
                     b.Author = book.Author;
+                    _db.Update(b);
                 }
             }
         }
@@ -134,10 +136,10 @@ namespace BooksApp
         {
             return _booksInBytes;
         }
-        // 
+        // Restore books from memory
         public IEnumerable<Book> RestoreBooksFromMemory()
         {
-            return _db.Deserialize(_booksInBytes);
+            return _db.DeserializeFromBytes(_booksInBytes);
         }
 
         public void SortByTag(IComparer<Book> tag)
