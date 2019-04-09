@@ -107,9 +107,120 @@ namespace BooksApp
                                 }
                                 break;
                             }
-                        case 5: break;
-                        case 6: break;
-                        case 7: break;
+                        case 5:
+                            {
+                                Console.WriteLine("Enter book's tag(name of the author, isbn, book name etc) which you want to edit:");
+                                try
+                                {
+                                    string bookTag = Console.ReadLine();
+                                    Book book = bookService.FindBookByTag(bookTag);
+                                    if (book != null)
+                                    {
+                                        Console.WriteLine("What field do you want to change?(field name):");
+                                        string fieldName = Console.ReadLine();
+                                        switch (fieldName)
+                                        {
+                                            case "ISBN":
+                                                {
+                                                    Console.WriteLine("Enter new ISBN:");
+                                                    string isbn = Console.ReadLine();
+                                                    book.ISBN = isbn;
+                                                    break;
+                                                }
+                                            case "Author":
+                                                {
+                                                    Console.WriteLine("Enter new Author:");
+                                                    string author = Console.ReadLine();
+                                                    book.Author = author;
+                                                    break;
+                                                }
+                                            case "Name":
+                                                {
+                                                    Console.WriteLine("Enter new book Name:");
+                                                    string name = Console.ReadLine();
+                                                    book.Name = name;
+                                                    break;
+                                                }
+                                            case "Publisher":
+                                                {
+                                                    Console.WriteLine("Enter new Publisher:");
+                                                    string publisher = Console.ReadLine();
+                                                    book.Publisher = publisher;
+                                                    break;
+                                                }
+                                            default: break;
+                                        }
+                                        bookService.Update(book);
+                                    }
+                                    break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
+                                break;
+                            }
+                        case 6:
+                            {
+                                Console.WriteLine("Sort by:\n1 - ISBN\n2 - Author\n3 - Name\n4 - Publisher\n5 - Year\n6 - Pages\n7 - Price\n:");
+                                bool isSucceeded = int.TryParse(Console.ReadLine(), out int num);
+                                if (isSucceeded)
+                                {
+                                    BookComparer cmp = null;
+                                    switch (num)
+                                    {
+                                        case 1:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.ISBN };
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.Author };
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.Name };
+                                                break;
+                                            }
+                                        case 4:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.Publisher };
+                                                break;
+                                            }
+                                        case 5:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.Year };
+                                                break;
+                                            }
+                                        case 6:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.Pages };
+                                                break;
+                                            }
+                                        case 7:
+                                            {
+                                                cmp = new BookComparer { Comparer = SortBy.Price };
+                                                break;
+                                            }
+                                        default:
+                                            {
+                                                cmp = new BookComparer();
+                                                break;
+                                            }
+                                    }
+                                    bookService.SortByTag(cmp);
+                                }
+                                break;
+                            }
+                        case 7:
+                            {
+                                Console.WriteLine("Enter tag name:");
+                                string tag = Console.ReadLine();
+                                Console.WriteLine(bookService.FindBookByTag(tag));
+                                break;
+                            }
                         default: break;
                     }
                 }
