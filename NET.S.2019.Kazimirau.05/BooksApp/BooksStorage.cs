@@ -6,6 +6,7 @@ namespace BooksApp
 {
     public class BooksStorage
     {
+        private string _fullPath;
         private List<Book> _books = new List<Book> {
             new Book{ ISBN = "1-61-729453-5", Author = "Jon Skeet", Name = "C# in Depth", NumberOfPages = 528, Price = 43m, Publisher = "Manning Publications", Year = 2019 },
             new Book{ ISBN = "9-78-149198-6", Author = "Joseph Albahari", Name = "C# 7.0 in a Nutshell", NumberOfPages = 1088, Price = 65m, Publisher = "O'Reilly Media", Year = 2017 },
@@ -14,9 +15,12 @@ namespace BooksApp
             new Book{ ISBN = "9-78-026203-8", Author = "Thomas Cormen, Ronals Rivest", Name = "Introduction to Algorithms", NumberOfPages = 1320, Price = 87.67m, Publisher = "The MIT Press", Year = 2009 },
         };
 
+
         public BooksStorage()
         {
-            using (FileStream stream = new FileStream("BooksDB", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\" + "BooksDB";
+
+            using (FileStream stream = new FileStream(_fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
                 using (BinaryWriter binaryWriter = new BinaryWriter(stream))
                 {
@@ -39,7 +43,7 @@ namespace BooksApp
             get
             {
                 List<Book> books = new List<Book>();
-                using (FileStream stream = new FileStream("BooksDB", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (FileStream stream = new FileStream(_fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (BinaryReader binaryReader = new BinaryReader(stream))
                     {
@@ -83,7 +87,7 @@ namespace BooksApp
         {
             if (book != null)
             {
-                using (FileStream stream = new FileStream("BooksDB", FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                using (FileStream stream = new FileStream(_fullPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
                 {
                     using (BinaryWriter binaryWriter = new BinaryWriter(stream))
                     {
@@ -105,7 +109,7 @@ namespace BooksApp
             {
                 List<Book> books = Books;
                 books.Remove(book);
-                using (FileStream stream = new FileStream("BooksDB", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                using (FileStream stream = new FileStream(_fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                 {
                     using (BinaryWriter binaryWriter = new BinaryWriter(stream))
                     {

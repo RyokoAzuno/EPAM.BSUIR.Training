@@ -41,6 +41,7 @@ namespace BooksApp
                 Console.WriteLine("6- Sort books");
                 Console.WriteLine("7- Find book by tag");
                 Console.WriteLine("8- To XML file");
+                Console.WriteLine("9- To JSON file");
                 Console.WriteLine("0- Exit");
                 Console.WriteLine("Select operation:");
                 bool res = int.TryParse(Console.ReadLine(), out int operation);
@@ -224,7 +225,12 @@ namespace BooksApp
                             }
                         case 8:
                             {
-                                bookService.ToXml();
+                                bookService.ToXML();
+                                break;
+                            }
+                        case 9:
+                            {
+                                bookService.ToJSON();
                                 break;
                             }
                         default: break;

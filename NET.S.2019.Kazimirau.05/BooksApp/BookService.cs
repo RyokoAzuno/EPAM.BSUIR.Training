@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace BooksApp
@@ -10,13 +12,18 @@ namespace BooksApp
     public class BookService : IBookRepository
     {
         private BooksStorage _db;
-        byte[] _booksInBytes;
+        private byte[] _booksInBytes;
+        private string _relativePath;
 
         // Constructor
         public BookService()
         {
             _db = new BooksStorage();
             _booksInBytes = _db.SerializeToBytes();
+            // Get relative path to save our xml file.
+            // Environment.CurrentDirectory - current working directory (i.e. \bin\Debug)
+            // This will get the current PROJECT directory
+            _relativePath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName; //AppDomain.CurrentDomain.BaseDirectory;
         }
         // Get object by index
         public Book this[int index]
@@ -135,36 +142,35 @@ namespace BooksApp
         }
 
         /// <summary>
-        /// Convert all books to Xml file
+        /// Save all books to Xml file
         /// </summary>
-        public void ToXml()
+        public void ToXML()
         {
-            // Get relative path to save our xml file.
-            // Environment.CurrentDirectory - current working directory (i.e. \bin\Debug)
-            // This will get the current PROJECT directory
-            string relativePath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName; ;//AppDomain.CurrentDomain.BaseDirectory;
-            try
-            {
-                // Constuct Xml structure
-                var xEle = new XElement("Books",
-                            from book in _db.Books
-                            select new XElement("Book",
-                                new XAttribute("ISBN", book.ISBN),
-                                new XElement("Author", book.Author),
-                                new XElement("Name", book.Name),
-                                new XElement("Publisher", book.Publisher),
-                                new XElement("Year", book.Year),
-                                new XElement("Pages", book.NumberOfPages),
-                                new XElement("Price", book.Price)
-                                ));
-                // Save Xml document
-                xEle.Save(relativePath + "\\" + "Books.xml");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            // Constuct Xml structure
+            var xEle = new XElement("Books",
+                        from book in _db.Books
+                        select new XElement("Book",
+                            new XAttribute("ISBN", book.ISBN),
+                            new XElement("Author", book.Author),
+                            new XElement("Name", book.Name),
+                            new XElement("Publisher", book.Publisher),
+                            new XElement("Year", book.Year),
+                            new XElement("Pages", book.NumberOfPages),
+                            new XElement("Price", book.Price)
+                            ));
+            // Save Xml document
+            xEle.Save(_relativePath + "\\" + "Books.xml");
         }
+
+        /// <summary>
+        /// Save all books to Json file
+        /// </summary>
+        public void ToJSON()
+        {
+            // !!!!!!!Encoding to UTF8 for cyrillic symbols!!!!!!!!
+            File.WriteAllText(_relativePath + "\\" + "Books.json", JsonConvert.SerializeObject(_db.Books, Formatting.Indented), Encoding.UTF8);
+        }
+
         // Convert list of books into array of bytes
         public byte[] StoreBooksInMemory()
         {
