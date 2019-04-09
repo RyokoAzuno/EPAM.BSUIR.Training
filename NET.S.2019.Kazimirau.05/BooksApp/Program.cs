@@ -28,7 +28,7 @@ namespace BooksApp
             //Console.WriteLine(service.ToString());
             //Console.WriteLine("Add new book");
             bool isRunning = true;
-            IBookRepository bookService = new BookService();
+            BookService bookService = new BookService();
 
             while (isRunning)
             {
@@ -58,7 +58,7 @@ namespace BooksApp
                                 try
                                 {
                                     string isbn = Console.ReadLine();
-                                    Console.WriteLine(bookService.GetById(isbn));
+                                    Console.WriteLine(bookService.GetByISBN(isbn));
                                 }
                                 catch (Exception ex)
                                 {

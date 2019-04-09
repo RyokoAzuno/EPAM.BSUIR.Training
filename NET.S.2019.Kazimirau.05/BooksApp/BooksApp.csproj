@@ -48,18 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
-    <Compile Include="BookComparer.cs" />
-    <Compile Include="BookService.cs" />
-    <Compile Include="BooksStorage.cs" />
-    <Compile Include="IBookRepository.cs" />
-    <Compile Include="IPrintable.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookComparer.cs" />
+    <Compile Include="Services\BookService.cs" />
+    <Compile Include="Models\BooksStorage.cs" />
+    <Compile Include="Interfaces\IBookRepository.cs" />
+    <Compile Include="Interfaces\IPrintable.cs" />
+    <Compile Include="Interfaces\ISerializable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AppData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

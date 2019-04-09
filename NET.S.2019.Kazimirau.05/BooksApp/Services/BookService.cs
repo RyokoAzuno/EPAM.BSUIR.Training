@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BooksApp
 {
-    public class BookService : IBookRepository
+    public class BookService : IBookRepository, ISerializable
     {
         private BooksStorage _db;
         private byte[] _booksInBytes;
@@ -63,7 +63,7 @@ namespace BooksApp
         /// <param name="isbn"> ISBN </param>
         public void Delete(string isbn)
         {
-            Book book = GetById(isbn);
+            Book book = GetByISBN(isbn);
             if (book != null)
                 _db.Remove(book);
             else
@@ -101,7 +101,7 @@ namespace BooksApp
         /// </summary>
         /// <param name="isbn"> ISBN </param>
         /// <returns> Book from BooksStorage </returns>
-        public Book GetById(string isbn)
+        public Book GetByISBN(string isbn)
         {
             Book book = _db.Books.Where(b => b.ISBN.Equals(isbn)).FirstOrDefault();
             if (book == null)
@@ -128,7 +128,7 @@ namespace BooksApp
                 }
                 else
                 {
-                    Book b = GetById(book.ISBN);
+                    Book b = GetByISBN(book.ISBN);
                     _db.Remove(b);
                     b.Name = book.Name;
                     b.NumberOfPages = book.NumberOfPages;
@@ -136,7 +136,7 @@ namespace BooksApp
                     b.Year = book.Year;
                     b.Price = book.Price;
                     b.Author = book.Author;
-                    _db.Update(b);
+                    _db.Add(b);
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace BooksApp
                             new XElement("Price", book.Price)
                             ));
             // Save Xml document
-            xEle.Save(_relativePath + "\\" + "Books.xml");
+            xEle.Save(_relativePath + "\\AppData\\" + "Books.xml");
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace BooksApp
         public void ToJSON()
         {
             // !!!!!!!Encoding to UTF8 for cyrillic symbols!!!!!!!!
-            File.WriteAllText(_relativePath + "\\" + "Books.json", JsonConvert.SerializeObject(_db.Books, Formatting.Indented), Encoding.UTF8);
+            File.WriteAllText(_relativePath + "\\AppData\\" + "Books.json", JsonConvert.SerializeObject(_db.Books, Formatting.Indented), Encoding.UTF8);
         }
 
         // Convert list of books into array of bytes

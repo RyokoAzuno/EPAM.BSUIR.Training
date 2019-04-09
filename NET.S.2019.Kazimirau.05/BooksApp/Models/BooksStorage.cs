@@ -4,6 +4,7 @@ using System.IO;
 
 namespace BooksApp
 {
+    // Simple class that emulate books storage database
     public class BooksStorage
     {
         private string _fullPath;
@@ -15,10 +16,10 @@ namespace BooksApp
             new Book{ ISBN = "9-78-026203-8", Author = "Thomas Cormen, Ronals Rivest", Name = "Introduction to Algorithms", NumberOfPages = 1320, Price = 87.67m, Publisher = "The MIT Press", Year = 2009 },
         };
 
-
+        // Constructor
         public BooksStorage()
         {
-            _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\" + "BooksDB";
+            _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BooksDB";
 
             using (FileStream stream = new FileStream(_fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
@@ -37,7 +38,9 @@ namespace BooksApp
                 }
             }
         }
-
+        /// <summary>
+        /// Get all books as List
+        /// </summary>
         public List<Book> Books
         {
             get
@@ -66,7 +69,7 @@ namespace BooksApp
                 return books;
             }
         }
-
+        // Indexer
         public Book this[int index]
         {
             get
@@ -82,7 +85,10 @@ namespace BooksApp
                     Books[index] = value;
             }
         }
-
+        /// <summary>
+        /// Add book into BooksStorage
+        /// </summary>
+        /// <param name="book"> Book to add </param>
         public void Add(Book book)
         {
             if (book != null)
@@ -102,7 +108,10 @@ namespace BooksApp
                 }
             }
         }
-
+        /// <summary>
+        /// Remove book from storage
+        /// </summary>
+        /// <param name="book"> Book to remove </param>
         public void Remove(Book book)
         {
             if (book != null)
@@ -127,12 +136,10 @@ namespace BooksApp
                 }
             }
         }
-
-        public void Update(Book book)
-        {
-            Add(book);
-        }
-
+        /// <summary>
+        /// Serialize books as bytes in memory
+        /// </summary>
+        /// <returns></returns>
         public byte[] SerializeToBytes()
         {
             using (MemoryStream stream = new MemoryStream())
@@ -155,7 +162,11 @@ namespace BooksApp
             }
 
         }
-
+        /// <summary>
+        /// Deserialize bytes as List of books
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
         public List<Book> DeserializeFromBytes(byte[] bytes)
         {
             List<Book> books = new List<Book>();
@@ -181,13 +192,13 @@ namespace BooksApp
 
             return books;
         }
-
+        // Sort books
         public void SortByTag(IComparer<Book> tag)
         {
             Books.Sort(tag);
         }
 
-        public new string ToString()
+        public override string ToString()
         {
             string result = string.Empty;
             foreach (var book in Books)
