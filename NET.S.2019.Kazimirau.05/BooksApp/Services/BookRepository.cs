@@ -8,6 +8,7 @@ namespace BooksApp.Services
 {
     public class BookRepository : IRepository<Book>
     {
+        // Simulated database
         private BookStorage _db;
 
         public BookRepository()
@@ -111,11 +112,13 @@ namespace BooksApp.Services
                 throw new ArgumentException("There is no such book in the BookStorage!");
         }
 
+        // Sort books via comparer
         public void Sort(IComparer<Book> comparer)
         {
             _db.SortByTag(comparer);
         }
 
+        // Find a value of the string field
         public Book FindByFieldValue(string fieldValue)
         {
             foreach (var item in GetAll())

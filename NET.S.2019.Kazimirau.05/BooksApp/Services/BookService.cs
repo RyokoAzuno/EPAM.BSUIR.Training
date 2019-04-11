@@ -9,9 +9,11 @@ using System.Xml.Linq;
 
 namespace BooksApp
 {
+    // Class represents a service for working with Book objects
     public class BookService : ISerializable
     {
         private readonly IRepository<Book> _bookRepository;
+        // Path to AppData folder
         private string _relativePath;
 
         // Constructor
@@ -119,17 +121,6 @@ namespace BooksApp
         {
             _bookRepository.Sort(tag);
         }
-
-        //// Convert list of books into array of bytes
-        //public byte[] StoreBooksInMemory()
-        //{
-        //    return _booksInBytes;
-        //}
-        //// Restore books from memory
-        //public IEnumerable<Book> RestoreBooksFromMemory()
-        //{
-        //    return _db.DeserializeFromBytes(_booksInBytes);
-        //}
 
         public override string ToString()
         {

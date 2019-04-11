@@ -6,7 +6,7 @@ using System.Linq;
 namespace BooksApp
 {
     // Simple class that emulates book storage database
-    public class BookStorage
+    public sealed class BookStorage
     {
         // Path to working directory
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BooksDB";
@@ -23,7 +23,10 @@ namespace BooksApp
         // Constructor
         public BookStorage()
         {
-            SaveToBinaryFile(FileMode.Create, _books);
+            if (File.Exists(_fullPath))
+                _books = LoadFromBinaryFile();
+            else
+                SaveToBinaryFile(FileMode.Create, _books);
         }
 
         /// <summary>
@@ -124,6 +127,7 @@ namespace BooksApp
             SaveToBinaryFile(FileMode.Create, books);
         }
 
+        // Represent a BookStorage object as a string 
         public override string ToString()
         {
             string result = string.Empty;
@@ -196,7 +200,7 @@ namespace BooksApp
                 throw new ArgumentNullException();
         }
 
-        // Read bytes from stream an convert to Book
+        // Read all bytes from stream as Book
         private Book ReadFromStream(BinaryReader binaryReader)
         {
             if (binaryReader != null)
@@ -214,7 +218,11 @@ namespace BooksApp
             else
                 throw new ArgumentNullException();
         }
-
+        /// <summary>
+        /// Save List of books to binary file
+        /// </summary>
+        /// <param name="fileMode"> File mode </param>
+        /// <param name="books"> Books to save </param>
         private void SaveToBinaryFile(FileMode fileMode, List<Book> books)
         {
             using (FileStream stream = new FileStream(_fullPath, fileMode, FileAccess.Write, FileShare.ReadWrite))
@@ -228,7 +236,10 @@ namespace BooksApp
                 }
             }
         }
-
+        /// <summary>
+        /// Load books from binary file 
+        /// </summary>
+        /// <returns> List of books </returns>
         private List<Book> LoadFromBinaryFile()
         {
             List<Book> books = new List<Book>();
