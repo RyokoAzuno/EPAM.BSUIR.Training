@@ -5,10 +5,12 @@ using System.Linq;
 
 namespace BooksApp
 {
-    // Simple class that emulate books storage database
+    // Simple class that emulates book storage database
     public class BookStorage
     {
-        private string _fullPath;
+        // Path to working directory
+        private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BooksDB";
+        // List of books that emulates database
         private List<Book> _books = new List<Book> {
             new Book{Id = 0, ISBN = "1-61-729453-5", Author = "Jon Skeet", Name = "C# in Depth", NumberOfPages = 528, Price = 43m, Publisher = "Manning Publications", Year = 2019 },
             new Book{Id = 1, ISBN = "9-78-149198-6", Author = "Joseph Albahari", Name = "C# 7.0 in a Nutshell", NumberOfPages = 1088, Price = 65m, Publisher = "O'Reilly Media", Year = 2017 },
@@ -16,25 +18,14 @@ namespace BooksApp
             new Book{Id = 3, ISBN = "0-73-566745-4", Author = "Jeffrey Richter", Name = "CLR via C#", NumberOfPages = 896, Price = 49.17m, Publisher = "Microsoft Press", Year = 2012 },
             new Book{Id = 4, ISBN = "9-78-026203-8", Author = "Thomas Cormen, Ronals Rivest", Name = "Introduction to Algorithms", NumberOfPages = 1320, Price = 87.67m, Publisher = "The MIT Press", Year = 2009 },
             new Book{Id = 5, ISBN = "9-78-032157-1", Author = "Mario Hewardt", Name = "Advanced .NET Debugging", NumberOfPages = 552, Price = 44.95m, Publisher = "Addison-Wesley Professional", Year = 2008 }
-
         };
 
         // Constructor
         public BookStorage()
         {
-            _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BooksDB";
-
-            using (FileStream stream = new FileStream(_fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (BinaryWriter binaryWriter = new BinaryWriter(stream))
-                {
-                    foreach (var book in _books)
-                    {
-                        WriteToStream(binaryWriter, book);
-                    }
-                }
-            }
+            SaveToBinaryFile(FileMode.Create, _books);
         }
+
         /// <summary>
         /// Get all books as List
         /// </summary>
@@ -42,21 +33,8 @@ namespace BooksApp
         {
             get
             {
-                List<Book> books = new List<Book>();
-                using (FileStream stream = new FileStream(_fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                {
-                    using (BinaryReader binaryReader = new BinaryReader(stream))
-                    {
-                        binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
-                        // Read each value while not EOF
-                        while (binaryReader.PeekChar() != -1) // for FileStream binaryReader.PeekChar() != -1 for MemoryStream  binaryReader.PeekChar() != 0
-                        {
-                            books.Add(ReadFromStream(binaryReader));
+                List<Book> books = LoadFromBinaryFile();
 
-                            //books.Add(new Book {Id = id, ISBN = isbn, Author = author, Name = name, Publisher = publisher, Year = year, NumberOfPages = numberOfPages, Price = price });
-                        }
-                    }
-                }
                 return books;
             }
         }
@@ -77,6 +55,7 @@ namespace BooksApp
                     Books[index] = value;
             }
         }
+
         /// <summary>
         /// Add book into BooksStorage
         /// </summary>
@@ -85,17 +64,20 @@ namespace BooksApp
         {
             if (book != null)
             {
+                int id = Books.Max(b => b.Id) + 1;
+                book.Id = id;
+
                 using (FileStream stream = new FileStream(_fullPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
                 {
                     using (BinaryWriter binaryWriter = new BinaryWriter(stream))
                     {
-                        int id = Books.Max(b => b.Id) + 1;
-                        book.Id = id;
+                        //binaryWriter.BaseStream.Seek(0, SeekOrigin.End);
                         WriteToStream(binaryWriter, book);
                     }
                 }
             }
         }
+
         /// <summary>
         /// Remove book from storage
         /// </summary>
@@ -106,18 +88,14 @@ namespace BooksApp
             {
                 List<Book> books = Books;
                 books.Remove(book);
-                using (FileStream stream = new FileStream(_fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-                {
-                    using (BinaryWriter binaryWriter = new BinaryWriter(stream))
-                    {
-                        foreach (var b in books)
-                        {
-                            WriteToStream(binaryWriter, b);
-                        }
-                    }
-                }
+                SaveToBinaryFile(FileMode.Create, books);
             }
         }
+
+        /// <summary>
+        /// Update book from storage
+        /// </summary>
+        /// <param name="book"> Book to update </param>
         public void Update(Book book)
         {
             if(book != null)
@@ -133,20 +111,30 @@ namespace BooksApp
                     b.Year = book.Year;
                     b.NumberOfPages = book.NumberOfPages;
                     b.Price = book.Price;
-                    
-                    using (FileStream stream = new FileStream(_fullPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-                    {
-                        using (BinaryWriter binaryWriter = new BinaryWriter(stream))
-                        {
-                            foreach (var item in books)
-                            {
-                                WriteToStream(binaryWriter, item);
-                            }
-                        }
-                    }
+                    SaveToBinaryFile(FileMode.Create, books);
                 }
             }
         }
+
+        // Sort books
+        public void SortByTag(IComparer<Book> tag)
+        {
+            List<Book> books = Books;
+            books.Sort(tag);
+            SaveToBinaryFile(FileMode.Create, books);
+        }
+
+        public override string ToString()
+        {
+            string result = string.Empty;
+            foreach (var book in Books)
+            {
+                result += $"{book.ToString()}";
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Serialize books in memory as array of bytes
         /// </summary>
@@ -165,8 +153,8 @@ namespace BooksApp
                 //stream.Flush();
                 return stream.GetBuffer();
             }
-
         }
+
         /// <summary>
         /// Deserialize bytes as List of books
         /// </summary>
@@ -183,15 +171,14 @@ namespace BooksApp
                     while (binaryReader.PeekChar() != 0)
                     {
                         books.Add(ReadFromStream(binaryReader));
-
-                        //books.Add(new Book { Id = id, ISBN = isbn, Author = author, Name = name, Publisher = publisher, Year = year, NumberOfPages = numberOfPages, Price = price });
                     }
                 }
             }
 
             return books;
         }
-        // Write book as bytes to stream
+
+        // Write book as array of bytes to stream
         private void WriteToStream(BinaryWriter binaryWriter, Book book)
         {
             if (book != null && binaryWriter != null)
@@ -208,6 +195,7 @@ namespace BooksApp
             else
                 throw new ArgumentNullException();
         }
+
         // Read bytes from stream an convert to Book
         private Book ReadFromStream(BinaryReader binaryReader)
         {
@@ -226,21 +214,38 @@ namespace BooksApp
             else
                 throw new ArgumentNullException();
         }
-        // Sort books
-        public void SortByTag(IComparer<Book> tag)
+
+        private void SaveToBinaryFile(FileMode fileMode, List<Book> books)
         {
-            Books.Sort(tag);
+            using (FileStream stream = new FileStream(_fullPath, fileMode, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (BinaryWriter binaryWriter = new BinaryWriter(stream))
+                {
+                    foreach (var item in books)
+                    {
+                        WriteToStream(binaryWriter, item);
+                    }
+                }
+            }
         }
 
-        public override string ToString()
+        private List<Book> LoadFromBinaryFile()
         {
-            string result = string.Empty;
-            foreach (var book in Books)
+            List<Book> books = new List<Book>();
+            using (FileStream stream = new FileStream(_fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                result += $"{book.ToString()}";
+                using (BinaryReader binaryReader = new BinaryReader(stream))
+                {
+                    binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
+                    // Read each value while not EOF
+                    while (binaryReader.PeekChar() != -1) // for FileStream binaryReader.PeekChar() != -1 for MemoryStream  binaryReader.PeekChar() != 0
+                    {
+                        books.Add(ReadFromStream(binaryReader));
+                    }
+                }
             }
 
-            return result;
+            return books;
         }
     }
 }

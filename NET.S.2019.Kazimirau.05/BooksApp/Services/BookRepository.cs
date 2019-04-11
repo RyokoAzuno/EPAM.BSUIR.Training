@@ -78,33 +78,24 @@ namespace BooksApp.Services
         /// Update(edit) a book
         /// </summary>
         /// <param name="book"> Book to update </param>
-        public void Update(Book book)
+        public void Update(Book entity)
         {
-            _db.Update(book);
-            //if (book != null)
-            //{
-            //    var results = new List<ValidationResult>();
-            //    var context = new ValidationContext(book);
-            //    if (!Validator.TryValidateObject(book, context, results, true))
-            //    {
-            //        foreach (var error in results)
-            //        {
-            //            Console.WriteLine(error.ErrorMessage);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Book b = GetById(book.Id);
-            //        _db.Remove(b);
-            //        b.Name = book.Name;
-            //        b.NumberOfPages = book.NumberOfPages;
-            //        b.Publisher = book.Publisher;
-            //        b.Year = book.Year;
-            //        b.Price = book.Price;
-            //        b.Author = book.Author;
-            //        _db.Add(b);
-            //    }
-            //}
+            if (entity != null)
+            {
+                var results = new List<ValidationResult>();
+                var context = new ValidationContext(entity);
+                if (!Validator.TryValidateObject(entity, context, results, true))
+                {
+                    foreach (var error in results)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+                else
+                {
+                    _db.Update(entity);
+                }
+            }
         }
 
         /// <summary>
