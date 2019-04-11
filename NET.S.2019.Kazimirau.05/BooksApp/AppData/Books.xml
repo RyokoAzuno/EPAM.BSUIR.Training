@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Books>
-  <Book ISBN="1-61-729453-5">
+  <Book Id="0">
+    <ISBN>1-61-729453-5</ISBN>
     <Author>Jon Skeet</Author>
     <Name>C# in Depth</Name>
     <Publisher>Manning Publications</Publisher>
@@ -8,7 +9,8 @@
     <Pages>528</Pages>
     <Price>43</Price>
   </Book>
-  <Book ISBN="9-78-149198-6">
+  <Book Id="1">
+    <ISBN>9-78-149198-6</ISBN>
     <Author>Joseph Albahari</Author>
     <Name>C# 7.0 in a Nutshell</Name>
     <Publisher>O'Reilly Media</Publisher>
@@ -16,7 +18,8 @@
     <Pages>1088</Pages>
     <Price>65</Price>
   </Book>
-  <Book ISBN="1-48-423017-5">
+  <Book Id="2">
+    <ISBN>1-48-423017-5</ISBN>
     <Author>Andrew Troelsen, Phil Japikse</Author>
     <Name>Pro C# 7: With .NET and .NET Core</Name>
     <Publisher>Apress</Publisher>
@@ -24,7 +27,8 @@
     <Pages>1372</Pages>
     <Price>32.82</Price>
   </Book>
-  <Book ISBN="0-73-566745-4">
+  <Book Id="3">
+    <ISBN>0-73-566745-4</ISBN>
     <Author>Jeffrey Richter</Author>
     <Name>CLR via C#</Name>
     <Publisher>Microsoft Press</Publisher>
@@ -32,12 +36,22 @@
     <Pages>896</Pages>
     <Price>49.17</Price>
   </Book>
-  <Book ISBN="9-78-026203-8">
+  <Book Id="4">
+    <ISBN>9-78-026203-8</ISBN>
     <Author>Thomas Cormen, Ronals Rivest</Author>
     <Name>Introduction to Algorithms</Name>
     <Publisher>The MIT Press</Publisher>
     <Year>2009</Year>
     <Pages>1320</Pages>
     <Price>87.67</Price>
+  </Book>
+  <Book Id="5">
+    <ISBN>9-78-032157-1</ISBN>
+    <Author>Mario Hewardt</Author>
+    <Name>Advanced .NET Debugging</Name>
+    <Publisher>Addison-Wesley Professional</Publisher>
+    <Year>2008</Year>
+    <Pages>552</Pages>
+    <Price>44.95</Price>
   </Book>
 </Books>

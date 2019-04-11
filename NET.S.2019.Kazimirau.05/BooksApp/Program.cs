@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BooksApp.Services;
+using System;
 using System.Linq;
 
 namespace BooksApp
@@ -8,33 +8,14 @@ namespace BooksApp
     {
         static void Main(string[] args)
         {
-            //IBookRepository service = new BookService();
-            //byte[] booksToBytes = service.StoreBooksInMemory();
-            //List<Book> books = service.RestoreBooksFromMemory().ToList();
-            //bool areEqual = true;
-
-            //for (int i = 0; i < books.Count; i++)
-            //{
-            //    if(!books[i].Equals(service[i]))
-            //    {
-            //        areEqual = false;
-            //        break;
-            //    }
-            //}
-            //Console.WriteLine($"Are equal(serialized) := {areEqual}");
-            //Console.WriteLine("*********Book Comparer************");
-            //BookComparer comparer = new BookComparer { Comparer = SortBy.ISBN };
-            //service.SortByTag(comparer);
-            //Console.WriteLine(service.ToString());
-            //Console.WriteLine("Add new book");
             bool isRunning = true;
-            BookService bookService = new BookService();
+            BookService bookService = new BookService(new BookRepository());
 
             while (isRunning)
             {
                 Console.WriteLine("!!!BooksApp!!!");
                 Console.WriteLine("1- Get all books");
-                Console.WriteLine("2- Get book by ISBN");
+                Console.WriteLine("2- Get book by ID");
                 Console.WriteLine("3- Add book");
                 Console.WriteLine("4- Remove book");
                 Console.WriteLine("5- Edit book");
@@ -54,11 +35,11 @@ namespace BooksApp
                         case 1: bookService.GetAll().ToList().ForEach(b => Console.WriteLine(b.ToString())); break;
                         case 2:
                             {
-                                Console.WriteLine("Enter ISBN(exmp:9-78-149198-6):");
+                                Console.WriteLine("Enter ID:");
                                 try
                                 {
-                                    string isbn = Console.ReadLine();
-                                    Console.WriteLine(bookService.GetByISBN(isbn));
+                                    int id = int.Parse(Console.ReadLine());
+                                    Console.WriteLine(bookService.Get(id));
                                 }
                                 catch (Exception ex)
                                 {
@@ -97,11 +78,11 @@ namespace BooksApp
                             }
                         case 4:
                             {
-                                Console.WriteLine("Enter ISBN to remove book:");
+                                Console.WriteLine("Enter ID to remove book:");
                                 try
                                 {
-                                    string isbn = Console.ReadLine();
-                                    bookService.Delete(isbn);
+                                    int id = int.Parse(Console.ReadLine());
+                                    bookService.Delete(id);
                                 }
                                 catch (Exception ex)
                                 {

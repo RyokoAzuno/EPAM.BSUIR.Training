@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": 0,
     "ISBN": "1-61-729453-5",
     "Author": "Jon Skeet",
     "Name": "C# in Depth",
@@ -9,6 +10,7 @@
     "Price": 43.0
   },
   {
+    "Id": 1,
     "ISBN": "9-78-149198-6",
     "Author": "Joseph Albahari",
     "Name": "C# 7.0 in a Nutshell",
@@ -18,6 +20,7 @@
     "Price": 65.0
   },
   {
+    "Id": 2,
     "ISBN": "1-48-423017-5",
     "Author": "Andrew Troelsen, Phil Japikse",
     "Name": "Pro C# 7: With .NET and .NET Core",
@@ -27,6 +30,7 @@
     "Price": 32.82
   },
   {
+    "Id": 3,
     "ISBN": "0-73-566745-4",
     "Author": "Jeffrey Richter",
     "Name": "CLR via C#",
@@ -36,6 +40,7 @@
     "Price": 49.17
   },
   {
+    "Id": 4,
     "ISBN": "9-78-026203-8",
     "Author": "Thomas Cormen, Ronals Rivest",
     "Name": "Introduction to Algorithms",
@@ -43,5 +48,15 @@
     "Year": 2009,
     "NumberOfPages": 1320,
     "Price": 87.67
+  },
+  {
+    "Id": 5,
+    "ISBN": "9-78-032157-1",
+    "Author": "Mario Hewardt",
+    "Name": "Advanced .NET Debugging",
+    "Publisher": "Addison-Wesley Professional",
+    "Year": 2008,
+    "NumberOfPages": 552,
+    "Price": 44.95
   }
 ]

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BooksApp.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BooksApp
 {
-    public class Book : IEquatable<Book>, IComparable<Book>
+    public class Book : IEntity, IEquatable<Book>, IComparable<Book>
     {
+        public int Id { get; set; }
         [RegularExpression(@"^\d{1}-\d{2}-\d{6}-\d{1}$", ErrorMessage = "Must be: x-xx-xxxxxx-x")]
         public string ISBN { get; set; }
         [StringLength(maximumLength: 30, MinimumLength = 5, ErrorMessage = "Author name should be between 5 to 30 characters")]
@@ -37,23 +39,15 @@ namespace BooksApp
             if (GetType() != book.GetType())
                 return false;
 
-            if (!ISBN.Length.Equals(book.ISBN.Length))
-                return false;
             if (!ISBN.Equals(book.ISBN))
                 return false;
 
-            if (!Author.Length.Equals(book.Author.Length))
-                return false;
             if (!Author.Equals(book.Author))
                 return false;
 
-            if (!Name.Length.Equals(book.Name.Length))
-                return false;
             if (!Name.Equals(book.Name))
                 return false;
 
-            if (!Publisher.Length.Equals(book.Publisher.Length))
-                return false;
             if (!Publisher.Equals(book.Publisher))
                 return false;
 
@@ -76,7 +70,7 @@ namespace BooksApp
 
         public override string ToString()
         {
-            return $"ISBN: {ISBN}\nAuthor:  {Author}\nName: {Name}\nPublisher:  {Publisher}\nYear:  {Year}\nPrice:  {Price}\n*****\n";
+            return $"ISBN: {ISBN}\nAuthor:  {Author}\nName: {Name}\nPublisher:  {Publisher}\nYear:  {Year}\nPages:  {NumberOfPages}\nPrice:  {Price}\n*************\n";
         }
 
         public override int GetHashCode()
@@ -84,6 +78,7 @@ namespace BooksApp
             unchecked
             {
                 int hash = 17;
+                hash = hash * 23 + Id.GetHashCode();
                 hash = hash * 23 + ISBN.GetHashCode();
                 hash = hash * 23 + Author.GetHashCode();
                 hash = hash * 23 + Name.GetHashCode();

@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using BooksApp.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,105 +9,71 @@ using System.Xml.Linq;
 
 namespace BooksApp
 {
-    public class BookService : IBookRepository, ISerializable
+    public class BookService : ISerializable
     {
-        private BooksStorage _db;
-        private byte[] _booksInBytes;
+        private readonly IRepository<Book> _bookRepository;
         private string _relativePath;
 
         // Constructor
-        public BookService()
+        public BookService(IRepository<Book> bookRepository)
         {
-            _db = new BooksStorage();
-            _booksInBytes = _db.SerializeToBytes();
+            _bookRepository = bookRepository;
             // Get relative path to save our xml file.
             // Environment.CurrentDirectory - current working directory (i.e. \bin\Debug)
             // This will get the current PROJECT directory
             _relativePath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName; //AppDomain.CurrentDomain.BaseDirectory;
         }
-        // Get object by index
-        public Book this[int index]
-        {
-            get { return _db[index]; }
-            set { _db[index] = value; }
-        }
+
         /// <summary>
-        /// Add new book into BooksStorage
+        /// Add new book into BookStorage
         /// </summary>
         /// <param name="book"> Book to add </param>
         public void Create(Book book)
         {
-            if (book != null)
-            {
-                var results = new List<ValidationResult>();
-                var context = new ValidationContext(book);
-                if (!Validator.TryValidateObject(book, context, results, true))
-                {
-                    foreach (var error in results)
-                    {
-                        Console.WriteLine(error.ErrorMessage);
-                    }
-                }
-                else
-                {
-                    if (!_db.Books.Contains(book))
-                        _db.Add(book);
-                    else
-                        throw new ArgumentException("Duplicated book!");
-                }
-            }
+            _bookRepository.Add(book);
         }
+
         /// <summary>
-        /// Remove a book with a given isbn from BooksStorage
+        /// Remove a book with a given id from BookStorage
         /// </summary>
-        /// <param name="isbn"> ISBN </param>
-        public void Delete(string isbn)
+        /// <param name="id"> Id </param>
+        public void Delete(int id)
         {
-            Book book = GetByISBN(isbn);
-            if (book != null)
-                _db.Remove(book);
-            else
-                throw new ArgumentException("There is no such book in the BooksStorage!");
+            _bookRepository.Remove(id);
         }
+
         /// <summary>
         /// Find a book by using a special filter(pridicate)
         /// </summary>
         /// <param name="filter"> Filter(pridicate) to find a book </param>
-        /// <returns> Book from BooksStorage </returns>
-        public Book Find(Func<Book, bool> filter)
+        /// <returns> Book from BookStorage </returns>
+        public List<Book> Find(Func<Book, bool> predicate)
         {
-            return _db.Books.Where(filter).FirstOrDefault();
+            return _bookRepository.Find(predicate).ToList();
         }
-        // Find a book by tag-name
+
+        // Find book by tag-name
         public Book FindBookByTag(string tag)
         {
-            foreach (var item in _db.Books)
-            {
-                if (tag.Equals(item.ISBN) || tag.Equals(item.Name) || tag.Equals(item.Author) || tag.Equals(item.Publisher))
-                    return item;
-            }
-            return null;
+            return _bookRepository.FindByFieldValue(tag);
         }
         /// <summary>
-        /// Get all books from BooksStorage
+        /// Get all books from BookStorage
         /// </summary>
-        /// <returns> Add books </returns>
-        public IEnumerable<Book> GetAll()
+        /// <returns> All books from storage </returns>
+        public List<Book> GetAll()
         {
-            return _db.Books;
+            return _bookRepository.GetAll().ToList();
         }
-        /// <summary>
-        /// Get a book by ISBN
-        /// </summary>
-        /// <param name="isbn"> ISBN </param>
-        /// <returns> Book from BooksStorage </returns>
-        public Book GetByISBN(string isbn)
-        {
-            Book book = _db.Books.Where(b => b.ISBN.Equals(isbn)).FirstOrDefault();
-            if (book == null)
-                throw new NullReferenceException();
 
-            return book;
+        /// <summary>
+        /// Get a book by Id
+        /// </summary>
+        /// <param name="id"> Id </param>
+        /// <returns> Book from BookStorage </returns>
+        public Book Get(int id)
+        {
+            return _bookRepository.GetById(id);
         }
         /// <summary>
         /// Update(edit) given book
@@ -115,30 +81,7 @@ namespace BooksApp
         /// <param name="book"> Book to update </param>
         public void Update(Book book)
         {
-            if (book != null)
-            {
-                var results = new List<ValidationResult>();
-                var context = new ValidationContext(book);
-                if (!Validator.TryValidateObject(book, context, results, true))
-                {
-                    foreach (var error in results)
-                    {
-                        Console.WriteLine(error.ErrorMessage);
-                    }
-                }
-                else
-                {
-                    Book b = GetByISBN(book.ISBN);
-                    _db.Remove(b);
-                    b.Name = book.Name;
-                    b.NumberOfPages = book.NumberOfPages;
-                    b.Publisher = book.Publisher;
-                    b.Year = book.Year;
-                    b.Price = book.Price;
-                    b.Author = book.Author;
-                    _db.Add(b);
-                }
-            }
+            _bookRepository.Update(book);
         }
 
         /// <summary>
@@ -148,9 +91,10 @@ namespace BooksApp
         {
             // Constuct Xml structure
             var xEle = new XElement("Books",
-                        from book in _db.Books
+                        from book in _bookRepository.GetAll()
                         select new XElement("Book",
-                            new XAttribute("ISBN", book.ISBN),
+                            new XAttribute("Id", book.Id),
+                            new XElement("ISBN", book.ISBN),
                             new XElement("Author", book.Author),
                             new XElement("Name", book.Name),
                             new XElement("Publisher", book.Publisher),
@@ -168,41 +112,28 @@ namespace BooksApp
         public void ToJSON()
         {
             // !!!!!!!Encoding to UTF8 for cyrillic symbols!!!!!!!!
-            File.WriteAllText(_relativePath + "\\AppData\\" + "Books.json", JsonConvert.SerializeObject(_db.Books, Formatting.Indented), Encoding.UTF8);
-        }
-
-        // Convert list of books into array of bytes
-        public byte[] StoreBooksInMemory()
-        {
-            return _booksInBytes;
-        }
-        // Restore books from memory
-        public IEnumerable<Book> RestoreBooksFromMemory()
-        {
-            return _db.DeserializeFromBytes(_booksInBytes);
+            File.WriteAllText(_relativePath + "\\AppData\\" + "Books.json", JsonConvert.SerializeObject(_bookRepository.GetAll(), Formatting.Indented), Encoding.UTF8);
         }
 
         public void SortByTag(IComparer<Book> tag)
         {
-            _db.SortByTag(tag);
+            _bookRepository.Sort(tag);
         }
+
+        //// Convert list of books into array of bytes
+        //public byte[] StoreBooksInMemory()
+        //{
+        //    return _booksInBytes;
+        //}
+        //// Restore books from memory
+        //public IEnumerable<Book> RestoreBooksFromMemory()
+        //{
+        //    return _db.DeserializeFromBytes(_booksInBytes);
+        //}
 
         public override string ToString()
         {
-            return _db.ToString();
+            return _bookRepository.ToString();
         }
-
-        //private void Validate(Book book)
-        //{
-        //    var results = new List<ValidationResult>();
-        //    var context = new ValidationContext(book);
-        //    if (!Validator.TryValidateObject(book, context, results, true))
-        //    {
-        //        foreach (var error in results)
-        //        {
-        //            Console.WriteLine(error.ErrorMessage);
-        //        }
-        //    }
-        //}
     }
 }
