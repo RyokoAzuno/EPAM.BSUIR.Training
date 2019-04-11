@@ -54,7 +54,6 @@
     <Compile Include="Models\BookComparer.cs" />
     <Compile Include="Services\BookRepository.cs" />
     <Compile Include="Services\BookService.cs" />
-    <Compile Include="Services\BookService1.cs" />
     <Compile Include="Models\BookStorage.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Interfaces\IPrintable.cs" />
