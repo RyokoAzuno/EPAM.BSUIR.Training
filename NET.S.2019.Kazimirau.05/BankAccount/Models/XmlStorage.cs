@@ -8,6 +8,7 @@ using System.Xml.Linq;
 
 namespace BankAccount.Services
 {
+    // Class emulates XML storage
     public sealed class XmlStorage : IStorage<BankAccount>
     {
         private List<BankAccount> _storage;
@@ -19,7 +20,7 @@ namespace BankAccount.Services
         }
 
         /// <summary>
-        /// Load from binary file
+        /// Load from XML file
         /// </summary>
         /// <returns> Collection of bank accounts </returns>
         public IEnumerable<BankAccount> Load()
@@ -63,7 +64,7 @@ namespace BankAccount.Services
         }
 
         /// <summary>
-        /// Save to binary file
+        /// Save to XML file
         /// </summary>
         public void Save()
         {
@@ -79,21 +80,5 @@ namespace BankAccount.Services
             // Save Xml document
             xEle.Save(_fullPath);
         }
-        //public void Save()
-        //{
-        //    // Constuct Xml structure
-        //    var xEle = new XElement("BankAccount", 
-        //                from bankAccount in _storage
-        //                select new XElement("BankAccount",
-        //                    new XAttribute("Id", bankAccount.Id),
-        //                    new XElement("Owner", bankAccount.Owner),
-        //                    new XElement("Balance", bankAccount.Balance),
-        //                    new XElement("Points", bankAccount.Points),
-        //                    new XElement("Type", bankAccount.Type),
-        //                    new XElement("Status", bankAccount.IsOpened)
-        //                    ));
-        //    // Save Xml document
-        //    xEle.Save(_fullPath);
-        //}
     }
 }

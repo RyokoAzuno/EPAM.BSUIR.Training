@@ -5,11 +5,12 @@ using System.IO;
 
 namespace BankAccount.Services
 {
+    // Class emulates binary storage
     public sealed class BinaryStorage : IStorage<BankAccount>
     {
         private List<BankAccount> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccountsDB";
-
+        // Constructor
         public BinaryStorage(List<BankAccount> storage)
         {
             _storage = storage;

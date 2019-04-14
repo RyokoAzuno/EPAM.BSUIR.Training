@@ -1,0 +1,26 @@
+﻿[
+  {
+    "Id": 46104728,
+    "Owner": "Jane Doe",
+    "Balance": 2000.50,
+    "Points": 20,
+    "Type": 10,
+    "IsOpened": true
+  },
+  {
+    "Id": 12289376,
+    "Owner": "John Doe",
+    "Balance": 15000.50,
+    "Points": 50,
+    "Type": 15,
+    "IsOpened": true
+  },
+  {
+    "Id": 43495525,
+    "Owner": "Steve McQueen",
+    "Balance": 500.50,
+    "Points": 10,
+    "Type": 5,
+    "IsOpened": true
+  }
+]
