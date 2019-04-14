@@ -3,20 +3,26 @@
 namespace BankAccount
 {
     /// <summary>
-    /// Represent a type of bank account
+    /// Represent bank account's type
     /// </summary>
-    public enum AccountType { Base, Gold, Platinum }
+    public enum AccountType { Base = 5, Gold = 10, Platinum = 15 }
 
     /// <summary>
     /// Simle class which represents a bank account and operations with it
     /// </summary>
     public class BankAccount
     {
+        // Unique identifier
         public int Id { get; set; }
+        // Owner of the bank account
         public string Owner { get; set; }
+        // Current amount of money
         public decimal Balance { get; set; }
+        // Bonus points
         public int Points { get; set; }
+        // Bank account type
         public AccountType Type { get; set; }
+        // Bank account status
         private bool _isOpened;
 
         // Constructor
