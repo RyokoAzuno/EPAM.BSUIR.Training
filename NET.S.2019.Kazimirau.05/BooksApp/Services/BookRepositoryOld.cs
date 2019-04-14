@@ -7,17 +7,16 @@ using System.Linq;
 
 namespace BooksApp.Services
 {
-    public class BookRepository : IRepository<Book>
+    public class BookRepositoryOld : IRepository<Book>
     {
         // Simulated database
-        private List<Book> _books;
-        private IStorage<Book> _bookStorage;
+        private BookStorage _db;
 
-        public BookRepository(IStorage<Book> bookStorage)
+        public BookRepositoryOld()
         {
-            _bookStorage = bookStorage;
-            _books = _bookStorage.Load().ToList();
+            _db = new BookStorage();
         }
+
 
         /// <summary>
         /// Add new book into BookStorage
@@ -38,20 +37,23 @@ namespace BooksApp.Services
                 }
                 else
                 {
-                    if (!_books.Contains(book))
-                    {
-                        int id = _books.Max(b => b.Id) + 1;
-                        book.Id = id;
-                        _books.Add(book);
-                        _bookStorage.Save();
-                    }
+                    if (!_db.Books.Contains(book))
+                        _db.Add(book);
                     else
-                    {
                         throw new ArgumentException("Duplicated book!");
-                    }
                 }
             }
         }
+
+        /// <summary>
+        /// Find a book by using a special filter(pridicate)
+        /// </summary>
+        /// <param name="filter"> Filter(pridicate) to find a book </param>
+        /// <returns> Book from BookStorage </returns>
+        //public IEnumerable<Book> Find(Func<Book, bool> predicate)
+        //{
+        //    return _db.Books.Where(predicate);
+        //}
 
         /// <summary>
         /// Get all books from BookStorage
@@ -59,7 +61,7 @@ namespace BooksApp.Services
         /// <returns> Collection of books </returns>
         public IEnumerable<Book> GetAll()
         {
-            return _books;
+            return _db.Books;
         }
 
         /// <summary>
@@ -69,12 +71,9 @@ namespace BooksApp.Services
         /// <returns> Book from BookStorage </returns>
         public Book GetById(int id)
         {
-            Book book = _books.Where(b => b.Id.Equals(id)).FirstOrDefault();
-
+            Book book = _db.Books.Where(b => b.Id.Equals(id)).FirstOrDefault();
             if (book == null)
-            {
                 throw new NullReferenceException("There is no such book in the BookStorage!");
-            }
 
             return book;
         }
@@ -97,19 +96,7 @@ namespace BooksApp.Services
                 }
                 else
                 {
-                    Book b = GetById(book.Id);
-
-                    if (b != null)
-                    {
-                        b.ISBN = book.ISBN;
-                        b.Author = book.Author;
-                        b.Name = book.Name;
-                        b.Publisher = book.Publisher;
-                        b.Year = book.Year;
-                        b.NumberOfPages = book.NumberOfPages;
-                        b.Price = book.Price;
-                        _bookStorage.Save();
-                    }
+                    _db.Update(book);
                 }
             }
         }
@@ -122,21 +109,15 @@ namespace BooksApp.Services
         {
             Book book = GetById(id);
             if (book != null)
-            {
-                _books.Remove(book);
-                _bookStorage.Save();
-            }
+                _db.Remove(book);
             else
-            {
                 throw new ArgumentException("There is no such book in the BookStorage!");
-            }
         }
 
         // Sort books via comparer
         public void Sort(IComparer<Book> comparer)
         {
-            _books.Sort(comparer);
-            _bookStorage.Save();
+            _db.SortByTag(comparer);
         }
 
         // Find a value of the string field
@@ -152,12 +133,7 @@ namespace BooksApp.Services
 
         public override string ToString()
         {
-            string result = string.Empty;
-            foreach (var book in _books)
-            {
-                result += $"***\n{book}\n";
-            }
-            return result;
+            return _db.ToString();
         }
     }
 }

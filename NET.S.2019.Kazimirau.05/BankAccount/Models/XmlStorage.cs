@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace BankAccount.Services
+namespace BankAccount.Models
 {
     // Class emulates XML storage
     public sealed class XmlStorage : IStorage<BankAccount>

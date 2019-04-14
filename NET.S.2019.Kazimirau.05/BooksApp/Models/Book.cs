@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BooksApp
+namespace BooksApp.Models
 {
     public class Book : IEntity, IEquatable<Book>, IComparable<Book>
     {
@@ -11,7 +11,7 @@ namespace BooksApp
         public string ISBN { get; set; }
         [StringLength(maximumLength: 30, MinimumLength = 5, ErrorMessage = "Author name should be between 5 to 30 characters")]
         public string Author { get; set; }
-        [StringLength(maximumLength: 20, MinimumLength = 5, ErrorMessage = "Book name should be between 5 to 20 characters")]
+        [StringLength(maximumLength: 40, MinimumLength = 5, ErrorMessage = "Book name should be between 5 to 20 characters")]
         public string Name { get; set; }
         [StringLength(maximumLength: 40, MinimumLength = 5, ErrorMessage = "Publisher name should be between 5 to 40 characters")]
         public string Publisher { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace BooksApp
+﻿namespace BooksApp.Interfaces
 {
     interface ISerializable
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BooksApp
+namespace BooksApp.Models
 {
     public enum SortBy { ISBN, Author, Name, Publisher, Year, Pages, Price }
 

@@ -1,17 +1,17 @@
-﻿using BankAccount.Interfaces;
+﻿using BooksApp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace BankAccount.Models
+namespace BooksApp.Models
 {
     // Class emulates binary storage
-    public sealed class BinaryStorage : IStorage<BankAccount>
+    public sealed class BinaryStorage : IStorage<Book>
     {
-        private List<BankAccount> _storage;
-        private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccountsDB";
+        private List<Book> _storage;
+        private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BooksDB";
         // Constructor
-        public BinaryStorage(List<BankAccount> storage)
+        public BinaryStorage(List<Book> storage)
         {
             _storage = storage;
         }
@@ -19,8 +19,8 @@ namespace BankAccount.Models
         /// <summary>
         /// Load from binary file
         /// </summary>
-        /// <returns> Collection of bank accounts </returns>
-        public IEnumerable<BankAccount> Load()
+        /// <returns> Collection of books </returns>
+        public IEnumerable<Book> Load()
         {
             if (File.Exists(_fullPath))
             {
@@ -63,17 +63,19 @@ namespace BankAccount.Models
             }
         }
 
-        // Write bank account as array of bytes to stream
-        private void WriteToStream(BinaryWriter binaryWriter, BankAccount bankAccount)
+        // Write book as array of bytes to stream
+        private void WriteToStream(BinaryWriter binaryWriter, Book book)
         {
-            if (bankAccount != null && binaryWriter != null)
+            if (book != null && binaryWriter != null)
             {
-                binaryWriter.Write(bankAccount.Id);
-                binaryWriter.Write(bankAccount.Owner);
-                binaryWriter.Write(bankAccount.Balance);
-                binaryWriter.Write(bankAccount.Points);
-                binaryWriter.Write((int)bankAccount.Type);
-                binaryWriter.Write(bankAccount.IsOpened);
+                binaryWriter.Write(book.Id);
+                binaryWriter.Write(book.ISBN);
+                binaryWriter.Write(book.Author);
+                binaryWriter.Write(book.Name);
+                binaryWriter.Write(book.Publisher);
+                binaryWriter.Write(book.Year);
+                binaryWriter.Write(book.NumberOfPages);
+                binaryWriter.Write(book.Price);
             }
             else
             {
@@ -81,26 +83,29 @@ namespace BankAccount.Models
             }
         }
 
-        // Read all bytes from stream as bank account item
-        private BankAccount ReadFromStream(BinaryReader binaryReader)
+        // Read all bytes from stream as book item
+        private Book ReadFromStream(BinaryReader binaryReader)
         {
             if (binaryReader != null)
             {
                 int id = binaryReader.ReadInt32();
-                string owner = binaryReader.ReadString();
-                decimal balance = binaryReader.ReadDecimal();
-                int points = binaryReader.ReadInt32();
-                AccountType type = (AccountType)binaryReader.ReadInt32();
-                bool isOpened = binaryReader.ReadBoolean();
-
-                return new BankAccount
+                string isbn = binaryReader.ReadString();
+                string author = binaryReader.ReadString();
+                string name = binaryReader.ReadString();
+                string publisher = binaryReader.ReadString();
+                int year = binaryReader.ReadInt32();
+                int numberOfPages = binaryReader.ReadInt32();
+                decimal price = binaryReader.ReadDecimal();
+                return new Book
                 {
                     Id = id,
-                    Owner = owner,
-                    Balance = balance,
-                    Points = points,
-                    Type = type,
-                    IsOpened = isOpened
+                    ISBN = isbn,
+                    Author = author,
+                    Name = name,
+                    Publisher = publisher,
+                    Year = year,
+                    NumberOfPages = numberOfPages,
+                    Price = price
                 };
             }
             else

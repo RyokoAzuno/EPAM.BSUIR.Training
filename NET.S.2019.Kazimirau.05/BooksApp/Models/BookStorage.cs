@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace BooksApp
+namespace BooksApp.Models
 {
     // Simple class that emulates book storage database
     public sealed class BookStorage

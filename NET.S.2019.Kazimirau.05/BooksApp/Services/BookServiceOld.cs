@@ -1,20 +1,30 @@
 ﻿using BooksApp.Interfaces;
 using BooksApp.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
 
 namespace BooksApp.Services
 {
     // Class represents a service for working with Book objects
-    public class BookService : IPrintable
+    public class BookServiceOld : ISerializable
     {
         private readonly IRepository<Book> _bookRepository;
+        // Path to AppData folder
+        private string _relativePath;
 
         // Constructor
-        public BookService(IRepository<Book> bookRepository)
+        public BookServiceOld(IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
+            // Get relative path to save our xml file.
+            // Environment.CurrentDirectory - current working directory (i.e. \bin\Debug)
+            // This will get the current PROJECT directory
+            _relativePath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName; //AppDomain.CurrentDomain.BaseDirectory;
         }
 
         /// <summary>
@@ -77,6 +87,37 @@ namespace BooksApp.Services
             _bookRepository.Update(book);
         }
 
+        /// <summary>
+        /// Save all books to Xml file
+        /// </summary>
+        public void ToXML()
+        {
+            // Constuct Xml structure
+            var xEle = new XElement("Books",
+                        from book in _bookRepository.GetAll()
+                        select new XElement("Book",
+                            new XAttribute("Id", book.Id),
+                            new XElement("ISBN", book.ISBN),
+                            new XElement("Author", book.Author),
+                            new XElement("Name", book.Name),
+                            new XElement("Publisher", book.Publisher),
+                            new XElement("Year", book.Year),
+                            new XElement("Pages", book.NumberOfPages),
+                            new XElement("Price", book.Price)
+                            ));
+            // Save Xml document
+            xEle.Save(_relativePath + "\\AppData\\" + "Books.xml");
+        }
+
+        /// <summary>
+        /// Save all books to Json file
+        /// </summary>
+        public void ToJSON()
+        {
+            // !!!!!!!Encoding to UTF8 for cyrillic symbols!!!!!!!!
+            File.WriteAllText(_relativePath + "\\AppData\\" + "Books.json", JsonConvert.SerializeObject(_bookRepository.GetAll(), Formatting.Indented), Encoding.UTF8);
+        }
+
         public void SortByTag(IComparer<Book> tag)
         {
             _bookRepository.Sort(tag);
@@ -85,11 +126,6 @@ namespace BooksApp.Services
         public override string ToString()
         {
             return _bookRepository.ToString();
-        }
-
-        public void Print()
-        {
-            Console.WriteLine(_bookRepository.ToString());
         }
     }
 }

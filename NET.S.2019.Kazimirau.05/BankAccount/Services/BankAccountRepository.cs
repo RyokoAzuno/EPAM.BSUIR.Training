@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BankAccount.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using BankAccount.Interfaces;
 
 namespace BankAccount.Services
 {
@@ -9,12 +9,12 @@ namespace BankAccount.Services
     public class BankAccountRepository : IRepository<BankAccount>
     {
         private List<BankAccount> _bankAccounts;
-        private IStorage<BankAccount> _bankAccountsStorage;
+        private IStorage<BankAccount> _bankAccountStorage;
 
-        public BankAccountRepository(IStorage<BankAccount> bankAccountsStorage)
+        public BankAccountRepository(IStorage<BankAccount> bankAccountStorage)
         {
-            _bankAccountsStorage = bankAccountsStorage;
-            _bankAccounts = _bankAccountsStorage.Load().ToList();
+            _bankAccountStorage = bankAccountStorage;
+            _bankAccounts = _bankAccountStorage.Load().ToList();
         }
 
         public void Add(BankAccount bankAccount)
