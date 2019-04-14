@@ -36,5 +36,15 @@ namespace BankAccount.Services
             if (bankAccount != null)
                 _db.Remove(bankAccount);
         }
+
+        public override string ToString()
+        {
+            string result = string.Empty;
+            foreach (var bankAccount in _db)
+            {
+                result += $"***\n{bankAccount}\n";
+            }
+            return result;
+        }
     }
 }

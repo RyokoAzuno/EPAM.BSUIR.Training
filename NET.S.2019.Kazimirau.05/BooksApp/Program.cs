@@ -1,4 +1,5 @@
-﻿using BooksApp.Services;
+﻿using BooksApp.Interfaces;
+using BooksApp.Services;
 using System;
 using System.Linq;
 
@@ -9,7 +10,8 @@ namespace BooksApp
         static void Main(string[] args)
         {
             bool isRunning = true;
-            BookService bookService = new BookService(new BookRepository());
+            IRepository<Book> repository = new BookRepository();
+            BookService bookService = new BookService(repository);
 
             while (isRunning)
             {

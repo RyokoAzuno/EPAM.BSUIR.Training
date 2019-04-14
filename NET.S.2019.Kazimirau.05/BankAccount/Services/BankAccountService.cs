@@ -1,10 +1,11 @@
 ﻿using BankAccount.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BankAccount.Services
 {
-    public class BankAccountService
+    public class BankAccountService : IPrintable
     {
         private readonly IRepository<BankAccount> _bankAccountRepository;
 
@@ -31,6 +32,11 @@ namespace BankAccount.Services
         public void Close(int id)
         {
             _bankAccountRepository.Remove(id);
+        }
+
+        public void Print()
+        {
+            Console.WriteLine(_bankAccountRepository.ToString());
         }
     }
 }
