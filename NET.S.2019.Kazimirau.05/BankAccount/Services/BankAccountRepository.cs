@@ -5,23 +5,29 @@ using BankAccount.Interfaces;
 
 namespace BankAccount.Services
 {
+    // Simulate bank account repository
     public class BankAccountRepository : IRepository<BankAccount>
     {
-        private List<BankAccount> _db;
+        private List<BankAccount> _bankAccounts;
+        private IStorage<BankAccount> _bankAccountsStorage;
 
-        public BankAccountRepository() => _db = new List<BankAccount>();
+        public BankAccountRepository(IStorage<BankAccount> bankAccountsStorage)
+        {
+            _bankAccountsStorage = bankAccountsStorage;
+            _bankAccounts = _bankAccountsStorage.Load().ToList();
+        }
 
         public void Add(BankAccount bankAccount)
         {
             if (bankAccount != null)
-                _db.Add(bankAccount);
+                _bankAccounts.Add(bankAccount);
         }
 
-        public IEnumerable<BankAccount> GetAll() => _db;
+        public IEnumerable<BankAccount> GetAll() => _bankAccounts;
 
         public BankAccount GetById(int id)
         {
-            BankAccount bankAccount = _db.Where(a => a.Id.Equals(id)).FirstOrDefault();
+            BankAccount bankAccount = _bankAccounts.Where(a => a.Id.Equals(id)).FirstOrDefault();
 
             if (bankAccount != null)
                 return bankAccount;
@@ -31,16 +37,16 @@ namespace BankAccount.Services
 
         public void Remove(int id)
         {
-            BankAccount bankAccount = _db.Where(a => a.Id.Equals(id)).FirstOrDefault();
+            BankAccount bankAccount = _bankAccounts.Where(a => a.Id.Equals(id)).FirstOrDefault();
 
             if (bankAccount != null)
-                _db.Remove(bankAccount);
+                _bankAccounts.Remove(bankAccount);
         }
 
         public override string ToString()
         {
             string result = string.Empty;
-            foreach (var bankAccount in _db)
+            foreach (var bankAccount in _bankAccounts)
             {
                 result += $"***\n{bankAccount}\n";
             }

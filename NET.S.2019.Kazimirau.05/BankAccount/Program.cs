@@ -3,7 +3,7 @@ using BankAccount.Services;
 using System;
 using System.Collections.Generic;
 
-namespace BankAccount.Client
+namespace BankAccount
 {
     class Program
     {
@@ -15,7 +15,7 @@ namespace BankAccount.Client
             List<BankAccount> bankAccounts = new List<BankAccount>();
             bankAccounts.AddRange(new[] { acc1, acc2, acc3 });
 
-            IStorage<BankAccount> storage = new BinaryStorage(bankAccounts);
+            IStorage<BankAccount> storage = new XmlStorage(bankAccounts);
             storage.Save();
             IRepository<BankAccount> repository = new BankAccountRepository(storage);
             BankAccountService service = new BankAccountService(repository);

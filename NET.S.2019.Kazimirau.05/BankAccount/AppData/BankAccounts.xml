@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BankAccounts>
+  <BankAccount Id="46104728">
+    <Owner>Jane Doe</Owner>
+    <Balance>2000.50</Balance>
+    <Points>20</Points>
+    <Type>Gold</Type>
+    <Status>true</Status>
+  </BankAccount>
+  <BankAccount Id="12289376">
+    <Owner>John Doe</Owner>
+    <Balance>15000.50</Balance>
+    <Points>50</Points>
+    <Type>Platinum</Type>
+    <Status>true</Status>
+  </BankAccount>
+  <BankAccount Id="43495525">
+    <Owner>Steve McQueen</Owner>
+    <Balance>500.50</Balance>
+    <Points>10</Points>
+    <Type>Base</Type>
+    <Status>true</Status>
+  </BankAccount>
+</BankAccounts>

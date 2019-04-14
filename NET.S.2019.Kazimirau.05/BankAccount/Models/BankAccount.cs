@@ -23,17 +23,21 @@ namespace BankAccount
         // Bank account type
         public AccountType Type { get; set; }
         // Bank account status
-        private bool _isOpened;
+        public bool IsOpened { get; set; }
 
-        // Constructor
-        public BankAccount(string owner, decimal balance, int points, AccountType accType)
+        // Default constructor
+        public BankAccount()
+        {
+        }
+        // Constructor with arguments
+        public BankAccount(string owner, decimal balance, int points, AccountType accType, bool isOpened)
         {
             Id = base.GetHashCode();
             Owner = owner;
             Balance = balance;
             Points = points;
             Type = accType;
-            _isOpened = true;
+            IsOpened = isOpened;
         }
 
         /// <summary>
@@ -45,7 +49,7 @@ namespace BankAccount
             if (amount < 0)
                 throw new ArgumentException("Amount must be greater than zero!");
 
-            if (_isOpened)
+            if (IsOpened)
             {
                 Balance += amount;
                 switch (Type)
@@ -67,7 +71,7 @@ namespace BankAccount
             if (amount < 0)
                 throw new ArgumentException("Amount must be greater than zero!");
 
-            if (_isOpened)
+            if (IsOpened)
             {
                 if (Balance - amount >= 0)
                 {
@@ -88,7 +92,7 @@ namespace BankAccount
         /// </summary>
         public void Close()
         {
-            _isOpened = false;
+            IsOpened = false;
         }
 
         /// <summary>
@@ -97,7 +101,7 @@ namespace BankAccount
         /// <returns></returns>
         public override string ToString()
         {
-            return $"Id: {Id}\nOwner: {Owner}\nBalance: {Balance}\nPoints: {Points}\nType: {Type}";
+            return $"Id: {Id}\nOwner: {Owner}\nBalance: {Balance}\nPoints: {Points}\nType: {Type}\nStatus: {IsOpened}";
         }
     }
 }
