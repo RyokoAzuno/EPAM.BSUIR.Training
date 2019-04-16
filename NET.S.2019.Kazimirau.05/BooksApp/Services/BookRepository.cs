@@ -1,4 +1,5 @@
 ﻿using BooksApp.Interfaces;
+using BooksApp.Loggers;
 using BooksApp.Models;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace BooksApp.Services
                 {
                     foreach (var error in results)
                     {
-                        Console.WriteLine(error.ErrorMessage);
+                        MyLogger.GetLogger().Info(error.ErrorMessage);
                     }
                 }
                 else
@@ -47,6 +48,7 @@ namespace BooksApp.Services
                     }
                     else
                     {
+                        MyLogger.GetLogger().Info("Duplicated book!");
                         throw new ArgumentException("Duplicated book!");
                     }
                 }
@@ -73,6 +75,7 @@ namespace BooksApp.Services
 
             if (book == null)
             {
+                MyLogger.GetLogger().Info("There is no such book in the BookStorage!");
                 throw new NullReferenceException("There is no such book in the BookStorage!");
             }
 
@@ -92,7 +95,7 @@ namespace BooksApp.Services
                 {
                     foreach (var error in results)
                     {
-                        Console.WriteLine(error.ErrorMessage);
+                        MyLogger.GetLogger().Info(error.ErrorMessage);
                     }
                 }
                 else
@@ -128,6 +131,7 @@ namespace BooksApp.Services
             }
             else
             {
+                MyLogger.GetLogger().Info("There is no such book in the BookStorage!");
                 throw new ArgumentException("There is no such book in the BookStorage!");
             }
         }

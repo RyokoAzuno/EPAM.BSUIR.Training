@@ -1,4 +1,5 @@
 ﻿using BooksApp.Interfaces;
+using BooksApp.Loggers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,10 +38,14 @@ namespace BooksApp.Models
                         }
                     }
                 }
+
+                MyLogger.GetLogger().Info("Binary file was successfully loaded!");
+
                 return _storage;
             }
             else
             {
+                MyLogger.GetLogger().Info("Binary file Not Found!");
                 throw new FileNotFoundException();
             }
             
@@ -61,6 +66,7 @@ namespace BooksApp.Models
                     }
                 }
             }
+            MyLogger.GetLogger().Info("Binary file was successfully saved!");
         }
 
         // Write book as array of bytes to stream
@@ -79,6 +85,7 @@ namespace BooksApp.Models
             }
             else
             {
+                MyLogger.GetLogger().Info("Argument Null Exception!");
                 throw new ArgumentNullException();
             }
         }
@@ -110,6 +117,7 @@ namespace BooksApp.Models
             }
             else
             {
+                MyLogger.GetLogger().Info("Argument Null Exception!");
                 throw new ArgumentNullException();
             }
         }
