@@ -49,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparators\JaggedArrayComparer.cs" />
+    <Compile Include="JaggedArrayDelegateSorter.cs" />
     <Compile Include="JaggedArrayComparerSorter.cs" />
     <Compile Include="JaggedArrayEnumSorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\JaggedArrayDelegateSorterNUnitTests.cs" />
     <Compile Include="Tests\JaggedArrayComparerSorterNUnitTests.cs" />
     <Compile Include="Tests\JaggedArrayEnumSorterNUnitTests.cs" />
   </ItemGroup>

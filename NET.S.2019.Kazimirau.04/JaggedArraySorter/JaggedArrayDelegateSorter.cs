@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JaggedArraySorter.Comparators;
+using System;
 using System.Collections.Generic;
 
 namespace JaggedArraySorter
@@ -7,7 +8,7 @@ namespace JaggedArraySorter
     /// Simple class for sorting rows of a jagged array and elements of the array
     /// by given criteria
     /// </summary>
-    public class JaggedArrayComparerSorter
+    public class JaggedArrayDelegateSorter
     {
         /// <summary>
         /// Sort each row of the jagged array
@@ -39,7 +40,7 @@ namespace JaggedArraySorter
         /// </summary>
         /// <param name="arr"> Jagged array </param>
         /// <param name="comparison"> Criteria of swapping</param>
-        public static void SortRows(int[][] arr, IComparer<int[]> comparison)
+        public static void SortRows(int[][] arr, Func<int[], int[], int> comparison)
         {
             if (arr == null)
             {
@@ -50,7 +51,7 @@ namespace JaggedArraySorter
             {
                 for (int j = i + 1; j < arr.Length; j++)
                 {
-                    if (comparison.Compare(arr[i], arr[j]) > 0)
+                    if (comparison(arr[i], arr[j]) > 0)
                     {
                         SwapRows(ref arr[i], ref arr[j]);
                     }
