@@ -52,25 +52,25 @@ namespace GCD
         /// <param name="b"> Number b </param>
         /// <param name="time"> Performance measurement time </param>
         /// <returns> Greatest common divisor </returns>
-        public static int BinaryGcd(int a, int b, out double time)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            int result = BinaryGcd(a, b);
-            sw.Stop();
-            time = sw.Elapsed.TotalMilliseconds;
+        public static int BinaryGcd(int a, int b, out double time) => InvokeGcd(BinaryGcd, out time, a, b);
+        //{
+        //    Stopwatch sw = Stopwatch.StartNew();
+        //    int result = BinaryGcd(a, b);
+        //    sw.Stop();
+        //    time = sw.Elapsed.TotalMilliseconds;
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public static int BinaryGcd(out double time, params int[] numbers)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            int result = BinaryGcd(numbers);
-            sw.Stop();
-            time = sw.Elapsed.TotalMilliseconds;
+        public static int BinaryGcd(out double time, params int[] numbers) => InvokeGcd(BinaryGcd, out time, numbers);
+        //{
+        //    Stopwatch sw = Stopwatch.StartNew();
+        //    int result = BinaryGcd(numbers);
+        //    sw.Stop();
+        //    time = sw.Elapsed.TotalMilliseconds;
 
-            return result;
-        }
+        //    return result;
+        //}
 
         /// <summary>
         /// Binary GCD(Stein's algorithm) algorithm: An alternative method of computing the gcd of MANY!! numbers,
@@ -79,25 +79,8 @@ namespace GCD
         /// </summary>
         /// <param name="numbers"> Numbers for which we need to find GCD </param>
         /// <returns> Greatest common divisor </returns>
-        public static int BinaryGcd(params int[] numbers)
-        {
-            if (numbers.Length < 2)
-                throw new ArgumentException();
+        public static int BinaryGcd(params int[] numbers) => InvokeGcd(BinaryGcd, numbers);
 
-            var elts = Binary(numbers[0], numbers[1]);
-            int result = elts.Item1 * Convert.ToInt32(Math.Pow(2, elts.Item2));
-
-            if (numbers.Length > 2)
-            {
-                for (int i = 2; i < numbers.Length; i++)
-                {
-                    elts = Binary(result, numbers[i]);
-                    result = BinaryGcd(result, numbers[i]);
-                }
-            }          
-
-            return result;
-        }
         // Main BinaryGcd algorithm implementation
         private static (int, int) Binary(int a, int b)
         {
@@ -181,21 +164,7 @@ namespace GCD
         /// </summary>
         /// <param name="nums"> Numbers for which we need to find GCD </param>
         /// <returns> Greatest common divisor </returns>
-        public static int EuclideanGcd(params int[] numbers)
-        {
-            if (numbers.Length < 2)
-                throw new ArgumentException();
-
-            int result = EuclideanGcd(numbers[0], numbers[1]);
-
-            if (numbers.Length > 2)
-            {
-                for (int i = 2; i < numbers.Length; i++)
-                    result = EuclideanGcd(result, numbers[i]);
-            }
-
-            return result;
-        }
+        public static int EuclideanGcd(params int[] numbers) => InvokeGcd(EuclideanGcd, numbers);
 
         /// <summary>
         ///  Euclidean algorithm, is a method for computing the greatest common divisor (GCD) of two numbers.
@@ -205,25 +174,81 @@ namespace GCD
         /// <param name="b"> Number b</param>
         /// <param name="time"> Performance measurement time </param>
         /// <returns> Greatest common divisor </returns>
-        public static int EuclideanGcd(int a, int b, out double time)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            int result = EuclideanGcd(a, b);
-            sw.Stop();
-            time = sw.Elapsed.TotalMilliseconds;
+        public static int EuclideanGcd(int a, int b, out double time) => InvokeGcd(EuclideanGcd, out time, a, b);
+        //{
+        //    Stopwatch sw = Stopwatch.StartNew();
+        //    int result = EuclideanGcd(a, b);
+        //    sw.Stop();
+        //    time = sw.Elapsed.TotalMilliseconds;
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public static int EuclideanGcd(out double time, params int[] numbers)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            int result = EuclideanGcd(numbers);
-            sw.Stop();
-            time = sw.Elapsed.TotalMilliseconds;
+        public static int EuclideanGcd(out double time, params int[] numbers) => InvokeGcd(EuclideanGcd, out time, numbers);
+        //{
+        //    Stopwatch sw = Stopwatch.StartNew();
+        //    int result = EuclideanGcd(numbers);
+        //    sw.Stop();
+        //    time = sw.Elapsed.TotalMilliseconds;
 
-            return result;
-        }
+        //    return result;
+        //}
         #endregion
+
+        #region Gcd Invokers
+        private static int InvokeGcd(Func<int, int, int> gcd, params int[] args)
+        {
+            if (gcd == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (args.Length < 2)
+            {
+                throw new ArgumentException();
+            }
+
+            int result = gcd(args[0], args[1]);
+
+            if (args.Length > 2)
+            {
+                for (int i = 2; i < args.Length; i++)
+                {
+                    result = gcd(result, args[i]);
+                }
+            }
+
+            return result;
+        }
+
+        private static int InvokeGcd(Func<int, int, int> gcd, out double time, params int[] args)
+        {
+            if (gcd == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (args.Length < 2)
+            {
+                throw new ArgumentException();
+            }
+
+            Stopwatch sw = Stopwatch.StartNew();
+            int result = gcd(args[0], args[1]);
+
+            if (args.Length > 2)
+            {
+                for (int i = 2; i < args.Length; i++)
+                {
+                    result = gcd(result, args[i]);
+                }
+            }
+
+            sw.Stop();
+            time = sw.Elapsed.TotalMilliseconds;
+
+            return result;
+        }
+    #endregion
     }
 }
