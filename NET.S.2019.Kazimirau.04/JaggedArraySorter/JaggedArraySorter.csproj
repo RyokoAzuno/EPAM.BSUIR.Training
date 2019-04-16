@@ -48,9 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JaggedArraySorter.cs" />
+    <Compile Include="Comparators\JaggedArrayComparer.cs" />
+    <Compile Include="JaggedArrayComparerSorter.cs" />
+    <Compile Include="JaggedArrayEnumSorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\NUnitTest.cs" />
+    <Compile Include="Tests\JaggedArrayComparerSorterNUnitTests.cs" />
+    <Compile Include="Tests\JaggedArrayEnumSorterNUnitTests.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

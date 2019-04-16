@@ -1,25 +1,13 @@
-﻿using System;
+﻿using JaggedArraySorter.Comparators;
+using System;
 
 namespace JaggedArraySorter
 {
     /// <summary>
-    /// Enum for keeping comparisons
-    /// </summary>
-    public enum Comparisons
-    {
-        AscSum,
-        DescSum,
-        AscMax,
-        DescMax,
-        AscMin,
-        DescMin
-    }
-
-    /// <summary>
     /// Simple class for sorting rows of a jagged array and elements of the array
     /// by given criteria
     /// </summary>
-    public class JaggedArraySorter
+    public class JaggedArrayEnumSorter
     {
         /// <summary>
         /// Sort each row of the jagged array
@@ -28,7 +16,9 @@ namespace JaggedArraySorter
         public static void Sort(int[][] arr, Func<int, int, bool> comparison)
         {
             if (arr == null || comparison == null)
+            {
                 throw new ArgumentNullException();
+            }
 
             for (int i = 0; i < arr.Length; ++i)
             {
@@ -37,7 +27,9 @@ namespace JaggedArraySorter
                     for (int k = j + 1; k < arr[i].Length; k++)
                     {
                         if (comparison(arr[i][j], arr[i][k]))
+                        {
                             Swap(arr[i], j, k);
+                        }
                     }
                 }
             }
@@ -47,52 +39,71 @@ namespace JaggedArraySorter
         /// </summary>
         /// <param name="arr"> Jagged array </param>
         /// <param name="comparison"> Criteria of swapping</param>
-        public static void SortRows(int[][] arr, Comparisons comparison)
+        public static void SortRows(int[][] arr, SortBy comparison)
         {
             if (arr == null)
+            {
                 throw new ArgumentNullException();
+            }
 
             for (int i = 0; i < arr.Length; ++i)
             {
                 for (int j = i + 1; j < arr.Length; j++)
                 {
-                    switch(comparison)
+                    switch (comparison)
                     {
-                        case Comparisons.AscSum: {
-                            if (GetArraySum(arr[i]) > GetArraySum(arr[j]))
-                                SwapRows(ref arr[i], ref arr[j]);
-                            } break;
-                        case Comparisons.DescSum:
+                        case SortBy.AscSum:
+                            {
+                                if (GetArraySum(arr[i]) > GetArraySum(arr[j]))
+                                {
+                                    SwapRows(ref arr[i], ref arr[j]);
+                                }
+                                break;
+                            }
+                        case SortBy.DescSum:
                             {
                                 if (GetArraySum(arr[i]) < GetArraySum(arr[j]))
+                                {
                                     SwapRows(ref arr[i], ref arr[j]);
-                            } break;
-                        case Comparisons.AscMax:
+                                }
+                                break;
+                            }
+                        case SortBy.AscMax:
                             {
                                 if (GetArrayMaxElement(arr[i]) > GetArrayMaxElement(arr[j]))
+                                {
                                     SwapRows(ref arr[i], ref arr[j]);
+                                }
+                                break;
                             }
-                            break;
-                        case Comparisons.DescMax:
+                        case SortBy.DescMax:
                             {
                                 if (GetArrayMaxElement(arr[i]) < GetArrayMaxElement(arr[j]))
+                                {
                                     SwapRows(ref arr[i], ref arr[j]);
+                                }
+                                break;
                             }
-                            break;
-                        case Comparisons.AscMin:
+                        case SortBy.AscMin:
                             {
                                 if (GetArrayMinElement(arr[i]) > GetArrayMinElement(arr[j]))
+                                {
                                     SwapRows(ref arr[i], ref arr[j]);
+                                }
+                                break;
                             }
-                            break;
-                        case Comparisons.DescMin:
+                        case SortBy.DescMin:
                             {
                                 if (GetArrayMinElement(arr[i]) < GetArrayMinElement(arr[j]))
+                                {
                                     SwapRows(ref arr[i], ref arr[j]);
+                                }
                             }
                             break;
                         default:
-                            throw new ArgumentException();
+                            {
+                                throw new ArgumentException();
+                            }
                     }
                 }
             }
@@ -148,7 +159,9 @@ namespace JaggedArraySorter
             for (int i = 1; i < arr.Length; i++)
             {
                 if (max < arr[i])
+                {
                     max = arr[i];
+                }
             }
             return max;
         }
@@ -164,7 +177,9 @@ namespace JaggedArraySorter
             for (int i = 1; i < arr.Length; i++)
             {
                 if (min > arr[i])
+                {
                     min = arr[i];
+                }
             }
             return min;
         }
