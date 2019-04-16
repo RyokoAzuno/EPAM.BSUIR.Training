@@ -53,24 +53,8 @@ namespace GCD
         /// <param name="time"> Performance measurement time </param>
         /// <returns> Greatest common divisor </returns>
         public static int BinaryGcd(int a, int b, out double time) => InvokeGcd(BinaryGcd, out time, a, b);
-        //{
-        //    Stopwatch sw = Stopwatch.StartNew();
-        //    int result = BinaryGcd(a, b);
-        //    sw.Stop();
-        //    time = sw.Elapsed.TotalMilliseconds;
-
-        //    return result;
-        //}
 
         public static int BinaryGcd(out double time, params int[] numbers) => InvokeGcd(BinaryGcd, out time, numbers);
-        //{
-        //    Stopwatch sw = Stopwatch.StartNew();
-        //    int result = BinaryGcd(numbers);
-        //    sw.Stop();
-        //    time = sw.Elapsed.TotalMilliseconds;
-
-        //    return result;
-        //}
 
         /// <summary>
         /// Binary GCD(Stein's algorithm) algorithm: An alternative method of computing the gcd of MANY!! numbers,
@@ -175,24 +159,8 @@ namespace GCD
         /// <param name="time"> Performance measurement time </param>
         /// <returns> Greatest common divisor </returns>
         public static int EuclideanGcd(int a, int b, out double time) => InvokeGcd(EuclideanGcd, out time, a, b);
-        //{
-        //    Stopwatch sw = Stopwatch.StartNew();
-        //    int result = EuclideanGcd(a, b);
-        //    sw.Stop();
-        //    time = sw.Elapsed.TotalMilliseconds;
-
-        //    return result;
-        //}
 
         public static int EuclideanGcd(out double time, params int[] numbers) => InvokeGcd(EuclideanGcd, out time, numbers);
-        //{
-        //    Stopwatch sw = Stopwatch.StartNew();
-        //    int result = EuclideanGcd(numbers);
-        //    sw.Stop();
-        //    time = sw.Elapsed.TotalMilliseconds;
-
-        //    return result;
-        //}
         #endregion
 
         #region Gcd Invokers
