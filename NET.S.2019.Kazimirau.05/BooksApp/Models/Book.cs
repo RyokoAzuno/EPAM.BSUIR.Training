@@ -1,4 +1,5 @@
-﻿using BooksApp.Interfaces;
+﻿using BooksApp.Attributes;
+using BooksApp.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -22,6 +23,7 @@ namespace BooksApp.Models
         public int Year { get; set; }
         [Range(20, 2000, ErrorMessage = "Should be in the range from 20 to 2000 ")]
         public int NumberOfPages { get; set; }
+        [DecimalRange(10.25, 100.50)]
         public decimal Price { get; set; }
 
         // Implementation of IComparable<Book> interface
