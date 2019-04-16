@@ -54,13 +54,14 @@
     <Compile Include="Models\BinaryStorage.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookComparer.cs" />
+    <Compile Include="Models\BookFormatter.cs" />
     <Compile Include="Models\JsonStorage.cs" />
     <Compile Include="Models\XmlStorage.cs" />
     <Compile Include="Services\BookRepositoryOld.cs" />
     <Compile Include="Services\BookRepository.cs" />
     <Compile Include="Services\BookServiceOld.cs" />
     <Compile Include="Services\BookService.cs" />
-    <Compile Include="Models\BookStorage.cs" />
+    <Compile Include="Models\BookStorageOld.cs" />
     <Compile Include="Interfaces\IPrintable.cs" />
     <Compile Include="Interfaces\ISerializable.cs" />
     <Compile Include="Program.cs" />

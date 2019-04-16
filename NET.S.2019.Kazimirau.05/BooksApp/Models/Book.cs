@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BooksApp.Models
 {
+    // Class that define Book abstraction 
     public class Book : IEntity, IEquatable<Book>, IComparable<Book>, IFormattable
     {
         public int Id { get; set; }
@@ -124,7 +125,7 @@ namespace BooksApp.Models
             }
         }
 
-        // Build a string which depends of the current format and current culture(for Price field as $)
+        // Build a string which depends on the current format and current format provider
         private string BuildFormatString(string format, IFormatProvider formatProvider)
         {
             StringBuilder sb = new StringBuilder();
