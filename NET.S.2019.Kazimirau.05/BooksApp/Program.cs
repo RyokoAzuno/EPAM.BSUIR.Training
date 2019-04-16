@@ -53,7 +53,7 @@ namespace BooksApp
                                 try
                                 {
                                     int id = int.Parse(Console.ReadLine());
-                                    Console.WriteLine(bookService.Get(id));
+                                    Console.WriteLine(bookService.Get(id).ToString("G"));
                                 }
                                 catch (Exception ex)
                                 {

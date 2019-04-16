@@ -1,33 +1,35 @@
 ﻿using BooksApp.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Text;
 
 namespace BooksApp.Models
 {
-    public class Book : IEntity, IEquatable<Book>, IComparable<Book>
+    public class Book : IEntity, IEquatable<Book>, IComparable<Book>, IFormattable
     {
         public int Id { get; set; }
         [RegularExpression(@"^\d{1}-\d{2}-\d{6}-\d{1}$", ErrorMessage = "Must be: x-xx-xxxxxx-x")]
         public string ISBN { get; set; }
         [StringLength(maximumLength: 30, MinimumLength = 5, ErrorMessage = "Author name should be between 5 to 30 characters")]
         public string Author { get; set; }
-        [StringLength(maximumLength: 40, MinimumLength = 5, ErrorMessage = "Book name should be between 5 to 20 characters")]
+        [StringLength(maximumLength: 40, MinimumLength = 5, ErrorMessage = "Book name should be between 5 to 40 characters")]
         public string Name { get; set; }
         [StringLength(maximumLength: 40, MinimumLength = 5, ErrorMessage = "Publisher name should be between 5 to 40 characters")]
         public string Publisher { get; set; }
-        [Range(1900, 2050, ErrorMessage = "Should be in a range from 1900 to 2050")]
+        [Range(1900, 2050, ErrorMessage = "Should be in the range from 1900 to 2050")]
         public int Year { get; set; }
-        [Range(20, 2000, ErrorMessage = "Should be in a range from 20 to 2000 ")]
+        [Range(20, 2000, ErrorMessage = "Should be in the range from 20 to 2000 ")]
         public int NumberOfPages { get; set; }
-        public decimal Price{ get; set; }
+        public decimal Price { get; set; }
 
         // Implementation of IComparable<Book> interface
         public int CompareTo(Book book)
         {
-            if (Year.Equals(book.Year))
-                return Name.CompareTo(book.Name);
+            if (this.Year.Equals(book.Year))
+                return this.Name.CompareTo(book.Name);
 
-            return Year.CompareTo(book.Year);
+            return this.Year.CompareTo(book.Year);
         }
         // Implementation of IEquatable<Book> interface
         public bool Equals(Book book)
@@ -36,59 +38,128 @@ namespace BooksApp.Models
                 return false;
             if (ReferenceEquals(this, null))
                 return false;
-            if (GetType() != book.GetType())
+            if (this.GetType() != book.GetType())
                 return false;
 
-            if (!ISBN.Equals(book.ISBN))
+            if (!this.ISBN.Equals(book.ISBN))
                 return false;
 
-            if (!Author.Equals(book.Author))
+            if (!this.Author.Equals(book.Author))
                 return false;
 
-            if (!Name.Equals(book.Name))
+            if (!this.Name.Equals(book.Name))
                 return false;
 
-            if (!Publisher.Equals(book.Publisher))
+            if (!this.Publisher.Equals(book.Publisher))
                 return false;
 
-            if (!Year.Equals(book.Year))
+            if (!this.Year.Equals(book.Year))
                 return false;
 
-            if (!NumberOfPages.Equals(book.NumberOfPages))
+            if (!this.NumberOfPages.Equals(book.NumberOfPages))
                 return false;
 
-            if (!Price.Equals(book.Price))
+            if (!this.Price.Equals(book.Price))
                 return false;
 
             return true;
         }
 
+        // Overriding Equals method from the base class Object
         public override bool Equals(object obj)
         {
             return Equals(obj as Book);
         }
 
-        public override string ToString()
-        {
-            return $"ISBN: {ISBN}\nAuthor:  {Author}\nName: {Name}\nPublisher:  {Publisher}\nYear:  {Year}\nPages:  {NumberOfPages}\nPrice:  {Price}\n*************\n";
-        }
-
+        // Overriding GetHashCode method from the base class Object
         public override int GetHashCode()
         {
             unchecked
             {
                 int hash = 17;
-                hash = hash * 23 + Id.GetHashCode();
-                hash = hash * 23 + ISBN.GetHashCode();
-                hash = hash * 23 + Author.GetHashCode();
-                hash = hash * 23 + Name.GetHashCode();
-                hash = hash * 23 + Publisher.GetHashCode();
-                hash = hash * 23 + Year.GetHashCode();
-                hash = hash * 23 + NumberOfPages.GetHashCode();
-                hash = hash * 23 + Price.GetHashCode();
+                hash = hash * 23 + this.Id.GetHashCode();
+                hash = hash * 23 + this.ISBN.GetHashCode();
+                hash = hash * 23 + this.Author.GetHashCode();
+                hash = hash * 23 + this.Name.GetHashCode();
+                hash = hash * 23 + this.Publisher.GetHashCode();
+                hash = hash * 23 + this.Year.GetHashCode();
+                hash = hash * 23 + this.NumberOfPages.GetHashCode();
+                hash = hash * 23 + this.Price.GetHashCode();
 
                 return hash;
             }
+        }
+
+        // Overriding ToString() from Object class
+        public override string ToString()
+        {
+            return this.ToString("G", CultureInfo.GetCultureInfo("en-us"));
+        }
+
+        public string ToString(string format)
+        {
+            return this.ToString(format, CultureInfo.GetCultureInfo("en-us"));
+        }
+
+        // Implementing ToString method from IFormattable interface
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (string.IsNullOrEmpty(format)) format = "G";
+
+            if (formatProvider == null)
+            {
+                formatProvider = CultureInfo.GetCultureInfo("en-us");
+            }
+
+            switch (format.ToUpperInvariant())
+            {
+                case "G":
+                    return BuildFormatString(format, formatProvider);
+                case "AT":
+                    return BuildFormatString(format, formatProvider);
+                case "ATPY":
+                    return BuildFormatString(format, formatProvider);
+                default:
+                    throw new FormatException(string.Format($"The {format} format string is not supported."));
+            }
+        }
+
+        // Build a string which depends of the current format and current culture(for Price field as $)
+        private string BuildFormatString(string format, IFormatProvider formatProvider)
+        {
+            StringBuilder sb = new StringBuilder();
+            switch (format)
+            {
+                case "AT":
+                    {
+                        sb.AppendFormat($"Author:  {Author}\n");
+                        sb.AppendFormat($"Name: {Name}\n");
+                        break;
+                    }
+                case "ATPY":
+                    {
+                        sb.AppendFormat($"Author:  {Author}\n");
+                        sb.AppendFormat($"Name: {Name}\n");
+                        sb.AppendFormat($"Publisher:  {Publisher}\n");
+                        sb.AppendFormat($"Year:  {Year}\n");
+                        break;
+                    }
+                default:
+                    {
+                        sb.AppendFormat($"Id: {Id}\n");
+                        sb.AppendFormat($"ISBN: {ISBN}\n");
+                        sb.AppendFormat($"Author:  {Author}\n");
+                        sb.AppendFormat($"Name: {Name}\n");
+                        sb.AppendFormat($"Publisher:  {Publisher}\n");
+                        sb.AppendFormat($"Year:  {Year}\n");
+                        sb.AppendFormat($"Pages:  {NumberOfPages}\n");
+                        sb.AppendFormat($"Price:  {Price.ToString("C", formatProvider)}\n");
+                        sb.Append("*************\n");
+                        break;
+                    }
+            }
+
+            return sb.ToString();
         }
     }
 }

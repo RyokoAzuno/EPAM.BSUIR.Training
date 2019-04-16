@@ -82,11 +82,6 @@ namespace BooksApp.Services
             _bookRepository.Sort(tag);
         }
 
-        public override string ToString()
-        {
-            return _bookRepository.ToString();
-        }
-
         public void Print()
         {
             Console.WriteLine(_bookRepository.ToString());

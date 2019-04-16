@@ -150,12 +150,13 @@ namespace BooksApp.Services
             return null;
         }
 
+        // Overriding ToString() method
         public override string ToString()
         {
             string result = string.Empty;
             foreach (var book in _books)
             {
-                result += $"***\n{book}\n";
+                result += $"***\n{book.ToString()}\n";
             }
             return result;
         }
