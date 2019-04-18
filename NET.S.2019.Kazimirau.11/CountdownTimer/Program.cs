@@ -6,7 +6,7 @@ namespace CountdownTimer
     {
         static void Main(string[] args)
         {
-            Timer timer = new Timer();
+            CountdownTimer timer = new CountdownTimer();
             Listener listener1 = new Listener(timer);
             Listener listener2 = new Listener(timer);
 
