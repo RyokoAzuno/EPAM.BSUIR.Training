@@ -11,7 +11,7 @@ namespace CountdownTimer
 
         private void Listen(object sender, TimerEventArgs e)
         {
-            Console.WriteLine($"{e.Time} -- {e.Milliseconds / 1000} sec.");
+            Console.WriteLine($"{e.Message} at {e.Time}");
         }
     }
 }

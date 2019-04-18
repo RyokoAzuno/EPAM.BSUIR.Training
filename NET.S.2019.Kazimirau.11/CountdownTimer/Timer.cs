@@ -23,13 +23,16 @@ namespace CountdownTimer
 
             while (_milliseconds >= 0)
             {
+                Console.Clear();
+                Console.WriteLine($"{_milliseconds / 1000} sec");
                 Thread.Sleep(1000);
-                e.Time = DateTime.Now;
-                e.Milliseconds = _milliseconds;
-                OnTimer(e);
                 _milliseconds -= 1000;
             }
-            Console.WriteLine("Timer was stopped!!");
+
+            e.Time = DateTime.Now;
+            e.Milliseconds = _milliseconds;
+            e.Message = "Timer was stopped!!";
+            OnTimer(e);
         }
     }
 }
