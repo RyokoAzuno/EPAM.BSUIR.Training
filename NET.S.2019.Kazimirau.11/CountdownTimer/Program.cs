@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace CountdownTimer
 {
@@ -6,11 +7,11 @@ namespace CountdownTimer
     {
         static void Main(string[] args)
         {
-            CountdownTimer timer = new CountdownTimer();
+            CountdownTimer timer = new CountdownTimer(5000);
             Listener listener1 = new Listener(timer);
             Listener listener2 = new Listener(timer);
 
-            timer.SimulateCountdown();
+            Task.Factory.StartNew(timer.SimulateCountdown);
 
             Console.ReadLine();
         }
