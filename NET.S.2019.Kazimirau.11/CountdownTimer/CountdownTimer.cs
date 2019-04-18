@@ -3,12 +3,12 @@ using System.Threading;
 
 namespace CountdownTimer
 {
-    public class CountdowTimer
+    public class CountdownTimer
     {
         public event EventHandler<TimerEventArgs> TimerEvent;
         private int _milliseconds;
 
-        public CountdowTimer(int milliseconds = 10000)
+        public CountdownTimer(int milliseconds = 10000)
         {
             _milliseconds = milliseconds;
         }

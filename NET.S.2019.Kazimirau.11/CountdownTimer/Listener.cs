@@ -4,7 +4,7 @@ namespace CountdownTimer
 {
     public class Listener
     {
-        public Listener(Timer timer)
+        public Listener(CountdownTimer timer)
         {
             timer.TimerEvent += Listen;
         }
