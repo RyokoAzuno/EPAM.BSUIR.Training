@@ -12,6 +12,7 @@ namespace CountdownTimer
         {
             _milliseconds = milliseconds;
         }
+
         protected virtual void OnTimer(TimerEventArgs e)
         {
             Volatile.Read(ref TimerEvent)?.Invoke(this, e);
