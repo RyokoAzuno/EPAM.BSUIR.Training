@@ -8,13 +8,13 @@ namespace MyQueue
     public class Queue<T>
     {
         // Generic array for storing data
-        private T[] items;
+        private T[] _items;
 
         // Head index
-        private int head;
+        private int _head;
 
         // Tail index
-        private int tail;
+        private int _tail;
 
         // Default constructor
         public Queue() : this(5)
@@ -29,22 +29,31 @@ namespace MyQueue
                 throw new ArgumentException("Size must be > 0(zero)!");
             }
 
-            items = new T[size];
-            head = tail = 0;
+            _items = new T[size];
+            _head = _tail = 0;
+        }
+
+        // Private indexer for Enumerator class
+        private T this[int index]
+        {
+            get
+            {
+                return _items[index];
+            }
         }
 
         // Add element into queue and resize dynamically when it's necessary
         public void Enqueue(T value)
         {
-            if (tail >= items.Length)
+            if (_tail >= _items.Length)
             {
-                T[] newItems = new T[items.Length * 2];
-                items.CopyTo(newItems, 0);
-                items = newItems;
+                T[] newItems = new T[_items.Length * 2];
+                _items.CopyTo(newItems, 0);
+                _items = newItems;
             }
 
-            items[tail] = value;
-            ++tail;
+            _items[_tail] = value;
+            ++_tail;
         }
 
         // Remove element from queue
@@ -52,9 +61,10 @@ namespace MyQueue
         {
             if (!IsEmpty())
             {
-                T curr = items[head];
-                items[head] = default(T);
-                ++head;
+                T curr = _items[_head];
+                _items[_head] = default(T);
+                ++_head;
+
                 return curr;
             }
 
@@ -64,28 +74,70 @@ namespace MyQueue
         // Get first(head) element in da queue without removing it
         public T Peek()
         {
-            return items[head];
+            return _items[_head];
         }
 
         // Get last(tail) element in da queue without removing it
         public T Last()
         {
-            return items[tail - 1];
+            return _items[_tail - 1];
         }
 
         // Check if current queue is empty
         public bool IsEmpty()
         {
-            return head == tail;
+            return _head == _tail;
         }
 
         // Convert current queue to array
         public T[] ToArray()
         {
-            T[] arr = new T[tail];
-            Array.Copy(items, 0, arr, 0, tail);
+            T[] arr = new T[_tail];
+            Array.Copy(_items, 0, arr, 0, _tail);
 
             return arr;
+        }
+
+        // Get Enumerator
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        // Class represents custom enumerator
+        public class Enumerator
+        {
+            private readonly Queue<T> _collection;
+            private int _index;
+
+            public Enumerator(Queue<T> collection)
+            {
+                _collection = collection;
+                _index = -1;
+            }
+
+            public T Current
+            {
+                get
+                {
+                    if (_index == -1 || _index == _collection._tail)
+                    {
+                        throw new InvalidOperationException();
+                    }
+
+                    return _collection[_index];
+                }
+            }
+
+            public bool MoveNext()
+            {
+                return ++_index < _collection._tail;
+            }
+
+            public void Reset()
+            {
+                _index = -1;
+            }
         }
     }
 }
