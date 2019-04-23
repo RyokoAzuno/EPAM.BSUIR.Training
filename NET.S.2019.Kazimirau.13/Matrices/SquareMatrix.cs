@@ -1,16 +1,62 @@
-﻿namespace Matrices
+﻿using System;
+
+namespace Matrices
 {
     public class SquareMatrix<T> where T: struct
     {
-        private T[,] _matrix;
+        protected T[,] _matrix;
 
         public SquareMatrix(int order)
         {
             _matrix = new T[order, order];
         }
 
-        public SquareMatrix(int order, T[,] arr)
+        public SquareMatrix(T[] arr)
         {
+            int order = GetOrder(arr.Length);
+
+            int GetOrder(int n)
+            {
+                if (n == 0 || n == 1)
+                {
+                    return -1;
+                }
+                else
+                {
+                    int root = 2;
+                    while(root < n / 2)
+                    {
+                        if(root * root == n)
+                        {
+                            return root;
+                        }
+
+                        ++root;
+                    }
+                }
+
+                return -1;
+            }
+
+            if(order != -1)
+            {
+                _matrix = new T[order, order];
+                int idx = 0;
+                for (int outer = _matrix.GetLowerBound(0); outer <= _matrix.GetUpperBound(0); outer++)
+                {
+                    for (int inner = _matrix.GetLowerBound(1); inner <= _matrix.GetUpperBound(1); inner++)
+                    {
+                        _matrix[outer, inner] = arr[idx++];
+                    }
+                }
+            }
+            
+        }
+
+        public SquareMatrix(T[,] arr)
+        {
+            int order = arr.GetUpperBound(0) + 1;
+
             _matrix = new T[order, order];
 
             for (int outer = arr.GetLowerBound(0); outer <= arr.GetUpperBound(0); outer++)
@@ -66,6 +112,11 @@
             }
 
             return arr;
+        }
+
+        public static SquareMatrix<T> operator +(SquareMatrix<T> m1, SquareMatrix<T> m2)
+        {
+            return m1.Add(m2);
         }
     }
 }
