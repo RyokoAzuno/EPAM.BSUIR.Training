@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyQueue", "MyQueue\MyQueue.csproj", "{D6348090-200E-4775-8268-77DAF73FA09D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrices", "Matrices\Matrices.csproj", "{6687B5B4-689C-44CB-8BF7-BA4B72B3AA05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D6348090-200E-4775-8268-77DAF73FA09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6348090-200E-4775-8268-77DAF73FA09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6348090-200E-4775-8268-77DAF73FA09D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6687B5B4-689C-44CB-8BF7-BA4B72B3AA05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6687B5B4-689C-44CB-8BF7-BA4B72B3AA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6687B5B4-689C-44CB-8BF7-BA4B72B3AA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6687B5B4-689C-44CB-8BF7-BA4B72B3AA05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
