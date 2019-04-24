@@ -3,8 +3,13 @@ using System.Collections.Generic;
 
 namespace Matrices
 {
+    // Class represents diagonal matrix
     public class DiagonalMatrix<T> : SquareMatrix<T> where T : struct
     {
+        public DiagonalMatrix(int order) : base(order)
+        {
+        }
+
         public DiagonalMatrix(T[] arr) : base(arr)
         {
             if(!IsDiagonal())

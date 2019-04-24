@@ -2,17 +2,28 @@
 
 namespace Matrices
 {
-    public class SquareMatrix<T> where T: struct
+    // Class represents square matrix
+    public class SquareMatrix<T> where T : struct
     {
         protected T[,] _matrix;
 
         public SquareMatrix(int order)
         {
+            if(order <= 0)
+            {
+                throw new ArgumentException();
+            }
+
             _matrix = new T[order, order];
         }
 
         public SquareMatrix(T[] arr)
         {
+            if (arr == null || arr.Length == 0)
+            {
+                throw new ArgumentException("Array Can't be null or empty");
+            }
+
             int order = GetOrder(arr.Length);
 
             int GetOrder(int n)
@@ -55,6 +66,11 @@ namespace Matrices
 
         public SquareMatrix(T[,] arr)
         {
+            if (arr == null)
+            {
+                throw new ArgumentException("Array Can't be null");
+            }
+
             int order = arr.GetUpperBound(0) + 1;
 
             _matrix = new T[order, order];
@@ -80,8 +96,14 @@ namespace Matrices
             }
         }
 
-        public SquareMatrix<T> Add(SquareMatrix<T> m)
+        // Add two matrices
+        private SquareMatrix<T> Add(SquareMatrix<T> m)
         {
+            if(m == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             int order = _matrix.GetUpperBound(0) + 1;
             SquareMatrix<T> result = new SquareMatrix<T>(order);
 
@@ -97,7 +119,8 @@ namespace Matrices
 
             return result;
         }
-
+        
+        // Convert matrix into two dimentional array
         public T[,] ToArray()
         {
             int order = _matrix.GetUpperBound(0) + 1;
