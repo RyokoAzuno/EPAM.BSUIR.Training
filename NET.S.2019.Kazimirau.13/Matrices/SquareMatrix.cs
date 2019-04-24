@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Matrices
 {
@@ -6,6 +7,8 @@ namespace Matrices
     public class SquareMatrix<T> where T : struct
     {
         protected T[,] _matrix;
+
+        public event EventHandler<MatrixEventArgs> ChangeIndex;
 
         public SquareMatrix(int order)
         {
@@ -93,31 +96,8 @@ namespace Matrices
             set
             {
                 _matrix[i, j] = value;
+                OnIndexChange(new MatrixEventArgs(i, j));
             }
-        }
-
-        // Add two matrices
-        private SquareMatrix<T> Add(SquareMatrix<T> m)
-        {
-            if(m == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            int order = _matrix.GetUpperBound(0) + 1;
-            SquareMatrix<T> result = new SquareMatrix<T>(order);
-
-            for (int outer = _matrix.GetLowerBound(0); outer <= _matrix.GetUpperBound(0); outer++)
-            {
-                for (int inner = _matrix.GetLowerBound(1); inner <= _matrix.GetUpperBound(1); inner++)
-                {
-                    dynamic d1 = _matrix[outer, inner];
-                    dynamic d2 = m[outer, inner];
-                    result[outer, inner] = d1 + d2;
-                }
-            }
-
-            return result;
         }
         
         // Convert matrix into two dimentional array
@@ -140,6 +120,35 @@ namespace Matrices
         public static SquareMatrix<T> operator +(SquareMatrix<T> m1, SquareMatrix<T> m2)
         {
             return m1.Add(m2);
+        }
+
+        protected virtual void OnIndexChange(MatrixEventArgs e)
+        {
+            Volatile.Read(ref ChangeIndex)?.Invoke(this, e);
+        }
+
+        // Add two matrices
+        private SquareMatrix<T> Add(SquareMatrix<T> m)
+        {
+            if (m == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            int order = _matrix.GetUpperBound(0) + 1;
+            SquareMatrix<T> result = new SquareMatrix<T>(order);
+
+            for (int outer = _matrix.GetLowerBound(0); outer <= _matrix.GetUpperBound(0); outer++)
+            {
+                for (int inner = _matrix.GetLowerBound(1); inner <= _matrix.GetUpperBound(1); inner++)
+                {
+                    dynamic d1 = _matrix[outer, inner];
+                    dynamic d2 = m[outer, inner];
+                    result[outer, inner] = d1 + d2;
+                }
+            }
+
+            return result;
         }
     }
 }
