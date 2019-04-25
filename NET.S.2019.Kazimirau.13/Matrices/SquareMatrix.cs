@@ -20,6 +20,10 @@ namespace Matrices
             _matrix = new T[order, order];
         }
 
+        /// <summary>
+        /// Constructor builds the square matrix from one dim. array if it's possible 
+        /// </summary>
+        /// <param name="arr"> One dimentional array </param>
         public SquareMatrix(T[] arr)
         {
             if (arr == null || arr.Length == 0)
@@ -29,6 +33,7 @@ namespace Matrices
 
             int order = GetOrder(arr.Length);
 
+            // Get order(if possible) of the number
             int GetOrder(int n)
             {
                 if (n == 0 || n == 1)
@@ -67,6 +72,10 @@ namespace Matrices
             
         }
 
+        /// <summary>
+        /// Constructor builds the square matrix from two dim. array
+        /// </summary>
+        /// <param name="arr"></param>
         public SquareMatrix(T[,] arr)
         {
             if (arr == null)
@@ -87,6 +96,7 @@ namespace Matrices
             }
         }
 
+        // Indexer
         public T this[int i, int j]
         {
             get

@@ -20,9 +20,16 @@ namespace BinarySearchTree
 
             bst.Print();
 
+            Console.WriteLine("____Remove______");
             bst.Remove(2);
-            Console.WriteLine("____________________");
+            bst.Remove(5);
             bst.Print();
+            Console.WriteLine("___InOrder Traversal___");
+            bst.InOrderTraversal(Console.WriteLine);
+            Console.WriteLine("___PreOrder Traversal___");
+            bst.PreOrderTraversal(Console.WriteLine);
+            Console.WriteLine("___PostOrder Traversal___");
+            bst.PostOrderTraversal(Console.WriteLine);
         }
     }
 }
