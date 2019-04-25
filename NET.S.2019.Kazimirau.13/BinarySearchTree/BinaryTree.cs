@@ -30,6 +30,16 @@ namespace BinarySearchTree
             _root = null;
         }
 
+        public BinaryTree(IEnumerable<TKey> items)
+        {
+            _root = null;
+
+            foreach (var item in items)
+            {
+                Insert(item);
+            }
+        }
+
         public bool IsExist(TKey key)
         {
             return IsExist(_root, key);
