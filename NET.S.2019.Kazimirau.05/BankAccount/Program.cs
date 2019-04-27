@@ -13,8 +13,9 @@ namespace BankAccount
             BankAccount acc1 = new BankAccount("Jane Doe", 2000.50m, 20, AccountType.Gold, true);
             BankAccount acc2 = new BankAccount("John Doe", 15000.50m, 50, AccountType.Platinum, true);
             BankAccount acc3 = new BankAccount("Steve McQueen", 500.50m, 10, AccountType.Base, true);
+            BankAccount acc4 = new BankAccount("Alice Cooper", 500.50m, 10, AccountType.Base, false);
             List<BankAccount> bankAccounts = new List<BankAccount>();
-            bankAccounts.AddRange(new[] { acc1, acc2, acc3 });
+            bankAccounts.AddRange(new[] { acc1, acc2, acc3, acc4 });
 
             IStorage<BankAccount> storage = new JsonStorage(bankAccounts);
             storage.Save();

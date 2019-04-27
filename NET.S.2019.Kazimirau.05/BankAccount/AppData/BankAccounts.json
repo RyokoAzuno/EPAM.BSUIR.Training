@@ -22,5 +22,13 @@
     "Points": 10,
     "Type": 5,
     "IsOpened": true
+  },
+  {
+    "Id": 55915408,
+    "Owner": "Alice Cooper",
+    "Balance": 500.50,
+    "Points": 10,
+    "Type": 5,
+    "IsOpened": false
   }
 ]

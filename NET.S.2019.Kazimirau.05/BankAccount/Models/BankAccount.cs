@@ -69,19 +69,19 @@ namespace BankAccount
                 {
                     case AccountType.Base:
                         {
-                            Points += 5;
+                            Points += (int)Type;
                             break;
                         }
 
                     case AccountType.Gold:
                         {
-                            Points += 10;
+                            Points += (int)Type;
                             break;
                         }
 
                     case AccountType.Platinum:
                         {
-                            Points += 15;
+                            Points += (int)Type;
                             break;
                         }
 
@@ -111,19 +111,19 @@ namespace BankAccount
                     {
                         case AccountType.Base:
                             {
-                                Points -= 2;
+                                Points -= (int)Type / 2;
                                 break;
                             }
 
                         case AccountType.Gold:
                             {
-                                Points -= 4;
+                                Points -= (int)Type / 2;
                                 break;
                             }
 
                         case AccountType.Platinum:
                             {
-                                Points -= 5;
+                                Points -= (int)Type / 3;
                                 break;
                             }
 
