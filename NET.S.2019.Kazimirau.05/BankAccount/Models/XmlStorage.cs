@@ -1,18 +1,18 @@
-﻿using BankAccount.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using BankAccount.Interfaces;
 
 namespace BankAccount.Models
 {
     // Class emulates XML storage
     public sealed class XmlStorage : IStorage<BankAccount>
     {
-        private List<BankAccount> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.xml";
+        private List<BankAccount> _storage;
 
         public XmlStorage(List<BankAccount> storage)
         {
@@ -51,16 +51,15 @@ namespace BankAccount.Models
                             Type = (AccountType)Enum.Parse(typeof(AccountType), typeElement.Value),
                             IsOpened = bool.Parse(statusElement.Value)
                         });
-
                     }
                 }
+
                 return _storage;
             }
             else
             {
                 throw new FileNotFoundException();
             }
-
         }
 
         /// <summary>
@@ -69,14 +68,17 @@ namespace BankAccount.Models
         public void Save()
         {
             // Constuct Xml structure
-            var xEle = new XElement("BankAccounts",
-                _storage.Select(elt => new XElement("BankAccount",
+            var xEle = new XElement(
+                                    "BankAccounts",
+                                    _storage.Select(elt => new XElement(
+                                                    "BankAccount",
                                                     new XAttribute("Id", elt.Id),
                                                     new XElement("Owner", elt.Owner),
                                                     new XElement("Balance", elt.Balance),
                                                     new XElement("Points", elt.Points),
                                                     new XElement("Type", elt.Type),
                                                     new XElement("Status", elt.IsOpened))));
+            
             // Save Xml document
             xEle.Save(_fullPath);
         }

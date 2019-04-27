@@ -1,17 +1,17 @@
-﻿using BankAccount.Interfaces;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using BankAccount.Interfaces;
+using Newtonsoft.Json;
 
 namespace BankAccount.Models
 {
     // Class emulates JSON storage
     public sealed class JsonStorage : IStorage<BankAccount>
     {
-        private List<BankAccount> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.json";
+        private List<BankAccount> _storage;
 
         public JsonStorage(List<BankAccount> storage)
         {
@@ -35,7 +35,6 @@ namespace BankAccount.Models
             {
                 throw new FileNotFoundException();
             }
-
         }
 
         /// <summary>

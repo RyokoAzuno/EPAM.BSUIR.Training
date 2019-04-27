@@ -1,15 +1,16 @@
-﻿using BankAccount.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using BankAccount.Interfaces;
 
 namespace BankAccount.Models
 {
     // Class emulates binary storage
     public sealed class BinaryStorage : IStorage<BankAccount>
     {
-        private List<BankAccount> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccountsDB";
+        private List<BankAccount> _storage;
+
         // Constructor
         public BinaryStorage(List<BankAccount> storage)
         {
@@ -30,20 +31,20 @@ namespace BankAccount.Models
                     using (BinaryReader binaryReader = new BinaryReader(stream))
                     {
                         binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
-                        // Read each value while not EOF
+
                         while (binaryReader.PeekChar() != -1) // for FileStream binaryReader.PeekChar() != -1 for MemoryStream  binaryReader.PeekChar() != 0
                         {
                             _storage.Add(ReadFromStream(binaryReader));
                         }
                     }
                 }
+
                 return _storage;
             }
             else
             {
                 throw new FileNotFoundException();
             }
-            
         }
 
         /// <summary>

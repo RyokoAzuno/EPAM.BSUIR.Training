@@ -1,10 +1,11 @@
-﻿using BankAccount.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BankAccount.Interfaces;
 
 namespace BankAccount.Services
 {
+    // Class represents a simple bank account service
     public class BankAccountService : IPrintable
     {
         private readonly IRepository<BankAccount> _bankAccountRepository;
