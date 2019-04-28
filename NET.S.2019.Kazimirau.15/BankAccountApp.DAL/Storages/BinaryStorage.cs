@@ -12,6 +12,11 @@ namespace BankAccountApp.DAL.Storages
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccountsDB";
         private List<BankAccount> _storage;
 
+        public BinaryStorage()
+        {
+            _storage = new List<BankAccount>();
+        }
+
         // Constructor
         public BinaryStorage(List<BankAccount> storage)
         {
