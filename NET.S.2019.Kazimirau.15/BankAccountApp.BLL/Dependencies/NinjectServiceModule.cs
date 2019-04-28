@@ -5,6 +5,7 @@ using BankAccountApp.DAL.Interfaces;
 using BankAccountApp.DAL.Repositories;
 using BankAccountApp.DAL.Storages;
 using Ninject.Modules;
+using System.Collections.Generic;
 
 namespace BankAccountApp.BLL.Dependencies
 {
@@ -54,8 +55,11 @@ namespace BankAccountApp.BLL.Dependencies
             //};
             //List<BankAccount> bankAccounts = new List<BankAccount>();
             //bankAccounts.AddRange(new[] { acc1, acc2, acc3, acc4 });
-            
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(Bind<IStorage<BankAccount>>().To<BinaryStorage>());
+
+            //IStorage<BankAccount> storage = new JsonStorage(bankAccounts);
+            //storage.Save();
+
+            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(Bind<IStorage<BankAccount>>().To<XmlStorage>());
             Bind<IBankAccountService>().To<BankAccountService>();
         }
     }

@@ -55,8 +55,8 @@ namespace BankAccountApp.ConsoleUI
                 IsOpened = false
             };
 
-            bankService.CreateNew(acc1);
-            bankService.CreateNew(acc2);
+            //bankService.CreateNew(acc1);
+            //bankService.CreateNew(acc2);
             //bankService.CreateNew(acc3);
             //bankService.CreateNew(acc4);
 

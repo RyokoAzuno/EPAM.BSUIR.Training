@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BankAccounts>
+  <BankAccount Id="1">
+    <FirstName>Jane</FirstName>
+    <SecondName>Doe</SecondName>
+    <Balance>2499.53</Balance>
+    <BonusPoints>21</BonusPoints>
+    <Type>Gold</Type>
+    <Status>true</Status>
+  </BankAccount>
+  <BankAccount Id="2">
+    <FirstName>John</FirstName>
+    <SecondName>Doe</SecondName>
+    <Balance>15000.50</Balance>
+    <BonusPoints>50</BonusPoints>
+    <Type>Platinum</Type>
+    <Status>true</Status>
+  </BankAccount>
+  <BankAccount Id="3">
+    <FirstName>Steve</FirstName>
+    <SecondName>McQueen</SecondName>
+    <Balance>500.50</Balance>
+    <BonusPoints>10</BonusPoints>
+    <Type>Base</Type>
+    <Status>true</Status>
+  </BankAccount>
+  <BankAccount Id="4">
+    <FirstName>Alice</FirstName>
+    <SecondName>Cooper</SecondName>
+    <Balance>500.50</Balance>
+    <BonusPoints>10</BonusPoints>
+    <Type>Base</Type>
+    <Status>false</Status>
+  </BankAccount>
+</BankAccounts>

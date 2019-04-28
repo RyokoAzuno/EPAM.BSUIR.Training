@@ -1,0 +1,38 @@
+﻿[
+  {
+    "Id": 1,
+    "FirstName": "Jane",
+    "SecondName": "Doe",
+    "Balance": 2000.50,
+    "BonusPoints": 20,
+    "Type": 1,
+    "IsOpened": true
+  },
+  {
+    "Id": 2,
+    "FirstName": "John",
+    "SecondName": "Doe",
+    "Balance": 15000.50,
+    "BonusPoints": 50,
+    "Type": 2,
+    "IsOpened": true
+  },
+  {
+    "Id": 3,
+    "FirstName": "Steve",
+    "SecondName": "McQueen",
+    "Balance": 500.50,
+    "BonusPoints": 10,
+    "Type": 0,
+    "IsOpened": true
+  },
+  {
+    "Id": 4,
+    "FirstName": "Alice",
+    "SecondName": "Cooper",
+    "Balance": 500.50,
+    "BonusPoints": 10,
+    "Type": 0,
+    "IsOpened": false
+  }
+]
