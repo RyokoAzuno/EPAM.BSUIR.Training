@@ -66,6 +66,11 @@ namespace BankAccountApp.ConsoleUI
             Console.WriteLine();
             bankService.Close(4);
             Console.WriteLine(bankService.Show(4));
+
+            Console.WriteLine();
+            bankService.Deposit(1, 999.43m);
+            bankService.Withdraw(1, 500.40m);
+            Console.WriteLine(bankService.Show(1));
         }
     }
 }
