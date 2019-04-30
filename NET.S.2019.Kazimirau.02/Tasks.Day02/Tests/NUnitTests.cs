@@ -88,15 +88,16 @@ namespace Tasks.Day02.Tests
         #endregion
 
         #region FindNthRoot Tests
-        [TestCase(1, 5, 0.0001, ExpectedResult = 1)]
-        [TestCase(8, 3, 0.0001, ExpectedResult = 2)]
-        [TestCase(0.001, 3, 0.0001, ExpectedResult = 0.1)]
-        [TestCase(0.04100625, 4, 0.0001, ExpectedResult = 0.45)]
-        [TestCase(0.0279936, 7, 0.0001, ExpectedResult = 0.6)]
-        [TestCase(0.0081, 4, 0.1, ExpectedResult = 0.3)]
-        [TestCase(-0.008, 3, 0.1, ExpectedResult = -0.2)]
-        [TestCase(0.004241979, 9, 0.00000001, ExpectedResult = 0.545)]
-        public double FindNthRoot_Test(double number, int n, double eps) => Tasks.FindNthRoot(number, n, eps);
+        [TestCase(1, 5, 0.0001, 1)]
+        [TestCase(8, 3, 0.0001, 2)]
+        [TestCase(0.001, 3, 0.0001, 0.1)]
+        [TestCase(0.04100625, 4, 0.0001, 0.45)]
+        [TestCase(0.0279936, 7, 0.0001, 0.6)]
+        [TestCase(0.0081, 4, 0.1, 0.3)]
+        [TestCase(-0.008, 3, 0.1, -0.2)]
+        [TestCase(0.004241979, 9, 0.00000001, 0.545)]
+        public void FindNthRoot_Test(double number, int n, double eps, double result)
+                    => Assert.AreEqual(result, Tasks.FindNthRoot(number, n, eps), Math.Pow(10, 2 - eps.ToString().Length));
 
         [Test]
         public void FindNthRoot_ArgumentException_Test()
@@ -106,6 +107,7 @@ namespace Tasks.Day02.Tests
             Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, 2));
             Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -3));
             Assert.Throws<ArgumentException>(() => Tasks.FindNthRoot(8, 15, -3));
+            
         }
         #endregion
     }

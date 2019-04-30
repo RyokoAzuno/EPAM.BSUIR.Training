@@ -101,10 +101,9 @@ namespace Tasks.Day02.Tests
         [DataRow(0.0081, 4, 0.1, 0.3)]
         [DataRow(-0.008, 3, 0.1, -0.2)]
         [DataRow(0.004241979, 9, 0.00000001, 0.545)]
-        public void FindNthRoot_Test(double number, int n, double eps, double result)
-        {
-            Assert.AreEqual(result, Tasks.FindNthRoot(number, n, eps));
-        }
+        public void FindNthRoot_Test(double number, int n, double eps, double result) 
+                    => Assert.AreEqual(result, Tasks.FindNthRoot(number, n, eps), Math.Pow(10, 2 - eps.ToString().Length));
+
 
         [TestMethod]
         public void FindNthRoot_ArgumentException_Test()
