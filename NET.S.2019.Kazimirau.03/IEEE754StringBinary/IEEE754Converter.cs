@@ -6,36 +6,26 @@ namespace IEEE754StringBinary
 {
     public class IEEE754Converter
     {
-        public static string Convert(double number)
+        /// <summary>
+        /// Convert double number into IEEE 754 binary string value
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string UnsafeCodeConvert(double number)
         {
             string result = string.Empty;
-
-            if (double.IsNegativeInfinity(number))
+            unsafe
             {
-                return "1111111111110000000000000000000000000000000000000000000000000000";
-            }
-            else if(double.IsPositiveInfinity(number))
-            {
-                return "0111111111110000000000000000000000000000000000000000000000000000";
-            }
-            else if(double.IsNaN(number))
-            {
-                return "1111111111111000000000000000000000000000000000000000000000000000";
-            }
+                var raw = *(long*)&number;
 
-            char sign = number >= 0 ? '0' : '1';            
-            string exponent = GetExponenta(number);
-            string mantissa = GetMantissa(number);
-            result = $"{sign}{exponent}{mantissa}";
-            int length = result.Length;
-
-            if (length < 64)
-                result = result.PadRight(64, '0');
+                result = Convert.ToString(raw, 2).PadLeft(64, '0');
+            }
 
             return result;
         }
+
         /// <summary>
-        /// Convert double number into IEEE 754 standart binary value
+        /// Convert double number into IEEE 754 binary string value
         /// </summary>
         public static string BuiltInConvert(double number)
         {
@@ -46,13 +36,50 @@ namespace IEEE754StringBinary
             for (int i = bitArray.Length - 1; i >= 0; i--)
             {
                 if (bitArray[i])
+                {
                     sb.Append('1');
+                }
                 else
+                {
                     sb.Append('0');
+                }
             }
 
             return sb.ToString();
         }
+
+        /// !!!!!VERY GOOD example - https://jonskeet.uk/csharp/DoubleConverter.cs
+        public static string CustomConvert(double number)
+        {
+            string result = string.Empty;
+
+            if (double.IsNegativeInfinity(number))
+            {
+                return "1111111111110000000000000000000000000000000000000000000000000000";
+            }
+            else if (double.IsPositiveInfinity(number))
+            {
+                return "0111111111110000000000000000000000000000000000000000000000000000";
+            }
+            else if (double.IsNaN(number))
+            {
+                return "1111111111111000000000000000000000000000000000000000000000000000";
+            }
+
+            char sign = number >= 0 ? '0' : '1';
+            string exponent = GetExponent(number);
+            string mantissa = GetMantissa(number);
+            result = $"{sign}{exponent}{mantissa}";
+            int length = result.Length;
+
+            if (length < 64)
+            {
+                result = result.PadRight(64, '0');
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Get mantissa
         /// </summary>
@@ -65,6 +92,11 @@ namespace IEEE754StringBinary
             return result.Length == 52 ? result : result.Length < 52 ? result.PadRight(52, '0') : result.Substring(result.Length - 52);
         }
 
+        /// <summary>
+        /// Get the whole part of number
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static string GetWholePart(double number)
         {
             StringBuilder sb = new StringBuilder();
@@ -78,24 +110,30 @@ namespace IEEE754StringBinary
                 whole /= 2;
                 sb.Append(reminder);
             }
+
             sb = Reverse(sb);
 
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Get the fractional part of number
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         private static string GetFractionalPart(double number)
         {
             double fractional = Math.Abs(number) % 1;                       
             StringBuilder sb = new StringBuilder();
 
-            while(fractional != 0)
+            while (fractional > 0) //// (fractional != 0)
             {
                 double tmp = fractional * 2;
 
-                if(tmp >= 1)
+                if (tmp >= 1)
                 {
                     sb.Append(1);
-                    fractional = tmp % 1;
+                    fractional = tmp - 1; //// tmp % 1;
                 }
                 else
                 {
@@ -108,9 +146,9 @@ namespace IEEE754StringBinary
         }
 
         /// <summary>
-        /// Get exponenta
+        /// Get exponent
         /// </summary>
-        private static string GetExponenta(double number)
+        private static string GetExponent(double number)
         {
             string result = string.Empty;
             int power = 0;
@@ -132,11 +170,17 @@ namespace IEEE754StringBinary
                     tmp = number / Math.Pow(2, ++power);
                 }
             }
-            //int power = wholePart.Length - 1;
+            //// int power = wholePart.Length - 1;
             result = GetWholePart(power + 1023); // 127 for single
+
             return result.Length == 11 ? result : result.PadLeft(11, '0'); 
         }
 
+        /// <summary>
+        /// Reverse a string of bits
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <returns></returns>
         private static StringBuilder Reverse(StringBuilder sb)
         {
             StringBuilder result = new StringBuilder();
@@ -144,6 +188,7 @@ namespace IEEE754StringBinary
             {
                 result.Append(sb[i]);
             }
+
             return result;
         }
     }

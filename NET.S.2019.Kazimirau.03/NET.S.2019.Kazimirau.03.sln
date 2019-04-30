@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCD.Client", "GCD.Client\GC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEEE754StringBinary", "IEEE754StringBinary\IEEE754StringBinary.csproj", "{61221210-F08C-4E9D-95C1-693CEB0B60E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEEE754StringBinary.Client", "IEEE754StringBinary.Client\IEEE754StringBinary.Client.csproj", "{FE76290A-1B9B-4FBA-83B7-8634BF541D8B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{61221210-F08C-4E9D-95C1-693CEB0B60E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61221210-F08C-4E9D-95C1-693CEB0B60E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61221210-F08C-4E9D-95C1-693CEB0B60E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE76290A-1B9B-4FBA-83B7-8634BF541D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE76290A-1B9B-4FBA-83B7-8634BF541D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE76290A-1B9B-4FBA-83B7-8634BF541D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE76290A-1B9B-4FBA-83B7-8634BF541D8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
