@@ -371,7 +371,7 @@ namespace Tasks.Day02
                 x = nxt;
             }
 
-            return Math.Round(x, 5);
+            return x;
         }
         #endregion
     }
