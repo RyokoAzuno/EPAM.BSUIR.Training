@@ -6,11 +6,12 @@ namespace Polynomial
     public sealed class Polynomial
     {
         /// <summary>
-        /// Array that stores degrees of the polynom
+        /// Array that stores degrees of the polynomial
         /// </summary>
         private int[] _degrees;
+
         /// <summary>
-        /// Array that stores coefficients of the polynom
+        /// Array that stores coefficients of the polynomial
         /// </summary>
         private double[] _coeffs;
 
@@ -22,10 +23,14 @@ namespace Polynomial
         public Polynomial(int[] degrees, double[] coeffs)
         {
             if (degrees == null || coeffs == null)
+            {
                 throw new ArgumentNullException();
+            }
 
             if (degrees.Length != coeffs.Length)
+            {
                 throw new ArgumentException();
+            }
 
             _degrees = new int[degrees.Length];
             _coeffs = new double[coeffs.Length];
@@ -66,15 +71,20 @@ namespace Polynomial
         /// </summary>
         /// <param name="p1"> Left polynomial </param>
         /// <param name="p2"> Right polynomial </param>
-        /// <returns> New polynomial = Left + Right</returns>
+        /// <returns> New polynomial </returns>
         public static Polynomial operator +(Polynomial p1, Polynomial p2)
         {
-            int p1Degrees = p1.GetNumberOfDegrees;
-            int p2Degrees = p2.GetNumberOfDegrees;
+            if (p1 == null || p2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            int degrees1 = p1.GetNumberOfDegrees;
+            int degrees2 = p2.GetNumberOfDegrees;
             int[] degArr = null;
             double[] coeffArr = null;
 
-            if (p1Degrees != p2Degrees)
+            if (degrees1 != degrees2)
             {
                 int size = CalculateArraySize(p1.GetDegrees, p2.GetDegrees);
                 degArr = new int[size];
@@ -82,8 +92,8 @@ namespace Polynomial
             }
             else
             {
-                degArr = new int[p1Degrees];
-                coeffArr = new double[p1Degrees];
+                degArr = new int[degrees1];
+                coeffArr = new double[degrees1];
             }
 
             MergeDegreesAndCoefficients(coeffArr, degArr, p1.GetCoefficients, p2.GetCoefficients, p1.GetDegrees, p2.GetDegrees);
@@ -99,6 +109,11 @@ namespace Polynomial
         /// <returns> New polynomial = Left - Right</returns>
         public static Polynomial operator -(Polynomial p1, Polynomial p2)
         {
+            if (p1 == null || p2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             int length = p2.GetNumberOfCoefficients;
 
             for (int i = 0; i < length; i++)
@@ -111,6 +126,11 @@ namespace Polynomial
 
         public static Polynomial operator *(Polynomial p1, Polynomial p2)
         {
+            if(p1 == null || p2 == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             int length1 = p1.GetNumberOfCoefficients;
             int length2 = p2.GetNumberOfCoefficients;
             List<double> coeffs = new List<double>();
@@ -130,12 +150,13 @@ namespace Polynomial
                 List<int> indicesToRemove = new List<int>();
                 for (int j = i + 1; j < degrees.Count; j++)
                 {
-                    if(degrees[i] == degrees[j])
+                    if (degrees[i] == degrees[j])
                     {
                         coeffs[i] += coeffs[j];
                         indicesToRemove.Add(j);
                     }
                 }
+
                 for (int k = 0; k < indicesToRemove.Count; k++)
                 {
                     coeffs.RemoveAt(indicesToRemove[k]);
@@ -150,6 +171,11 @@ namespace Polynomial
 
         public static Polynomial operator *(Polynomial p1, double coefficient)
         {
+            if(p1 == null)
+            {
+                throw new NullReferenceException();
+            }
+
             for (int i = 0; i < p1.GetNumberOfCoefficients; i++)
             {
                 p1._coeffs[i] = Math.Round(p1._coeffs[i] * coefficient, 5);
@@ -160,19 +186,20 @@ namespace Polynomial
 
         public static bool operator ==(Polynomial p1, Polynomial p2)
         {
-            //if (((object)p1) == null || ((object)p2) == null)
-            //    return Equals(p1, p2);
+            ////if (((object)p1) == null || ((object)p2) == null)
+            ////    return Equals(p1, p2);
 
             return p1.Equals(p2);
         }
 
         public static bool operator !=(Polynomial p1, Polynomial p2)
         {
-            //if (((object)p1) == null || ((object)p2) == null)
-            //    return !Equals(p1, p2);
+            ////if (((object)p1) == null || ((object)p2) == null)
+            ////    return !Equals(p1, p2);
 
             return !p1.Equals(p2);
         }
+
         /// <summary>
         /// Represent an object as a string
         /// </summary>
@@ -192,21 +219,25 @@ namespace Polynomial
 
         /// <summary>
         /// GetHashCode overriding
-        /// Microsoft already provides a good generic HashCode generator
+        /// Microsoft already provides a good generic and ValueTuple HashCode generator
         /// Good article: https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode
         /// </summary>
         public override int GetHashCode()
         {
-            return new {_degrees, _coeffs }.GetHashCode(); //return base.GetHashCode();
+            return (_degrees.Length, _coeffs.Length).GetHashCode(); 
         }
 
         public override bool Equals(object obj)
         {
-            if(ReferenceEquals(null, obj)) // (obj == null)
+            if (ReferenceEquals(null, obj))
+            {
                 return false;
+            }
 
             if (!(obj is Polynomial p))
+            {
                 return false;
+            }
             else
             {
                 int length = p.GetNumberOfDegrees;
@@ -214,7 +245,9 @@ namespace Polynomial
                 for (int i = 0; i < length; i++)
                 {
                     if ((_degrees[i] != p._degrees[i]) || (_coeffs[i] != p._coeffs[i]))
+                    {
                         return false;
+                    }
                 }
 
                 return true;
@@ -232,7 +265,7 @@ namespace Polynomial
             {
                 for (int j = i + 1; j < degrees.Count; j++)
                 {
-                    if(degrees[i] > degrees[j])
+                    if (degrees[i] > degrees[j])
                     {
                         degrees[i] ^= degrees[j];
                         degrees[j] ^= degrees[i];
@@ -245,15 +278,16 @@ namespace Polynomial
                 }
             }
         }
+
         /// <summary>
-        /// Merge degrees and coefficients of the polynom into new resulting arrays
+        /// Merge degrees and coefficients of the polynomial into new resulting arrays
         /// </summary>
         /// <param name="resultCoeffs"> Resulting array of coefficients </param>
         /// <param name="resultDegs"> Resulting array of degrees </param>
-        /// <param name="leftCoeffs"> Left polynom's array of coefficients </param>
-        /// <param name="rightCoeffs"> Right polynom's array of coefficients </param>
-        /// <param name="leftDegs"> Left polynom's array of degrees </param>
-        /// <param name="rightDegs"> Right polynom's array of degrees </param>
+        /// <param name="leftCoeffs"> Left polynomial array of coefficients </param>
+        /// <param name="rightCoeffs"> Right polynomial array of coefficients </param>
+        /// <param name="leftDegs"> Left polynomial array of degrees </param>
+        /// <param name="rightDegs"> Right polynomial array of degrees </param>
         private static void MergeDegreesAndCoefficients(double[] resultCoeffs, int[] resultDegs, double[] leftCoeffs, double[] rightCoeffs, int[] leftDegs, int[] rightDegs)
         {
             int i = 0;
@@ -290,8 +324,9 @@ namespace Polynomial
                 }
             }
         }
+
         /// <summary>
-        /// Calculate a size of the array arr1NotSimilar + arr2NotSimilar + bothSimilar
+        /// Calculate the size of the new array arr1NotSimilar + arr2NotSimilar + bothSimilar
         /// </summary>
         /// <param name="degrees1"> First array </param>
         /// <param name="degrees2"> Second array </param>
@@ -313,8 +348,11 @@ namespace Polynomial
                         break;
                     }
                 }
+
                 if (flag == false)
+                {
                     countNotSimilar++;
+                }
             }
 
             for (int i = 0; i < degrees2.Length; i++)
@@ -328,8 +366,11 @@ namespace Polynomial
                         break;
                     }
                 }
+
                 if (flag == false)
+                {
                     countNotSimilar++;
+                }
             }
 
             return countSimilar + countNotSimilar;
