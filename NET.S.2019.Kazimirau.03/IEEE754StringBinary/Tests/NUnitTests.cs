@@ -20,7 +20,7 @@ namespace IEEE754StringBinary.Tests
         [TestCase(double.PositiveInfinity, ExpectedResult = "0111111111110000000000000000000000000000000000000000000000000000")]
         [TestCase(-0.0, ExpectedResult = "1000000000000000000000000000000000000000000000000000000000000000")]
         [TestCase(0.0, ExpectedResult = "0000000000000000000000000000000000000000000000000000000000000000")]
-        public string IEEE754Converter_BuiltInConvert_Test(double number) => IEEE754Converter.BuiltInConvert(number);
+        public string IEEE754Converter_BuiltInConvert_Test(double number) => number.BuiltInConvert();
         #endregion
 
         #region Unsafe converter
@@ -38,7 +38,7 @@ namespace IEEE754StringBinary.Tests
         [TestCase(double.PositiveInfinity, ExpectedResult = "0111111111110000000000000000000000000000000000000000000000000000")]
         [TestCase(-0.0, ExpectedResult = "1000000000000000000000000000000000000000000000000000000000000000")]
         [TestCase(0.0, ExpectedResult = "0000000000000000000000000000000000000000000000000000000000000000")]
-        public string IEEE754Converter_UnsafeCodeConvert_Test(double number) => IEEE754Converter.UnsafeCodeConvert(number);
+        public string IEEE754Converter_UnsafeCodeConvert_Test(double number) => number.UnsafeCodeConvert();
         #endregion
 
         #region Custom converter
@@ -52,7 +52,7 @@ namespace IEEE754StringBinary.Tests
         [TestCase(double.NaN, ExpectedResult = "1111111111111000000000000000000000000000000000000000000000000000")]
         [TestCase(double.NegativeInfinity, ExpectedResult = "1111111111110000000000000000000000000000000000000000000000000000")]
         [TestCase(double.PositiveInfinity, ExpectedResult = "0111111111110000000000000000000000000000000000000000000000000000")]
-        public string IEEE754Converter_CustomConvert_Test(double number) => IEEE754Converter.CustomConvert(number);
+        public string IEEE754Converter_CustomConvert_Test(double number) => number.CustomConvert();
         #endregion
     }
 }

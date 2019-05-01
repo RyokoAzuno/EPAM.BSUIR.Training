@@ -4,14 +4,14 @@ using System.Text;
 
 namespace IEEE754StringBinary
 {
-    public class IEEE754Converter
+    public static class IEEE754Converter
     {
         /// <summary>
         /// Convert double number into IEEE 754 binary string value
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static string UnsafeCodeConvert(double number)
+        public static string UnsafeCodeConvert(this double number)
         {
             string result = string.Empty;
             unsafe
@@ -27,7 +27,7 @@ namespace IEEE754StringBinary
         /// <summary>
         /// Convert double number into IEEE 754 binary string value
         /// </summary>
-        public static string BuiltInConvert(double number)
+        public static string BuiltInConvert(this double number)
         {
             byte[] numberBytes = BitConverter.GetBytes(number);
             BitArray bitArray = new BitArray(numberBytes);
@@ -49,7 +49,7 @@ namespace IEEE754StringBinary
         }
 
         /// !!!!!VERY GOOD example - https://jonskeet.uk/csharp/DoubleConverter.cs
-        public static string CustomConvert(double number)
+        public static string CustomConvert(this double number)
         {
             string result = string.Empty;
 
