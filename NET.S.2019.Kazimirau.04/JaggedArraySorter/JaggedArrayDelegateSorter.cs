@@ -10,7 +10,7 @@ namespace JaggedArraySorter
     public class JaggedArrayDelegateSorter
     {
         /// <summary>
-        /// Sort rows of the two dimensional array (Based on delegates)
+        /// Sort rows of the two dimensional array (Based on  delegates)
         /// </summary>
         public static void SortRows(int[][] arr, IComparer<int[]> comparison) 
                            => SortRows(arr, comparison.Compare);
