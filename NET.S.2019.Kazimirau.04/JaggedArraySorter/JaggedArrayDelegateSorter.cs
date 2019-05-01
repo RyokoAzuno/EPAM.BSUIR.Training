@@ -10,6 +10,12 @@ namespace JaggedArraySorter
     public class JaggedArrayDelegateSorter
     {
         /// <summary>
+        /// Sort rows of the two dimensional array (Based on delegates)
+        /// </summary>
+        public static void SortRows(int[][] arr, IComparer<int[]> comparison) 
+                           => SortRows(arr, comparison.Compare);
+
+        /// <summary>
         /// Sort each row of the jagged array
         /// </summary>
         /// <param name="arr"> Array to sort </param>
@@ -36,11 +42,11 @@ namespace JaggedArraySorter
         }
 
         /// <summary>
-        /// Sort rows of the two dimentional array (Based on delegates)
+        /// Sort rows of the two dimensional array (Based on delegates)
         /// </summary>
         /// <param name="arr"> Jagged array </param>
         /// <param name="comparison"> Criteria of swapping</param>
-        public static void SortRows(int[][] arr, Func<int[], int[], int> comparison)
+        private static void SortRows(int[][] arr, Func<int[], int[], int> comparison)
         {
             if (arr == null || comparison == null)
             {
@@ -59,12 +65,6 @@ namespace JaggedArraySorter
             }
         }
 
-        /// <summary>
-        /// Sort rows of the two dimentional array
-        /// </summary>
-        public static void SortRows(int[][] arr, IComparer<int[]> comparison) 
-                           => SortRows(arr, comparison.Compare);
-        
         /// <summary>
         /// Swap elements of a given array
         /// </summary>

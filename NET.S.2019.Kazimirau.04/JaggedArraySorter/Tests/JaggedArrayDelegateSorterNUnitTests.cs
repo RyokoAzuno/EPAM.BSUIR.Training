@@ -25,7 +25,7 @@ namespace JaggedArraySorter.Tests
                     new []{ -13, -10, -9, -2, 4, 16, 21, 52 }   // 59
                 };
 
-            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscSum }.Compare);
+            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscSum });
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -46,7 +46,7 @@ namespace JaggedArraySorter.Tests
                     new []{ -3, 0, 1, 2, 4, 6, 9, 12 }         // 31
                 };
 
-            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescSum }.Compare);
+            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescSum });
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -68,7 +68,7 @@ namespace JaggedArraySorter.Tests
                     new []{ -13, -10, -9, -2, 4, 16, 21, 52 }
                 };
 
-            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax }.Compare);
+            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax });
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -90,7 +90,7 @@ namespace JaggedArraySorter.Tests
                     new []{ -3, 0, 1, 2, 4, 6, 9, 12 }
                 };
 
-            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax }.Compare);
+            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax });
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -112,7 +112,7 @@ namespace JaggedArraySorter.Tests
                     new []{ -13, -10, -9, -2, 4, 16, 21, 52 }
                 };
 
-            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax }.Compare);
+            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax });
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -134,7 +134,7 @@ namespace JaggedArraySorter.Tests
                     new []{ -3, 0, 1, 2, 4, 6, 9, 12 }
                 };
 
-            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax }.Compare);
+            JaggedArrayDelegateSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax });
 
             Assert.AreEqual(expectedArr, arr);
         }

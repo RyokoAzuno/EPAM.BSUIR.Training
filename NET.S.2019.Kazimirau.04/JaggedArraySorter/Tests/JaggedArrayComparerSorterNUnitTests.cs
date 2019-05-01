@@ -91,7 +91,7 @@ namespace JaggedArraySorter.Tests
                 new []{ -13, -10, -9, -2, 4, 16, 21, 52 }   // 59
             };
 
-            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscSum });
+            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscSum }.Compare);
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -105,7 +105,7 @@ namespace JaggedArraySorter.Tests
                 new []{ -3, 0, 1, 2, 4, 6, 9, 12 }         // 31
             };
 
-            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescSum });
+            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescSum }.Compare);
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -120,7 +120,7 @@ namespace JaggedArraySorter.Tests
                 new []{ -13, -10, -9, -2, 4, 16, 21, 52 }   
             };
 
-            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax });
+            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax }.Compare);
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -135,7 +135,7 @@ namespace JaggedArraySorter.Tests
                 new []{ -3, 0, 1, 2, 4, 6, 9, 12 }
             };
 
-            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax });
+            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax }.Compare);
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -150,7 +150,7 @@ namespace JaggedArraySorter.Tests
                 new []{ -13, -10, -9, -2, 4, 16, 21, 52 }
             };
 
-            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax });
+            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.AscMax }.Compare);
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -165,7 +165,7 @@ namespace JaggedArraySorter.Tests
                 new []{ -3, 0, 1, 2, 4, 6, 9, 12 }
             };
 
-            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax });
+            JaggedArrayComparerSorter.SortRows(arr, new JaggedArrayComparer { Comparer = SortBy.DescMax }.Compare);
 
             Assert.AreEqual(expectedArr, arr);
         }
@@ -173,7 +173,7 @@ namespace JaggedArraySorter.Tests
         [Test]
         public void JaggedArrayComparerSorter_SortRows_ArgumentNullException_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => JaggedArrayComparerSorter.SortRows(null, new JaggedArrayComparer { Comparer = SortBy.DescMax }));
+            Assert.Throws<ArgumentNullException>(() => JaggedArrayComparerSorter.SortRows(null, new JaggedArrayComparer { Comparer = SortBy.DescMax }.Compare));
         }
         #endregion
     }
