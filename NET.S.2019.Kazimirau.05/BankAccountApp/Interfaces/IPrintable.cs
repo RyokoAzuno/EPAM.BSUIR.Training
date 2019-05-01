@@ -1,4 +1,4 @@
-﻿namespace BankAccount.Interfaces
+﻿namespace BankAccountApp.Interfaces
 {
     public interface IPrintable
     {

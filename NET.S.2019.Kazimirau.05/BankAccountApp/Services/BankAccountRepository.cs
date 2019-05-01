@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BankAccount.Interfaces;
+using BankAccountApp.Interfaces;
+using BankAccountApp.Models;
 
-namespace BankAccount.Services
+namespace BankAccountApp.Services
 {
     // Simulate bank account repository
     public class BankAccountRepository : IRepository<BankAccount>

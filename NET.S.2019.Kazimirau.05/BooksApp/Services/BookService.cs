@@ -1,8 +1,8 @@
-﻿using BooksApp.Interfaces;
-using BooksApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BooksApp.Interfaces;
+using BooksApp.Models;
 
 namespace BooksApp.Services
 {
@@ -35,21 +35,12 @@ namespace BooksApp.Services
             _bookRepository.Remove(id);
         }
 
-        /// <summary>
-        /// Find a book by using a special filter(pridicate)
-        /// </summary>
-        /// <param name="filter"> Filter(pridicate) to find a book </param>
-        /// <returns> Book from BookStorage </returns>
-        //public List<Book> Find(Func<Book, bool> predicate)
-        //{
-        //    return _bookRepository.Find(predicate).ToList();
-        //}
-
         // Find book by tag-name
         public Book FindBookByTag(string tag)
         {
             return _bookRepository.FindByFieldValue(tag);
         }
+
         /// <summary>
         /// Get all books from BookStorage
         /// </summary>
@@ -68,6 +59,7 @@ namespace BooksApp.Services
         {
             return _bookRepository.GetById(id);
         }
+
         /// <summary>
         /// Update(edit) given book
         /// </summary>
@@ -77,6 +69,10 @@ namespace BooksApp.Services
             _bookRepository.Update(book);
         }
 
+        /// <summary>
+        /// Sort books by tag
+        /// </summary>
+        /// <param name="tag"></param>
         public void SortByTag(IComparer<Book> tag)
         {
             _bookRepository.Sort(tag);

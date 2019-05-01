@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BankAccount.Interfaces;
+using BankAccountApp.Interfaces;
+using BankAccountApp.Models;
 
-namespace BankAccount.Services
+namespace BankAccountApp.Services
 {
     // Class represents a simple bank account service
     public class BankAccountService : IPrintable

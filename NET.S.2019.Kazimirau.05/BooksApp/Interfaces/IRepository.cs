@@ -2,7 +2,7 @@
 
 namespace BooksApp.Interfaces
 {
-    public interface IRepository<T> where T : class, IEntity
+    public interface IRepository<T> where T : IEntity
     {
         IEnumerable<T> GetAll();
         T GetById(int id);

@@ -1,10 +1,11 @@
-﻿using BankAccount.Interfaces;
-using BankAccount.Models;
-using BankAccount.Services;
+﻿using BankAccountApp.Interfaces;
+using BankAccountApp.Models;
+using BankAccountApp.Services;
+using BankAccountApp.Storages;
 using System;
 using System.Collections.Generic;
 
-namespace BankAccount
+namespace BankAccountApp
 {
     class Program
     {

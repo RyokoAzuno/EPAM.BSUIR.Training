@@ -1,18 +1,19 @@
-﻿using BooksApp.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using BooksApp.Interfaces;
+using BooksApp.Models;
 
-namespace BooksApp.Models
+namespace BooksApp.Storages
 {
     // Class emulates XML storage
     public sealed class XmlStorage : IStorage<Book>
     {
-        private List<Book> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.xml";
+        private List<Book> _storage;
 
         public XmlStorage(List<Book> storage)
         {
@@ -56,16 +57,15 @@ namespace BooksApp.Models
                             NumberOfPages = int.Parse(pagesElement.Value),
                             Price = decimal.Parse(priceElement.Value, new CultureInfo("en-US")),
                         });
-
                     }
                 }
+
                 return _storage;
             }
             else
             {
                 throw new FileNotFoundException();
             }
-
         }
 
         /// <summary>
@@ -74,8 +74,10 @@ namespace BooksApp.Models
         public void Save()
         {
             // Constuct Xml structure
-            var xEle = new XElement("Books",
-                _storage.Select(elt => new XElement("Book",
+            var xEle = new XElement(
+                                    "Books",
+                                    _storage.Select(elt => new XElement(
+                                                    "Book",
                                                     new XAttribute("Id", elt.Id),
                                                     new XElement("ISBN", elt.ISBN),
                                                     new XElement("Author", elt.Author),
@@ -84,7 +86,7 @@ namespace BooksApp.Models
                                                     new XElement("Year", elt.Year),
                                                     new XElement("Pages", elt.NumberOfPages),
                                                     new XElement("Price", elt.Price))));
-            // Save Xml document
+            //// Save Xml document
             xEle.Save(_fullPath);
         }
     }

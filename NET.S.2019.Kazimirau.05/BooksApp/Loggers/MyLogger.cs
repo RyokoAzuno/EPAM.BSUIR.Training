@@ -1,10 +1,11 @@
-﻿using NLog;
-using NLog.Targets;
-using System;
+﻿using System;
 using System.IO;
+using NLog;
+using NLog.Targets;
 
 namespace BooksApp.Loggers
 {
+    // Custorm wrapper for NLog
     public static class MyLogger
     {
         public static Logger GetLogger()

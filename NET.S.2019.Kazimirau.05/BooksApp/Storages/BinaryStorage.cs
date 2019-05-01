@@ -1,16 +1,18 @@
-﻿using BooksApp.Interfaces;
-using BooksApp.Loggers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using BooksApp.Interfaces;
+using BooksApp.Loggers;
+using BooksApp.Models;
 
-namespace BooksApp.Models
+namespace BooksApp.Storages
 {
     // Class emulates binary storage
     public sealed class BinaryStorage : IStorage<Book>
     {
-        private List<Book> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BooksDB";
+        private List<Book> _storage;
+        
         // Constructor
         public BinaryStorage(List<Book> storage)
         {
@@ -31,7 +33,7 @@ namespace BooksApp.Models
                     using (BinaryReader binaryReader = new BinaryReader(stream))
                     {
                         binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
-                        // Read each value while not EOF
+                        //// Read each value while not EOF
                         while (binaryReader.PeekChar() != -1) // for FileStream binaryReader.PeekChar() != -1 for MemoryStream  binaryReader.PeekChar() != 0
                         {
                             _storage.Add(ReadFromStream(binaryReader));
@@ -48,7 +50,6 @@ namespace BooksApp.Models
                 MyLogger.GetLogger().Info("Binary file Not Found!");
                 throw new FileNotFoundException();
             }
-            
         }
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace BooksApp.Models
                     }
                 }
             }
+
             MyLogger.GetLogger().Info("Binary file was successfully saved!");
         }
 

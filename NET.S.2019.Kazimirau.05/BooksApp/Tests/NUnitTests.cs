@@ -33,5 +33,35 @@ namespace BooksApp.Tests
             Assert.AreEqual(book.ToString(), book.ToString("G"));
             Assert.AreEqual(sb.ToString(), book.ToString("ATPY"));
         }
+
+        [Test]
+        public void Book_Equals_Test()
+        {
+            Book b1 = new Book
+            {
+                Id = 0,
+                ISBN = "1-61-729453-5",
+                Author = "Jon Skeet",
+                Name = "C# in Depth",
+                NumberOfPages = 528,
+                Price = 43m,
+                Publisher = "Manning Publications",
+                Year = 2019
+            };
+
+            Book b2 = new Book
+            {
+                Id = 0,
+                ISBN = "1-61-729453-5",
+                Author = "Jon Skeet",
+                Name = "C# in Depth",
+                NumberOfPages = 528,
+                Price = 43m,
+                Publisher = "Manning Publications",
+                Year = 2019
+            };
+
+            Assert.AreEqual(true, b1.Equals(b2));
+        }
     }
 }

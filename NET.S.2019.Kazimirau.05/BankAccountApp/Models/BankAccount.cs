@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BankAccount
+namespace BankAccountApp.Models
 {
     /// <summary>
     /// Represents bank account's type

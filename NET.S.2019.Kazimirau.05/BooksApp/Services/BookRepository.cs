@@ -1,13 +1,16 @@
-﻿using BooksApp.Interfaces;
-using BooksApp.Loggers;
-using BooksApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using BooksApp.Interfaces;
+using BooksApp.Loggers;
+using BooksApp.Models;
 
 namespace BooksApp.Services
 {
+    /// <summary>
+    /// Book repository
+    /// </summary>
     public class BookRepository : IRepository<Book>
     {
         // Simulated database
@@ -81,6 +84,7 @@ namespace BooksApp.Services
 
             return book;
         }
+
         /// <summary>
         /// Update(edit) a book
         /// </summary>
@@ -149,8 +153,11 @@ namespace BooksApp.Services
             foreach (var item in GetAll())
             {
                 if (fieldValue.Equals(item.ISBN) || fieldValue.Equals(item.Name) || fieldValue.Equals(item.Author) || fieldValue.Equals(item.Publisher))
+                {
                     return item;
+                }
             }
+
             return null;
         }
 
@@ -162,6 +169,7 @@ namespace BooksApp.Services
             {
                 result += $"***\n{book.ToString()}\n";
             }
+
             return result;
         }
     }

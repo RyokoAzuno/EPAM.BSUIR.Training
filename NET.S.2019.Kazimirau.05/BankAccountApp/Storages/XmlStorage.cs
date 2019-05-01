@@ -4,9 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using BankAccount.Interfaces;
+using BankAccountApp.Interfaces;
+using BankAccountApp.Models;
 
-namespace BankAccount.Models
+namespace BankAccountApp.Storages
 {
     // Class emulates XML storage
     public sealed class XmlStorage : IStorage<BankAccount>

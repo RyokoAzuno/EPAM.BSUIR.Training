@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using BankAccount.Interfaces;
+using BankAccountApp.Interfaces;
+using BankAccountApp.Models;
 
-namespace BankAccount.Models
+namespace BankAccountApp.Storages
 {
     // Class emulates binary storage
     public sealed class BinaryStorage : IStorage<BankAccount>

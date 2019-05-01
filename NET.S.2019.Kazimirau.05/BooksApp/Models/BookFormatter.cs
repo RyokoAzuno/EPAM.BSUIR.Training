@@ -11,22 +11,25 @@ namespace BooksApp.Models
         {
             if (arg is Book book)
             {
-                if(!string.IsNullOrEmpty(format))
+                if (!string.IsNullOrEmpty(format))
                 {
-                    switch(format.ToUpper())
+                    switch (format.ToUpper())
                     {
                         case "SAT":
                             {
                                 return string.Format($"{book.Author}, {book.Name}");
                             }
+
                         case "SATPY":
                             {
                                 return string.Format($"{book.Author}, {book.Name}, {book.Publisher}, {book.Year}");
                             }
+
                         case "SIATPYN":
                             {
                                 return string.Format($"ISBN {book.ISBN}, {book.Author}, {book.Name}, {book.Publisher}, {book.Year}, P. {book.NumberOfPages}");
                             }
+
                         default:
                             {
                                 return HandleOtherFormats(format, arg);
@@ -39,7 +42,8 @@ namespace BooksApp.Models
         }
 
         // Returns an object that provides formatting services for the specified type.
-        public object GetFormat(Type formatType) => formatType == typeof(ICustomFormatter) ? this : null;
+        public object GetFormat(Type formatType) 
+                      => formatType == typeof(ICustomFormatter) ? this : null;
 
         // Method handles other available formats
         private string HandleOtherFormats(string format, object arg)

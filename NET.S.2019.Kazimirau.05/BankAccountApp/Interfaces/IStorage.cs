@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BankAccount.Interfaces
+namespace BankAccountApp.Interfaces
 {
     public interface IStorage<T> where T : class
     {

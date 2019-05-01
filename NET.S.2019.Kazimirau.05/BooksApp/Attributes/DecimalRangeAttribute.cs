@@ -3,27 +3,28 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BooksApp.Attributes
 {
-    //[AttributeUsage(AttributeTargets.Property)]
+    ////[AttributeUsage(AttributeTargets.Property)]
     public class DecimalRangeAttribute : ValidationAttribute
     {
-        public decimal Min { get; set; }
-        public decimal Max { get; set; }
-
         public DecimalRangeAttribute(object min, object max)
         {
-            Min = Convert.ToDecimal(min);
-            Max = Convert.ToDecimal(max);
+            this.Min = Convert.ToDecimal(min);
+            this.Max = Convert.ToDecimal(max);
         }
+
+        public decimal Min { get; set; }
+
+        public decimal Max { get; set; }
 
         public override bool IsValid(object value)
         {
-            if(value != null)
+            if (value != null)
             {
                 decimal val = Convert.ToDecimal(value);
 
-                if(val < Min || val > Max)
+                if (val < this.Min || val > this.Max)
                 {
-                    this.ErrorMessage = $"Should be in the range from {Min} to {Max}";
+                    this.ErrorMessage = $"Should be in the range from {this.Min} to {this.Max}";
                 }
                 else
                 {

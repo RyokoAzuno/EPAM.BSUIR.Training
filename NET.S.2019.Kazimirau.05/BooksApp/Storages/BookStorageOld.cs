@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BooksApp.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace BooksApp.Models
+namespace BooksApp.Storages
 {
     // Simple class that emulates book storage database
     public sealed class BookStorage

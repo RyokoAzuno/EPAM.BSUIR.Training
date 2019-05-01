@@ -1,19 +1,20 @@
-﻿using BooksApp.Interfaces;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using BankAccountApp.Interfaces;
+using BankAccountApp.Models;
+using Newtonsoft.Json;
 
-namespace BooksApp.Models
+namespace BankAccountApp.Storages
 {
     // Class emulates JSON storage
-    public sealed class JsonStorage : IStorage<Book>
+    public sealed class JsonStorage : IStorage<BankAccount>
     {
-        private List<Book> _storage;
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.json";
+        private List<BankAccount> _storage;
 
-        public JsonStorage(List<Book> storage)
+        public JsonStorage(List<BankAccount> storage)
         {
             _storage = storage;
         }
@@ -21,13 +22,13 @@ namespace BooksApp.Models
         /// <summary>
         /// Load from JSON file
         /// </summary>
-        /// <returns> Collection of books </returns>
-        public IEnumerable<Book> Load()
+        /// <returns> Collection of bank accounts </returns>
+        public IEnumerable<BankAccount> Load()
         {
             if (File.Exists(_fullPath))
             {
                 _storage.Clear();
-                _storage = JsonConvert.DeserializeObject<List<Book>>(File.ReadAllText(_fullPath, Encoding.UTF8));
+                _storage = JsonConvert.DeserializeObject<List<BankAccount>>(File.ReadAllText(_fullPath, Encoding.UTF8));
 
                 return _storage;
             }
@@ -35,7 +36,6 @@ namespace BooksApp.Models
             {
                 throw new FileNotFoundException();
             }
-
         }
 
         /// <summary>
