@@ -1,5 +1,5 @@
-﻿using JaggedArraySorter.Comparators;
-using System;
+﻿using System;
+using JaggedArraySorter.Comparators;
 
 namespace JaggedArraySorter
 {
@@ -34,6 +34,7 @@ namespace JaggedArraySorter
                 }
             }
         }
+
         /// <summary>
         /// Swap rows of the array
         /// </summary>
@@ -58,48 +59,60 @@ namespace JaggedArraySorter
                                 {
                                     SwapRows(ref arr[i], ref arr[j]);
                                 }
+
                                 break;
                             }
+
                         case SortBy.DescSum:
                             {
                                 if (GetArraySum(arr[i]) < GetArraySum(arr[j]))
                                 {
                                     SwapRows(ref arr[i], ref arr[j]);
                                 }
+
                                 break;
                             }
+
                         case SortBy.AscMax:
                             {
                                 if (GetArrayMaxElement(arr[i]) > GetArrayMaxElement(arr[j]))
                                 {
                                     SwapRows(ref arr[i], ref arr[j]);
                                 }
+
                                 break;
                             }
+
                         case SortBy.DescMax:
                             {
                                 if (GetArrayMaxElement(arr[i]) < GetArrayMaxElement(arr[j]))
                                 {
                                     SwapRows(ref arr[i], ref arr[j]);
                                 }
+
                                 break;
                             }
+
                         case SortBy.AscMin:
                             {
                                 if (GetArrayMinElement(arr[i]) > GetArrayMinElement(arr[j]))
                                 {
                                     SwapRows(ref arr[i], ref arr[j]);
                                 }
+
                                 break;
                             }
+
                         case SortBy.DescMin:
                             {
                                 if (GetArrayMinElement(arr[i]) < GetArrayMinElement(arr[j]))
                                 {
                                     SwapRows(ref arr[i], ref arr[j]);
                                 }
+
+                                break;
                             }
-                            break;
+
                         default:
                             {
                                 throw new ArgumentException();
@@ -108,6 +121,7 @@ namespace JaggedArraySorter
                 }
             }
         }
+
         /// <summary>
         /// Swap elements of a given array
         /// </summary>
@@ -124,7 +138,7 @@ namespace JaggedArraySorter
         /// <summary>
         /// Swap rows of a given array
         /// </summary>
-        /// <param name="rowA"> Firest row to swap </param>
+        /// <param name="rowA"> First row to swap </param>
         /// <param name="rowB"> Second row to swap </param>
         private static void SwapRows(ref int[] rowA, ref int[] rowB)
         {
@@ -137,7 +151,7 @@ namespace JaggedArraySorter
         /// Get a sum of all elements of the array
         /// </summary>
         /// <param name="arr"> Array </param>
-        /// <returns> Sum of all alements </returns>
+        /// <returns> Sum of all elements </returns>
         private static int GetArraySum(int[] arr)
         {
             int sum = 0;
@@ -145,6 +159,7 @@ namespace JaggedArraySorter
             {
                 sum += arr[i];
             }
+
             return sum;
         }
 
@@ -163,6 +178,7 @@ namespace JaggedArraySorter
                     max = arr[i];
                 }
             }
+
             return max;
         }
 
@@ -181,6 +197,7 @@ namespace JaggedArraySorter
                     min = arr[i];
                 }
             }
+
             return min;
         }
     }

@@ -34,6 +34,7 @@ namespace JaggedArraySorter
                 }
             }
         }
+
         /// <summary>
         /// Swap rows of the array
         /// </summary>
@@ -74,7 +75,7 @@ namespace JaggedArraySorter
         /// <summary>
         /// Swap rows of a given array
         /// </summary>
-        /// <param name="rowA"> Firest row to swap </param>
+        /// <param name="rowA"> First row to swap </param>
         /// <param name="rowB"> Second row to swap </param>
         private static void SwapRows(ref int[] rowA, ref int[] rowB)
         {
