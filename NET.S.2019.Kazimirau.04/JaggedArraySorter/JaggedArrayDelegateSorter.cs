@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace JaggedArraySorter
 {
@@ -35,13 +36,13 @@ namespace JaggedArraySorter
         }
 
         /// <summary>
-        /// Swap rows of the array
+        /// Sort rows of the two dimentional array (Based on delegates)
         /// </summary>
         /// <param name="arr"> Jagged array </param>
         /// <param name="comparison"> Criteria of swapping</param>
         public static void SortRows(int[][] arr, Func<int[], int[], int> comparison)
         {
-            if (arr == null)
+            if (arr == null || comparison == null)
             {
                 throw new ArgumentNullException();
             }
@@ -58,6 +59,12 @@ namespace JaggedArraySorter
             }
         }
 
+        /// <summary>
+        /// Sort rows of the two dimentional array
+        /// </summary>
+        public static void SortRows(int[][] arr, IComparer<int[]> comparison) 
+                           => SortRows(arr, comparison.Compare);
+        
         /// <summary>
         /// Swap elements of a given array
         /// </summary>

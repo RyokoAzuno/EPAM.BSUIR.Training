@@ -42,7 +42,7 @@ namespace JaggedArraySorter
         /// <param name="comparison"> Criteria of swapping</param>
         public static void SortRows(int[][] arr, IComparer<int[]> comparison)
         {
-            if (arr == null)
+            if (arr == null || comparison == null)
             {
                 throw new ArgumentNullException();
             }
@@ -58,6 +58,9 @@ namespace JaggedArraySorter
                 }
             }
         }
+
+        public static void SortRows(int[][] arr, Func<int[], int[], int> comparison)
+                           => SortRows(arr, comparison.Target as IComparer<int[]>);
 
         /// <summary>
         /// Swap elements of a given array
