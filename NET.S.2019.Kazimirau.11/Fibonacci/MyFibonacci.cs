@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Fibonacci
 {
+    /// <summary>
+    /// Class for working with fibonacci numbers 
+    /// </summary>
     public sealed class MyFibonacci
     {
         /// <summary>
@@ -16,6 +19,7 @@ namespace Fibonacci
             {
                 throw new ArgumentException();
             }
+
             if (n == 0)
             {
                 return 0;
@@ -35,10 +39,12 @@ namespace Fibonacci
             {
                 throw new ArgumentException();
             }
+
             if (n == 0)
             {
                 return 0;
             }
+
             if (n == 1 || n == 2)
             {
                 return 1;
@@ -69,16 +75,18 @@ namespace Fibonacci
             {
                 throw new ArgumentException();
             }
+
             if (n == 1)
             {
                 return new List<int> { 1 };
             }
+
             if (n == 2)
             {
                 return new List<int> { 1, 1 };
             }
-            //if (n == 3)
-            //    return new List<int> { 1, 1, 2 };
+            ////if (n == 3)
+            ////    return new List<int> { 1, 1, 2 };
 
             List<int> fibList = new List<int>() { 1, 1 };
             int fibNum = 0;

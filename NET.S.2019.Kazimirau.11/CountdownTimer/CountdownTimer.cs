@@ -3,9 +3,11 @@ using System.Threading;
 
 namespace CountdownTimer
 {
+    /// <summary>
+    /// Class that represents a countdown timer
+    /// </summary>
     public class CountdownTimer
     {
-        public event EventHandler<TimerEventArgs> TimerEvent;
         private int _milliseconds;
 
         public CountdownTimer(int milliseconds = 10000)
@@ -13,11 +15,14 @@ namespace CountdownTimer
             _milliseconds = milliseconds;
         }
 
-        protected virtual void OnTimer(TimerEventArgs e)
-        {
-            Volatile.Read(ref TimerEvent)?.Invoke(this, e);
-        }
+        /// <summary>
+        /// Countdown event
+        /// </summary>
+        public event EventHandler<TimerEventArgs> CountdownEvent;
 
+        /// <summary>
+        /// Rise event method
+        /// </summary>
         public void SimulateCountdown()
         {
             TimerEventArgs e = new TimerEventArgs();
@@ -34,6 +39,11 @@ namespace CountdownTimer
             e.Milliseconds = _milliseconds;
             e.Message = "Timer was stopped!!";
             OnTimer(e);
+        }
+
+        protected virtual void OnTimer(TimerEventArgs e)
+        {
+            Volatile.Read(ref CountdownEvent)?.Invoke(this, e);
         }
     }
 }

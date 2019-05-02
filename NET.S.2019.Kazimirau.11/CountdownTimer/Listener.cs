@@ -10,13 +10,13 @@ namespace CountdownTimer
         // Pass the CountdownTimer object to the constructor
         public Listener(CountdownTimer timer)
         {
-            timer.TimerEvent += Listen;
+            timer.CountdownEvent += Listen;
         }
 
         // Listener unregister itself so that it no longer receives notifications
         public void Unregister(CountdownTimer timer)
         {
-            timer.TimerEvent -= Listen;
+            timer.CountdownEvent -= Listen;
         }
 
         // This is the method the CountdownTimer will call
