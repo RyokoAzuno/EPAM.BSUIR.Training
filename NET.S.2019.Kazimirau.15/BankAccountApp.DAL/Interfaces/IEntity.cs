@@ -1,7 +1,7 @@
 ﻿namespace BankAccountApp.DAL.Interfaces
 {
-    public interface IEntity<T>
+    public interface IEntity
     {
-        T Id { get; }
+        int Id { get; }
     }
 }

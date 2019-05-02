@@ -1,19 +1,25 @@
 ﻿using BankAccountApp.BLL.DataTransferObjects;
-using BankAccountApp.BLL.Dependencies;
 using BankAccountApp.BLL.Interfaces;
-using Ninject;
-using System;
+using BankAccountApp.BLL.Services;
+using BankAccountApp.CCL.Mappers;
+using BankAccountApp.DAL.Entities;
+using BankAccountApp.DAL.Interfaces;
+using BankAccountApp.DAL.Repositories;
+using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace BankAccountApp.ConsoleUI
+namespace BankAccountApp.Tests
 {
-    class Program
+    [TestFixture]
+    public class NUnitBLLTests
     {
-        static void Main(string[] args)
+        private List<BankAccountDTO> _bankAccounts;
+
+        [SetUp]
+        public void SetUp()
         {
-            IKernel kernel = new StandardKernel(new NinjectServiceModule());
-            IBankAccountService bankService = kernel.Get<IBankAccountService>();
+            _bankAccounts = new List<BankAccountDTO>();
+
             BankAccountDTO acc1 = new BankAccountDTO
             {
                 Id = 5,
@@ -55,22 +61,41 @@ namespace BankAccountApp.ConsoleUI
                 IsOpened = false
             };
 
-            //bankService.CreateNew(acc1);
-            //bankService.CreateNew(acc2);
-            //bankService.CreateNew(acc3);
-            //bankService.CreateNew(acc4);
+            _bankAccounts.AddRange(new[] { acc1, acc2, acc3, acc4 });
+        }
 
-            List<BankAccountDTO> bankAccounts = bankService.ShowAll().ToList();
-            bankAccounts.ForEach(Console.WriteLine);
+        [Test]
+        public void Test()
+        {
+            IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
+            IStorage<BankAccount> storage = new FakeStorage(accs);
+            IUnitOfWork unitOfWork = new UnitOfWork(storage);
+            IBankAccountService service = new BankAccountService(unitOfWork);
 
-            Console.WriteLine();
-            //bankService.Close(4);
-            Console.WriteLine(bankService.Show(4));
+            BankAccountDTO acc = service.Show(6);
 
-            Console.WriteLine();
-            //bankService.Deposit(1, 999.43m);
-            //bankService.Withdraw(1, 500.40m);
-            Console.WriteLine(bankService.Show(1));
+            Assert.AreEqual(60, acc.BonusPoints);
+        }
+    }
+
+    internal class FakeStorage : IStorage<BankAccount>
+    {
+        private List<BankAccount> _storage;
+
+        public FakeStorage(IEnumerable<BankAccount> storage)
+        {
+            _storage = new List<BankAccount>();
+            _storage.AddRange(storage);
+        }
+
+        public IEnumerable<BankAccount> Load()
+        {
+            return _storage;
+        }
+
+        public void Save()
+        {
+
         }
     }
 }

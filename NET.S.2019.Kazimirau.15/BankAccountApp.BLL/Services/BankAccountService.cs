@@ -1,5 +1,6 @@
 ﻿using BankAccountApp.BLL.DataTransferObjects;
 using BankAccountApp.BLL.Interfaces;
+using BankAccountApp.CCL.Mappers;
 using BankAccountApp.DAL.Entities;
 using BankAccountApp.DAL.Interfaces;
 using System;
@@ -29,16 +30,7 @@ namespace BankAccountApp.BLL.Services
                 throw new ArgumentNullException("Bank account can't be null!!");
             }
 
-            BankAccount bankAccount = new BankAccount
-            {
-                Id = bankAccountDTO.Id,
-                FirstName = bankAccountDTO.FirstName,
-                SecondName = bankAccountDTO.SecondName,
-                Balance = bankAccountDTO.Balance,
-                BonusPoints = bankAccountDTO.BonusPoints,
-                Type = (AccountType)bankAccountDTO.Type,
-                IsOpened = bankAccountDTO.IsOpened 
-            };
+            BankAccount bankAccount = CustomMapper<BankAccountDTO, BankAccount>.Map(bankAccountDTO);//new BankAccount
 
             _db.BankAccounts.Create(bankAccount);
             _db.Commit();
@@ -99,16 +91,7 @@ namespace BankAccountApp.BLL.Services
                 throw new ArgumentNullException("Bank account doesn't exist!!");
             }
 
-            BankAccountDTO bankAccountDTO = new BankAccountDTO
-            {
-                Id = bankAccount.Id,
-                FirstName = bankAccount.FirstName,
-                SecondName = bankAccount.SecondName,
-                Balance = bankAccount.Balance,
-                BonusPoints = bankAccount.BonusPoints,
-                Type = (AccountTypeDTO)bankAccount.Type,
-                IsOpened = bankAccount.IsOpened
-            };
+            BankAccountDTO bankAccountDTO = CustomMapper<BankAccount, BankAccountDTO>.Map(bankAccount);//new BankAccountDTO
 
             return bankAccountDTO;
         }
@@ -116,21 +99,7 @@ namespace BankAccountApp.BLL.Services
         public IEnumerable<BankAccountDTO> ShowAll()
         {
             IEnumerable<BankAccount> bankAccounts = _db.BankAccounts.GetAll();
-            List<BankAccountDTO> bankAccountsDTO = new List<BankAccountDTO>();
-            IEnumerator<BankAccount> enumerator = bankAccounts.GetEnumerator();
-
-            while(enumerator.MoveNext())
-            {
-                bankAccountsDTO.Add(new BankAccountDTO {
-                    Id = enumerator.Current.Id,
-                    FirstName = enumerator.Current.FirstName,
-                    SecondName = enumerator.Current.SecondName,
-                    Balance = enumerator.Current.Balance,
-                    BonusPoints = enumerator.Current.BonusPoints,
-                    Type = (AccountTypeDTO)enumerator.Current.Type,
-                    IsOpened = enumerator.Current.IsOpened
-                });
-            }
+            IEnumerable<BankAccountDTO> bankAccountsDTO = CustomMapper<BankAccount, BankAccountDTO>.Map(bankAccounts);
 
             return bankAccountsDTO;
         }

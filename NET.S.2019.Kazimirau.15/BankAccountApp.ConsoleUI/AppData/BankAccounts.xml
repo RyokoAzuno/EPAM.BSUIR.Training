@@ -3,8 +3,8 @@
   <BankAccount Id="1">
     <FirstName>Jane</FirstName>
     <SecondName>Doe</SecondName>
-    <Balance>2499.53</Balance>
-    <BonusPoints>21</BonusPoints>
+    <Balance>2998.56</Balance>
+    <BonusPoints>22</BonusPoints>
     <Type>Gold</Type>
     <Status>true</Status>
   </BankAccount>
