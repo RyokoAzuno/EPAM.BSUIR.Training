@@ -5,8 +5,10 @@ using BankAccountApp.CCL.Mappers;
 using BankAccountApp.DAL.Entities;
 using BankAccountApp.DAL.Interfaces;
 using BankAccountApp.DAL.Repositories;
+using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BankAccountApp.Tests
 {
@@ -69,12 +71,15 @@ namespace BankAccountApp.Tests
         {
             IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
             IStorage<BankAccount> storage = new FakeStorage(accs);
-            IUnitOfWork unitOfWork = new UnitOfWork(storage);
-            IBankAccountService service = new BankAccountService(unitOfWork);
+            //IUnitOfWork unitOfWork = new UnitOfWork(storage);
+            //IBankAccountService service = new BankAccountService(unitOfWork);
+            //var mockUoW = new Mock<IUnitOfWork>();
+            var mockService = new Mock<IBankAccountService>();
+            mockService.Setup(s => s.Show(6)).Returns(_bankAccounts.Where(a => a.Id == 6).FirstOrDefault());
+            Assert.AreEqual(60, mockService.Object.Show(6).BonusPoints);
+            //BankAccountDTO acc = service.Show(6);
 
-            BankAccountDTO acc = service.Show(6);
-
-            Assert.AreEqual(60, acc.BonusPoints);
+            //Assert.AreEqual(60, acc.BonusPoints);
         }
     }
 
