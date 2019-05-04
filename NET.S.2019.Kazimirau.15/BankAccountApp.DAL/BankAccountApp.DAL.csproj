@@ -54,6 +54,7 @@
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Storages\BinaryStorage.cs" />
     <Compile Include="Storages\JsonStorage.cs" />
+    <Compile Include="Storages\MemoryStorage.cs" />
     <Compile Include="Storages\XmlStorage.cs" />
   </ItemGroup>
   <ItemGroup>

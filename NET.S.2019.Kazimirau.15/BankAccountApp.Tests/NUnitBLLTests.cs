@@ -67,40 +67,29 @@ namespace BankAccountApp.Tests
         }
 
         [Test]
-        public void Test()
+        public void BankAccountService_Moq_Tests()
         {
-            IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
-            IStorage<BankAccount> storage = new FakeStorage(accs);
+            //IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
+            //IStorage<BankAccount> storage = new FakeStorage(accs);
             //IUnitOfWork unitOfWork = new UnitOfWork(storage);
             //IBankAccountService service = new BankAccountService(unitOfWork);
-            //var mockUoW = new Mock<IUnitOfWork>();
             var mockService = new Mock<IBankAccountService>();
+            mockService.Setup(s => s.ShowAll()).Returns(_bankAccounts);
             mockService.Setup(s => s.Show(6)).Returns(_bankAccounts.Where(a => a.Id == 6).FirstOrDefault());
-            Assert.AreEqual(60, mockService.Object.Show(6).BonusPoints);
-            //BankAccountDTO acc = service.Show(6);
 
-            //Assert.AreEqual(60, acc.BonusPoints);
-        }
-    }
-
-    internal class FakeStorage : IStorage<BankAccount>
-    {
-        private List<BankAccount> _storage;
-
-        public FakeStorage(IEnumerable<BankAccount> storage)
-        {
-            _storage = new List<BankAccount>();
-            _storage.AddRange(storage);
+            Assert.AreEqual(60, mockService.Object.ShowAll().Where(a => a.Id == 6).FirstOrDefault().BonusPoints);
+            Assert.AreEqual(AccountTypeDTO.Base, mockService.Object.ShowAll().Where(a => a.Id == 8).FirstOrDefault().Type);
+            Assert.AreEqual(13040.50m, mockService.Object.ShowAll().Where(a => a.Id == 6).FirstOrDefault().Balance);
+            Assert.AreEqual("James", mockService.Object.Show(6).FirstName);
         }
 
-        public IEnumerable<BankAccount> Load()
+        [Test]
+        public void BankAccountService_Tests()
         {
-            return _storage;
-        }
-
-        public void Save()
-        {
-
+            //IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
+            //IStorage<BankAccount> storage = new FakeStorage(accs);
+            //IUnitOfWork unitOfWork = new UnitOfWork(storage);
+            //IBankAccountService service = new BankAccountService(unitOfWork);
         }
     }
 }
