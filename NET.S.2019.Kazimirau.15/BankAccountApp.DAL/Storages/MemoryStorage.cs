@@ -6,24 +6,20 @@ using System.IO;
 
 namespace BankAccountApp.DAL.Storages
 {
+    // Class represents fake memory storage
     public sealed class MemoryStorage : IStorage<BankAccount>
     {
         private List<BankAccount> _bankAccounts;
         private byte[] _storage;
 
-        public MemoryStorage()
-        {
-            _bankAccounts = new List<BankAccount>();
-        }
-
         // Constructor
-        public MemoryStorage(List<BankAccount> bankAccounts)
+        public MemoryStorage(IEnumerable<BankAccount> bankAccounts)
         {
-            _bankAccounts = bankAccounts;
+            _bankAccounts = new List<BankAccount>(bankAccounts);
         }
 
         /// <summary>
-        /// Deserialize bytes as List of books
+        /// Deserialize bytes as List of bank accounts
         /// </summary>
         public IEnumerable<BankAccount> Load()
         {
@@ -31,6 +27,8 @@ namespace BankAccountApp.DAL.Storages
             {
                 throw new Exception("Can't load!. Memory storage is null or empty!");
             }
+
+            _bankAccounts.Clear();
 
             using (MemoryStream stream = new MemoryStream(_storage))
             {
@@ -48,7 +46,7 @@ namespace BankAccountApp.DAL.Storages
         }
 
         /// <summary>
-        /// Serialize books in memory as array of bytes
+        /// Serialize bank accounts in memory as array of bytes
         /// </summary>
         public void Save()
         {
@@ -66,7 +64,7 @@ namespace BankAccountApp.DAL.Storages
             }
         }
 
-        // Write book as array of bytes to stream
+        // Write bank account as array of bytes to stream
         private void WriteToStream(BinaryWriter binaryWriter, BankAccount bankAccount)
         {
             if (bankAccount != null && binaryWriter != null)
@@ -85,7 +83,7 @@ namespace BankAccountApp.DAL.Storages
             }
         }
 
-        // Read all bytes from stream as Book
+        // Read all bytes from stream as bank account
         private BankAccount ReadFromStream(BinaryReader binaryReader)
         {
             if (binaryReader != null)

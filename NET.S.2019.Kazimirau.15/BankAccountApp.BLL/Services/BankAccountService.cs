@@ -54,29 +54,7 @@ namespace BankAccountApp.BLL.Services
             if (bankAccount.IsOpened)
             {
                 bankAccount.Balance += amount;
-                switch (bankAccount.Type)
-                {
-                    case AccountType.Base:
-                        {
-                            bankAccount.BonusPoints += (int)bankAccount.Type;
-                            break;
-                        }
-
-                    case AccountType.Gold:
-                        {
-                            bankAccount.BonusPoints += (int)bankAccount.Type;
-                            break;
-                        }
-
-                    case AccountType.Platinum:
-                        {
-                            bankAccount.BonusPoints += (int)bankAccount.Type;
-                            break;
-                        }
-
-                    default:
-                        break;
-                }
+                bankAccount.BonusPoints += CalculateBonusPoints(bankAccount.Type, amount);
             }
 
             _db.Commit();
@@ -123,33 +101,50 @@ namespace BankAccountApp.BLL.Services
                 if (bankAccount.Balance - amount >= 0)
                 {
                     bankAccount.Balance -= amount;
-                    switch (bankAccount.Type)
+                    int bonusPoints = CalculateBonusPoints(bankAccount.Type, amount);
+
+                    if (bankAccount.BonusPoints - bonusPoints < 0)
                     {
-                        case AccountType.Base:
-                            {
-                                bankAccount.BonusPoints -= (int)bankAccount.Type / 2;
-                                break;
-                            }
-
-                        case AccountType.Gold:
-                            {
-                                bankAccount.BonusPoints -= (int)bankAccount.Type / 2;
-                                break;
-                            }
-
-                        case AccountType.Platinum:
-                            {
-                                bankAccount.BonusPoints -= (int)bankAccount.Type / 3;
-                                break;
-                            }
-
-                        default:
-                            break;
+                        bankAccount.BonusPoints = 0;
+                    }
+                    else {
+                        bankAccount.BonusPoints -= bonusPoints;
                     }
                 }
             }
 
             _db.Commit();
+        }
+
+        private int CalculateBonusPoints(AccountType accountType, decimal amount)
+        {
+            int result = 0;
+
+            switch(accountType)
+            {
+                case AccountType.Base:
+                    {
+                        result = (int)(amount * 0.05m);
+                        break;
+                    }
+
+                case AccountType.Gold:
+                    {
+                        result = (int)(amount * 0.1m);
+                        break;
+                    }
+
+                case AccountType.Platinum:
+                    {
+                        result = (int)(amount * 0.15m);
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+
+            return result;
         }
     }
 }

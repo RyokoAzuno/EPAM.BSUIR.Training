@@ -5,6 +5,7 @@ using BankAccountApp.CCL.Mappers;
 using BankAccountApp.DAL.Entities;
 using BankAccountApp.DAL.Interfaces;
 using BankAccountApp.DAL.Repositories;
+using BankAccountApp.DAL.Storages;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace BankAccountApp.Tests
                 Balance = 500.50m,
                 BonusPoints = 10,
                 Type = AccountTypeDTO.Base,
-                IsOpened = false
+                IsOpened = true
             };
 
             _bankAccounts.AddRange(new[] { acc1, acc2, acc3, acc4 });
@@ -69,10 +70,6 @@ namespace BankAccountApp.Tests
         [Test]
         public void BankAccountService_Moq_Tests()
         {
-            //IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
-            //IStorage<BankAccount> storage = new FakeStorage(accs);
-            //IUnitOfWork unitOfWork = new UnitOfWork(storage);
-            //IBankAccountService service = new BankAccountService(unitOfWork);
             var mockService = new Mock<IBankAccountService>();
             mockService.Setup(s => s.ShowAll()).Returns(_bankAccounts);
             mockService.Setup(s => s.Show(6)).Returns(_bankAccounts.Where(a => a.Id == 6).FirstOrDefault());
@@ -86,10 +83,23 @@ namespace BankAccountApp.Tests
         [Test]
         public void BankAccountService_Tests()
         {
-            //IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
-            //IStorage<BankAccount> storage = new FakeStorage(accs);
-            //IUnitOfWork unitOfWork = new UnitOfWork(storage);
-            //IBankAccountService service = new BankAccountService(unitOfWork);
+            IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
+            IStorage<BankAccount> storage = new MemoryStorage(accs);
+            storage.Save();
+            IUnitOfWork unitOfWork = new UnitOfWork(storage);
+            IBankAccountService service = new BankAccountService(unitOfWork);
+
+            BankAccountDTO bankAccount = service.Show(8);
+            service.Deposit(bankAccount.Id, 200m);
+
+            Assert.AreEqual(8, bankAccount.Id);
+            bankAccount = service.Show(8);
+            Assert.AreEqual(700.50m, bankAccount.Balance);
+            Assert.AreEqual(20, bankAccount.BonusPoints);
+
+            service.Withdraw(8, 500.50m);
+            bankAccount = service.Show(8);
+            Assert.AreEqual(200m, bankAccount.Balance);
         }
     }
 }

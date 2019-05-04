@@ -36,6 +36,12 @@ namespace BankAccountApp.DAL.Repositories
         {
             if (bankAccount != null)
             {
+                if(_bankAccounts.Select(acc => acc.Id).Contains(bankAccount.Id))
+                {
+                    int id = _bankAccounts.Max(b => b.Id) + 1;
+                    bankAccount.Id = id;
+                }
+                
                 _bankAccounts.Add(bankAccount);
             }
         }
