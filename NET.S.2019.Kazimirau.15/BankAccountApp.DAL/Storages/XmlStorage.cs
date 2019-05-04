@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace BankAccountApp.DAL.Storages
     // Class emulates XML storage
     public sealed class XmlStorage : IStorage<BankAccount>
     {
-        private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.xml";
+        //private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\AppData\\" + "BankAccounts.xml";
+        private readonly string _fullPath = ConfigurationManager.AppSettings["XmlStoragePath"];
         private List<BankAccount> _storage;
 
         public XmlStorage(IEnumerable<BankAccount> storage)

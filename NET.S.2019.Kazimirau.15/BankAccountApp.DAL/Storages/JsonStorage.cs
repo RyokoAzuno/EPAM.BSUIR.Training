@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Text;
 using BankAccountApp.DAL.Entities;
@@ -11,7 +12,8 @@ namespace BankAccountApp.DAL.Storages
     // Class emulates JSON storage
     public sealed class JsonStorage : IStorage<BankAccount>
     {
-        private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.json";
+        //private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\AppData\\" + "BankAccounts.json";
+        private readonly string _fullPath = ConfigurationManager.AppSettings["JsonStoragePath"];
         private List<BankAccount> _storage;
 
         public JsonStorage(IEnumerable<BankAccount> storage)

@@ -12,7 +12,7 @@ namespace BankAccountApp.ConsoleUI
     {
         static void Main(string[] args)
         {
-            IKernel kernel = new StandardKernel(new NinjectServiceModule());
+            IKernel kernel = new StandardKernel(new NinjectServiceModule("xml"));
             IBankAccountService bankService = kernel.Get<IBankAccountService>();
             BankAccountDTO acc1 = new BankAccountDTO
             {
