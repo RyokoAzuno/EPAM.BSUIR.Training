@@ -17,9 +17,6 @@
       <segment>AnzhelikaKravchuk</segment>
       <segment>2017-2018.MMF.BSU</segment>
     </uri>
-    <parameters>
-      <parameter />
-    </parameters>
   </urlAddress>
   <urlAddress>
     <scheme>https</scheme>
@@ -30,8 +27,5 @@
       <segment>blog</segment>
       <segment>341486</segment>
     </uri>
-    <parameters>
-      <parameter />
-    </parameters>
   </urlAddress>
 </urlAddresses>

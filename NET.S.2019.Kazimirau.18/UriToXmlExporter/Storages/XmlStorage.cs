@@ -64,7 +64,7 @@ namespace UriToXmlExporter.Storages
 
         public void Save()
         {
-            var xEle = new XElement(
+            var doc = new XElement(
                                     "urlAddresses",
                                     _storage.Select(elt => new XElement(
                                                     "urlAddress",
@@ -74,8 +74,15 @@ namespace UriToXmlExporter.Storages
                                                     new XElement("parameters", new XElement("parameter", elt.Parameters.Select(param => new XAttribute("key", param.Key)),
                                                                                elt.Parameters.Select(param => new XAttribute("value", param.Value)))))));
 
+            foreach (XElement child in doc.Descendants().Reverse())
+            {
+                if (!child.HasElements && string.IsNullOrEmpty(child.Value) && !child.HasAttributes)
+                {
+                    child.Remove();
+                }
+            }
             // Save Xml document
-            xEle.Save(_path);
+            doc.Save(_path);
         }
     }
 }
