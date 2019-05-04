@@ -70,9 +70,9 @@ namespace UriToXmlExporter.Storages
                                                     "urlAddress",
                                                     new XElement("scheme", elt.Scheme),
                                                     new XElement("host", new XAttribute("name", elt.Host)),
-                                                    new XElement("uri", elt.Segments.Select(seg => seg)),
-                                                    new XElement("parameters", elt.Parameters.Select(param => new XAttribute("key", param.Key)),
-                                                                               elt.Parameters.Select(param => new XAttribute("value", param.Value))))));
+                                                    new XElement("uri", elt.Segments.Select(seg => new XElement("segment", seg))),
+                                                    new XElement("parameters", new XElement("parameter", elt.Parameters.Select(param => new XAttribute("key", param.Key)),
+                                                                               elt.Parameters.Select(param => new XAttribute("value", param.Value)))))));
 
             // Save Xml document
             xEle.Save(_path);

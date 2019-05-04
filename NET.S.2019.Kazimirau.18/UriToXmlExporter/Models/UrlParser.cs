@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UriToXmlExporter.Extentions;
@@ -7,25 +8,33 @@ namespace UriToXmlExporter.Models
 {
     public class UrlParser
     {
-        private string _uri;
-        private UrlAddress _urlAddress;
+        private readonly List<string> _uris;
 
-        public UrlParser(string uri)
+        private List<UrlAddress> _urlAddresses;
+
+        public UrlParser(params string[] uris)
         {
-            _uri = uri;
+            _uris = new List<string>(uris);
+            _urlAddresses = new List<UrlAddress>();
         }
 
-        public UrlAddress Parse()
+        public IEnumerable<UrlAddress> Parse()
         {
-            Uri uri = new Uri(_uri);
+            foreach (var item in _uris)
+            {
+                Uri uri = new Uri(item);
 
-            _urlAddress = new UrlAddress();
-            _urlAddress.Scheme = uri.Scheme;
-            _urlAddress.Host = uri.Host;
-            _urlAddress.Segments = uri.Segments.Where(s => s != "/").Select(x => x.TrimEnd('/')).ToArray();
-            _urlAddress.Parameters = HttpUtility.ParseQueryString(uri.Query).ToDictionary();
+                _urlAddresses.Add(new UrlAddress
+                {
+                    Scheme = uri.Scheme,
+                    Host = uri.Host,
+                    Segments = uri.Segments.Where(s => s != "/").Select(x => x.TrimEnd('/')).ToArray(),
+                    Parameters = HttpUtility.ParseQueryString(uri.Query).ToDictionary()
+                });
+            }
 
-            return _urlAddress;
+
+            return _urlAddresses;
         }
     }
 }
