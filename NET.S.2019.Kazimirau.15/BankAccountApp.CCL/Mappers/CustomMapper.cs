@@ -1,8 +1,13 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AutoMapper;
 
 namespace BankAccountApp.CCL.Mappers
 {
+    /// <summary>
+    /// Class wrapper for auto mapper package to convert objects
+    /// </summary>
+    /// <typeparam name="Src"></typeparam>
+    /// <typeparam name="Dest"></typeparam>
     public static class CustomMapper<Src, Dest>
     {
         public static IEnumerable<Dest> Map(IEnumerable<Src> source)

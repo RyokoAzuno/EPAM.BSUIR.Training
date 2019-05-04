@@ -3,7 +3,10 @@ using BankAccountApp.DAL.Interfaces;
 
 namespace BankAccountApp.DAL.Repositories
 {
-    // Class represents a compositing root that pass data to BLL layer
+    /// <summary>
+    /// Class represents a compositing root that pass data to BLL layer
+    /// Class-keeper for repositories
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private IRepository<BankAccount> _bankAccountRepository;
@@ -28,7 +31,7 @@ namespace BankAccountApp.DAL.Repositories
         }
 
         /// <summary>
-        /// Save changes to storage
+        /// Save changes to the storage
         /// </summary>
         public void Commit()
         {

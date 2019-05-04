@@ -1,13 +1,16 @@
-﻿using BankAccountApp.BLL.DataTransferObjects;
+﻿using System;
+using System.Collections.Generic;
+using BankAccountApp.BLL.DataTransferObjects;
 using BankAccountApp.BLL.Interfaces;
 using BankAccountApp.CCL.Mappers;
 using BankAccountApp.DAL.Entities;
 using BankAccountApp.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace BankAccountApp.BLL.Services
 {
+    /// <summary>
+    /// Class that represents bank account service
+    /// </summary>
     public class BankAccountService : IBankAccountService
     {
         private IUnitOfWork _db;
@@ -17,25 +20,38 @@ namespace BankAccountApp.BLL.Services
             _db = unitOfWork;
         }
 
+        /// <summary>
+        /// Close bank account by Id
+        /// </summary>
+        /// <param name="id"></param>
         public void Close(int id)
         {
             _db.BankAccounts.GetById(id).IsOpened = false;
             _db.Commit();
         }
 
+        /// <summary>
+        /// Create new bank account 
+        /// </summary>
+        /// <param name="bankAccountDTO"></param>
         public void CreateNew(BankAccountDTO bankAccountDTO)
         {
-            if(bankAccountDTO == null)
+            if (bankAccountDTO == null)
             {
                 throw new ArgumentNullException("Bank account can't be null!!");
             }
 
-            BankAccount bankAccount = CustomMapper<BankAccountDTO, BankAccount>.Map(bankAccountDTO);//new BankAccount
+            BankAccount bankAccount = CustomMapper<BankAccountDTO, BankAccount>.Map(bankAccountDTO); ////new BankAccount
 
             _db.BankAccounts.Create(bankAccount);
             _db.Commit();
         }
 
+        /// <summary>
+        /// Add amount of money to the bank account by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="amount"></param>
         public void Deposit(int id, decimal amount)
         {
             if (amount < 0)
@@ -45,11 +61,10 @@ namespace BankAccountApp.BLL.Services
 
             BankAccount bankAccount = _db.BankAccounts.GetById(id);
 
-            if(bankAccount == null)
+            if (bankAccount == null)
             {
                 throw new ArgumentNullException("Bank account doesn't exist!!");
             }
-
 
             if (bankAccount.IsOpened)
             {
@@ -60,7 +75,12 @@ namespace BankAccountApp.BLL.Services
             _db.Commit();
         }
 
-        public BankAccountDTO Show(int id)
+        /// <summary>
+        /// Get bank account by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public BankAccountDTO Get(int id)
         {
             BankAccount bankAccount = _db.BankAccounts.GetById(id);
 
@@ -69,12 +89,16 @@ namespace BankAccountApp.BLL.Services
                 throw new ArgumentNullException("Bank account doesn't exist!!");
             }
 
-            BankAccountDTO bankAccountDTO = CustomMapper<BankAccount, BankAccountDTO>.Map(bankAccount);//new BankAccountDTO
+            BankAccountDTO bankAccountDTO = CustomMapper<BankAccount, BankAccountDTO>.Map(bankAccount); ////new BankAccountDTO
 
             return bankAccountDTO;
         }
 
-        public IEnumerable<BankAccountDTO> ShowAll()
+        /// <summary>
+        /// Get all bank accounts
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BankAccountDTO> GetAll()
         {
             IEnumerable<BankAccount> bankAccounts = _db.BankAccounts.GetAll();
             IEnumerable<BankAccountDTO> bankAccountsDTO = CustomMapper<BankAccount, BankAccountDTO>.Map(bankAccounts);
@@ -82,6 +106,11 @@ namespace BankAccountApp.BLL.Services
             return bankAccountsDTO;
         }
 
+        /// <summary>
+        /// Withdraw amount of money from a bank account by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="amount"></param>
         public void Withdraw(int id, decimal amount)
         {
             if (amount < 0)
@@ -107,7 +136,8 @@ namespace BankAccountApp.BLL.Services
                     {
                         bankAccount.BonusPoints = 0;
                     }
-                    else {
+                    else
+                    {
                         bankAccount.BonusPoints -= bonusPoints;
                     }
                 }
@@ -116,11 +146,17 @@ namespace BankAccountApp.BLL.Services
             _db.Commit();
         }
 
+        /// <summary>
+        /// Calculate bonus points system
+        /// </summary>
+        /// <param name="accountType"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         private int CalculateBonusPoints(AccountType accountType, decimal amount)
         {
             int result = 0;
 
-            switch(accountType)
+            switch (accountType)
             {
                 case AccountType.Base:
                     {

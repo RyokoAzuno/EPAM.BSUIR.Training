@@ -1,8 +1,8 @@
-﻿using BankAccountApp.DAL.Entities;
-using BankAccountApp.DAL.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using BankAccountApp.DAL.Entities;
+using BankAccountApp.DAL.Interfaces;
 
 namespace BankAccountApp.DAL.Storages
 {
@@ -23,7 +23,7 @@ namespace BankAccountApp.DAL.Storages
         /// </summary>
         public IEnumerable<BankAccount> Load()
         {
-            if(_storage == null)
+            if (_storage == null)
             {
                 throw new Exception("Can't load!. Memory storage is null or empty!");
             }

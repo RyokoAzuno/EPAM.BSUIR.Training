@@ -14,9 +14,9 @@ namespace BankAccountApp.DAL.Storages
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.json";
         private List<BankAccount> _storage;
 
-        public JsonStorage(List<BankAccount> storage)
+        public JsonStorage(IEnumerable<BankAccount> storage)
         {
-            _storage = storage;
+            _storage = new List<BankAccount>(storage);
         }
 
         /// <summary>

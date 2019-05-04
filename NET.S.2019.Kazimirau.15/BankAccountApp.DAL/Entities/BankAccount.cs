@@ -12,6 +12,9 @@ namespace BankAccountApp.DAL.Entities
         Platinum
     }
 
+    /// <summary>
+    /// Bank account class
+    /// </summary>
     public class BankAccount : IEntity
     {
         // Unique identifier

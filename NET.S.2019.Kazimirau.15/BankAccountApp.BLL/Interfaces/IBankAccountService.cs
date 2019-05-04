@@ -1,5 +1,5 @@
-﻿using BankAccountApp.BLL.DataTransferObjects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BankAccountApp.BLL.DataTransferObjects;
 
 namespace BankAccountApp.BLL.Interfaces
 {
@@ -13,8 +13,8 @@ namespace BankAccountApp.BLL.Interfaces
 
         void Close(int id);
 
-        IEnumerable<BankAccountDTO> ShowAll();
+        IEnumerable<BankAccountDTO> GetAll();
 
-        BankAccountDTO Show(int id);
+        BankAccountDTO Get(int id);
     }
 }

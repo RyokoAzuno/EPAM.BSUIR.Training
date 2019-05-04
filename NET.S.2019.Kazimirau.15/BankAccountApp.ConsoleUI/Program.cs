@@ -60,17 +60,17 @@ namespace BankAccountApp.ConsoleUI
             //bankService.CreateNew(acc3);
             //bankService.CreateNew(acc4);
 
-            List<BankAccountDTO> bankAccounts = bankService.ShowAll().ToList();
+            List<BankAccountDTO> bankAccounts = bankService.GetAll().ToList();
             bankAccounts.ForEach(Console.WriteLine);
 
             Console.WriteLine();
             //bankService.Close(4);
-            Console.WriteLine(bankService.Show(4));
+            Console.WriteLine(bankService.Get(4));
 
             Console.WriteLine();
             //bankService.Deposit(1, 999.43m);
-            bankService.Withdraw(1, 500.40m);
-            Console.WriteLine(bankService.Show(1));
+            bankService.Withdraw(1, 230.40m);
+            Console.WriteLine(bankService.Get(1));
         }
     }
 }

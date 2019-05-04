@@ -7,6 +7,9 @@
         Platinum
     }
 
+    /// <summary>
+    /// Data transfer object class
+    /// </summary>
     public class BankAccountDTO
     {
         // Unique identifier

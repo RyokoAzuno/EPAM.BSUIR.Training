@@ -15,9 +15,9 @@ namespace BankAccountApp.DAL.Storages
         private readonly string _fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\AppData\\" + "BankAccounts.xml";
         private List<BankAccount> _storage;
 
-        public XmlStorage(List<BankAccount> storage)
+        public XmlStorage(IEnumerable<BankAccount> storage)
         {
-            _storage = storage;
+            _storage = new List<BankAccount>(storage);
         }
 
         /// <summary>
