@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extentions\DictionaryExtentions.cs" />
+    <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IStorage.cs" />
     <Compile Include="Models\UrlAddress.cs" />
     <Compile Include="Models\UrlParser.cs" />

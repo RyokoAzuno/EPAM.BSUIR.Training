@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UriToXmlExporter.Extentions;
+using UriToXmlExporter.Interfaces;
 
 namespace UriToXmlExporter.Models
 {
-    public class UrlParser
+    public class UrlParser : IParser<UrlAddress>
     {
         private readonly List<string> _uris;
 
