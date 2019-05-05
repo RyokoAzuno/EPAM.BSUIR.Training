@@ -6,7 +6,8 @@
     - 	Элизабет Фримен, Эрик Фримен, Кэти Сиерра, Берт Бейтс. Паттерны проектирования.
 
 1. Для объектов класса Book (ISBN, автор, название, издательство, год издания, количество страниц, цена) (домашнее задание 8-ого дня)
-  ●	реализовать возможность строкового представления различного вида. Например, для объекта со значениями ISBN = 978-0-7356-6745-7, AuthorName  =JeffreyRichter, Title = CLR via C#, Publisher = MicrosoftPress, Year = 2012, NumberOPpages = 826, Price = 59.99$, могут быть следующие варианты **[Click here](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.05/BooksApp)** :
+  реализовать возможность строкового представления различного вида **[Click here](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.05/BooksApp)**.
+  Например, для объекта со значениями ISBN = 978-0-7356-6745-7, AuthorName  =JeffreyRichter, Title = CLR via C#, Publisher = MicrosoftPress, Year = 2012, NumberOPpages = 826, Price = 59.99$, могут быть следующие варианты:
   -	Jeffrey Richter, CLR via C#
   -	Jeffrey Richter, CLR via C#, "Microsoft Press", 2012
   -	ISBN 13: 978-0-7356-6745-7, Jeffrey Richter, CLR via C#, "Microsoft Press", 2012, P. 826.
