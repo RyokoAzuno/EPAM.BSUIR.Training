@@ -38,7 +38,7 @@
 * MyQueue
 
 ### **[NET.S.2019.Kazimirau.15](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**</br>
-* BankAccountApp(n-tier architecture)
+* BankAccountApp(n-tier architecture DAL, BLL, PL)
 
 ### **[NET.S.2019.Kazimirau.18](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.18)**</br>
 * UriToXmlExporter
