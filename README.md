@@ -5,7 +5,16 @@
 **[NET.S.2019.Kazimirau.04](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.04)**</br>
 **[NET.S.2019.Kazimirau.05](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.05)**</br>
 **[NET.S.2019.Kazimirau.10](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.10)**</br>
+* BooksApp(refactoring)
+* GCD(refactoring)
+* JaggedArraySorter(refactoring)
+
 **[NET.S.2019.Kazimirau.11](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.11)**</br>
+* BinarySearch
+* CountdownTimer
+* Fibonacci
+* RouletteApp
+
 **[NET.S.2019.Kazimirau.13](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.13)**</br>
 * BinarySearchTree
 * Matrices
