@@ -7,5 +7,12 @@
 **[NET.S.2019.Kazimirau.10](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.10)**</br>
 **[NET.S.2019.Kazimirau.11](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.11)**</br>
 **[NET.S.2019.Kazimirau.13](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.13)**</br>
+* BinarySearchTree
+* Matrices
+* MyQueue
+
 **[NET.S.2019.Kazimirau.15](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**</br>
-**[NET.S.2019.Kazimirau.18](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.18)**
+* BankAccountApp(n-tier architecture)
+
+**[NET.S.2019.Kazimirau.18](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.18)**</br>
+* UriToXmlExporter
