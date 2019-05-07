@@ -9,7 +9,7 @@ namespace BinarySearchTree.Tests
     class BinaryTreeNUnitTests
     {
         [Test]
-        public void BinaryTree_Remove_Head()
+        public void BinaryTree_Int32_Remove_Head()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -46,7 +46,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Head_Line_Right()
+        public void BinaryTree_Int32_Remove_Head_Line_Right()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -76,7 +76,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Head_Line_Left()
+        public void BinaryTree_Int32_Remove_Head_Line_Left()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -105,7 +105,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Head_Only_Node()
+        public void BinaryTree_Int32_Remove_Head_Only_Node()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -120,7 +120,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Node_No_Left_Child()
+        public void BinaryTree_Int32_Remove_Node_No_Left_Child()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -159,7 +159,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Node_Right_Leaf()
+        public void BinaryTree_Int32_Remove_Node_Right_Leaf()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -198,7 +198,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Node_Left_Leaf()
+        public void BinaryTree_Int32_Remove_Node_Left_Leaf()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -237,7 +237,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Current_Right_Has_No_Left()
+        public void BinaryTree_Int32_Remove_Current_Right_Has_No_Left()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -274,7 +274,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Current_Has_No_Right()
+        public void BinaryTree_Int32_Remove_Current_Has_No_Right()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -311,7 +311,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_Current_Right_Has_Left()
+        public void BinaryTree_Int32_Remove_Current_Right_Has_Left()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -348,14 +348,14 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Remove_From_Empty()
+        public void BinaryTree_Int32_Remove_From_Empty()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
             Assert.IsFalse(tree.Remove(10));
         }
 
         [Test]
-        public void BinaryTree_Remove_Missing_From_Tree()
+        public void BinaryTree_Int32_Remove_Missing_From_Tree()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -377,7 +377,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_Enumerator_Of_Single()
+        public void BinaryTree_Int32_Enumerator_Of_Single()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -402,7 +402,7 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_InOrder_Enumerator()
+        public void BinaryTree_Int32_InOrder_Enumerator()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -433,9 +433,8 @@ namespace BinarySearchTree.Tests
             }
         }
 
-
         [Test]
-        public void BinaryTree_InOrder_Delegate()
+        public void BinaryTree_Int32_InOrder_Delegate()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -464,7 +463,36 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_PreOrder_Delegate()
+        public void BinaryTree_Int32_InOrder_Iterator()
+        {
+            BinaryTree<int> tree = new BinaryTree<int>();
+
+            //        4
+            //       / \
+            //      2   5
+            //     / \   \
+            //    1   3   7
+            //           / \
+            //          6   8
+
+            tree.Add(4);
+            tree.Add(5);
+            tree.Add(2);
+            tree.Add(7);
+            tree.Add(3);
+            tree.Add(6);
+            tree.Add(1);
+            tree.Add(8);
+
+            int[] expected = new[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            var result = tree.InOrderTraversalBasedOnIterator();
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void BinaryTree_Int32_PreOrder_Delegate()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -493,7 +521,36 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
-        public void BinaryTree_PostOrder_Delegate()
+        public void BinaryTree_Int32_PreOrder_Iterator()
+        {
+            BinaryTree<int> tree = new BinaryTree<int>();
+
+            //        4
+            //       / \
+            //      2   5
+            //     / \   \
+            //    1   3   7
+            //           / \
+            //          6   8
+
+            tree.Add(4);
+            tree.Add(5);
+            tree.Add(2);
+            tree.Add(7);
+            tree.Add(3);
+            tree.Add(6);
+            tree.Add(1);
+            tree.Add(8);
+
+            int[] expected = new[] { 4, 2, 1, 3, 5, 7, 6, 8 };
+
+            var result = tree.PreOrderTraversalBasedOnIterator();
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void BinaryTree_Int32_PostOrder_Delegate()
         {
             BinaryTree<int> tree = new BinaryTree<int>();
 
@@ -519,6 +576,35 @@ namespace BinarySearchTree.Tests
             int index = 0;
 
             tree.PostOrderTraversal(item => Assert.AreEqual(expected[index++], item, "The item enumerated in the wrong order"));
+        }
+
+        [Test]
+        public void BinaryTree_Int32_PostOrder_Iterator()
+        {
+            BinaryTree<int> tree = new BinaryTree<int>();
+
+            //        4
+            //       / \
+            //      2   5
+            //     / \   \
+            //    1   3   7
+            //           / \
+            //          6   8
+
+            tree.Add(4);
+            tree.Add(5);
+            tree.Add(2);
+            tree.Add(7);
+            tree.Add(3);
+            tree.Add(6);
+            tree.Add(1);
+            tree.Add(8);
+
+            int[] expected = new[] { 1, 3, 2, 6, 8, 7, 5, 4 };
+
+            var result = tree.PostOrderTraversalBasedOnIterator();
+
+            CollectionAssert.AreEqual(expected, result);
         }
     }
 }

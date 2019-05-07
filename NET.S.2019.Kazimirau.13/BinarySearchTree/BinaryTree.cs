@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace BinarySearchTree
@@ -179,6 +180,11 @@ namespace BinarySearchTree
             PreOrderTraversal(action, _head);
         }
 
+        public IEnumerable<T> PreOrderTraversalBasedOnIterator()
+        {
+            return PreOrderTraversalBasedOnIterator(_head);
+        }
+
         /// <summary>
         /// Performs the provided action on each binary tree value in post-order traversal order.
         /// </summary>
@@ -188,6 +194,11 @@ namespace BinarySearchTree
             PostOrderTraversal(action, _head);
         }
 
+        public IEnumerable<T> PostOrderTraversalBasedOnIterator()
+        {
+            return PostOrderTraversalBasedOnIterator(_head);
+        }
+
         /// <summary>
         /// Performs the provided action on each binary tree value in in-order traversal order.
         /// </summary>
@@ -195,6 +206,11 @@ namespace BinarySearchTree
         public void InOrderTraversal(Action<T> action)
         {
             InOrderTraversal(action, _head);
+        }
+
+        public IEnumerable<T> InOrderTraversalBasedOnIterator()
+        {
+            return InOrderTraversalBasedOnIterator(_head);
         }
 
         /// <summary>
@@ -269,7 +285,7 @@ namespace BinarySearchTree
         /// Returns an enumerator that performs an in-order traversal of the binary tree
         /// </summary>
         /// <returns>The in-order enumerator</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -386,6 +402,78 @@ namespace BinarySearchTree
                 action(node.Value);
 
                 InOrderTraversal(action, node.Right);
+            }
+        }
+
+        /// <summary>
+        /// Preorder traversal based on iterator
+        /// </summary>
+        private IEnumerable<T> PreOrderTraversalBasedOnIterator(BinaryTreeNode<T> node)
+        {
+            yield return node.Value;
+
+            if (node.Left != null)
+            {
+                foreach (var item in PreOrderTraversalBasedOnIterator(node.Left))
+                {
+                    yield return item;
+                }
+            }
+
+            if (node.Right != null)
+            {
+                foreach (var item in PreOrderTraversalBasedOnIterator(node.Right))
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Postorder traversal based on iterator
+        /// </summary>
+        private IEnumerable<T> PostOrderTraversalBasedOnIterator(BinaryTreeNode<T> node)
+        {
+            if (node.Left != null)
+            {
+                foreach (var item in PostOrderTraversalBasedOnIterator(node.Left))
+                {
+                    yield return item;
+                }
+            }
+
+            if (node.Right != null)
+            {
+                foreach (var item in PostOrderTraversalBasedOnIterator(node.Right))
+                {
+                    yield return item;
+                }
+            }
+
+            yield return node.Value;
+        }
+
+        /// <summary>
+        /// Inorder traversal based on iterator
+        /// </summary>
+        private IEnumerable<T> InOrderTraversalBasedOnIterator(BinaryTreeNode<T> node)
+        {
+            if (node.Left != null)
+            {
+                foreach (var item in InOrderTraversalBasedOnIterator(node.Left))
+                {
+                    yield return item;
+                }
+            }
+
+            yield return node.Value;
+
+            if (node.Right != null)
+            {
+                foreach (var item in InOrderTraversalBasedOnIterator(node.Right))
+                {
+                    yield return item;
+                }
             }
         }
 
