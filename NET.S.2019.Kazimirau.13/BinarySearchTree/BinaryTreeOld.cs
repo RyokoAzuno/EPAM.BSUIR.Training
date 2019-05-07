@@ -1,88 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
+using BinarySearchTree.Interfaces;
 
 namespace BinarySearchTree
 {
-    /// <summary>
-    /// Binary tree implementation from the book of Robert Horvick.
-    /// From book: Data Structures Succinctly Part 1(Binary tree implementation)
-    /// </summary>
-    public class BinaryTree<T> : IEnumerable<T> where T : IComparable<T>
+    // Class represents binary tree
+    public class BinaryTreeOld<TKey> : IPrintable, IEnumerable<TKey> where TKey : IComparable<TKey>, IEquatable<TKey>
     {
-        private BinaryTreeNode<T> _head;
-        private int _count;
+        private Node _root;
 
-        /// <summary>
-        /// Returns the number of items currently contained in the tree
-        /// </summary>
-        public int Count
+        ////private void RotationRight(ref Node r)
+        ////{
+        ////    Node current = r.Left;
+        ////    r.Left = current.Right;
+        ////    current.Right = r;
+        ////    r = current;
+        ////}
+
+        ////private void RotationLeft(ref Node r)
+        ////{
+        ////    Node current = r.Right;
+        ////    r.Right = current.Left;
+        ////    current.Left = r;
+        ////    r = current;
+        ////}
+
+        public BinaryTreeOld()
         {
-            get
+            _root = null;
+        }
+
+        public BinaryTreeOld(IEnumerable<TKey> items)
+        {
+            _root = null;
+
+            foreach (var item in items)
             {
-                return _count;
+                Insert(item);
             }
         }
 
-        /// <summary>
-        /// Adds the provided value to the binary tree.
-        /// </summary>
-        /// <param name="value"></param>
-        public void Add(T value)
+        public bool IsExist(TKey key)
         {
-            // Case 1: The tree is empty - allocate the head
-            if (_head == null)
-            {
-                _head = new BinaryTreeNode<T>(value);
-            }
-            else
-            {
-                // Case 2: The tree is not empty so find the right location to insert
-                AddTo(_head, value);
-            }
-
-            _count++;
+            return IsExist(_root, key);
         }
 
-        /// <summary>
-        /// Determines if the specified value exists in the binary tree.
-        /// </summary>
-        /// <param name="value">The value to search for.</param>
-        /// <returns>True if the tree contains the value, false otherwise</returns>
-        public bool Contains(T value)
+        public void Insert(TKey key)
         {
-            // defer to the node search helper function.
-            BinaryTreeNode<T> parent;
-            return FindWithParent(value, out parent) != null;
-        }       
+            Insert(ref _root, key);
+        }
 
         /// <summary>
         /// Removes the first occurrence of the specified value from the tree.
         /// </summary>
         /// <param name="value"> The value to remove </param>
         /// <returns> True if the value was removed, false otherwise </returns>
-        public bool Remove(T value)
+        public bool Remove(TKey key)
         {
-            BinaryTreeNode<T> current, parent;
+            Node current, parent;
 
-            current = FindWithParent(value, out parent);
+            current = FindNode(key, out parent);
 
             if (current == null)
             {
                 return false;
             }
 
-            _count--;
-
             // Case 1: If current has no right child, then current's left replaces current
             if (current.Right == null)
             {
                 if (parent == null)
                 {
-                    _head = current.Left;
+                    _root = current.Left;
                 }
                 else
                 {
-                    int result = parent.CompareTo(current.Value);
+                    int result = parent.Key.CompareTo(current.Key);
                     if (result > 0)
                     {
                         // if parent value is greater than current value
@@ -99,17 +92,16 @@ namespace BinarySearchTree
             }
             else if (current.Right.Left == null)
             {
-                // Case 2: If current's right child has no left child, then current's right child
-                //         replaces current
+                // Case 2: If current's right child has no left child, then current's right child replaces current
                 current.Right.Left = current.Left;
 
                 if (parent == null)
                 {
-                    _head = current.Right;
+                    _root = current.Right;
                 }
                 else
                 {
-                    int result = parent.CompareTo(current.Value);
+                    int result = parent.Key.CompareTo(current.Key);
                     if (result > 0)
                     {
                         // if parent value is greater than current value
@@ -127,10 +119,10 @@ namespace BinarySearchTree
             else
             {
                 // Case 3: If current's right child has a left child, replace current with current's
-                // right child's left-most child
+                //         right child's left-most child
                 // find the right's left-most child
-                BinaryTreeNode<T> leftmost = current.Right.Left;
-                BinaryTreeNode<T> leftmostParent = current.Right;
+                Node leftmost = current.Right.Left;
+                Node leftmostParent = current.Right;
 
                 while (leftmost.Left != null)
                 {
@@ -147,11 +139,11 @@ namespace BinarySearchTree
 
                 if (parent == null)
                 {
-                    _head = leftmost;
+                    _root = leftmost;
                 }
                 else
                 {
-                    int result = parent.CompareTo(current.Value);
+                    int result = parent.Key.CompareTo(current.Key);
                     if (result > 0)
                     {
                         // if parent value is greater than current value
@@ -174,43 +166,43 @@ namespace BinarySearchTree
         /// Performs the provided action on each binary tree value in pre-order traversal order.
         /// </summary>
         /// <param name="action">The action to perform</param>
-        public void PreOrderTraversal(Action<T> action)
+        public void PreOrderTraversal(Action<TKey> action)
         {
-            PreOrderTraversal(action, _head);
+            PreOrderTraversal(action, _root);
         }
 
         /// <summary>
         /// Performs the provided action on each binary tree value in post-order traversal order.
         /// </summary>
         /// <param name="action">The action to perform</param>
-        public void PostOrderTraversal(Action<T> action)
+        public void PostOrderTraversal(Action<TKey> action)
         {
-            PostOrderTraversal(action, _head);
+            PostOrderTraversal(action, _root);
         }
 
         /// <summary>
         /// Performs the provided action on each binary tree value in in-order traversal order.
         /// </summary>
         /// <param name="action">The action to perform</param>
-        public void InOrderTraversal(Action<T> action)
+        public void InOrderTraversal(Action<TKey> action)
         {
-            InOrderTraversal(action, _head);
+            InOrderTraversal(action, _root);
         }
-
+       
         /// <summary>
         /// Enumerates the values contains in the binary tree in in-order traversal order.
         /// </summary>
         /// <returns>The enumerator</returns>
-        public IEnumerator<T> InOrderTraversal()
+        public IEnumerator<TKey> InOrderTraversal()
         {
             // This is a non-recursive algorithm using a stack to demonstrate removing
             // recursion to make using the yield syntax easier.
-            if (_head != null)
+            if (_root != null)
             {
                 // store the nodes we've skipped in this stack (avoids recursion)
-                Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+                Stack<Node> stack = new Stack<Node>();
 
-                BinaryTreeNode<T> current = _head;
+                Node current = _root;
 
                 // when removing recursion we need to keep track of whether or not
                 // we should be going to the left node or the right nodes next.
@@ -234,7 +226,7 @@ namespace BinarySearchTree
                     }
 
                     // in-order is left->yield->right
-                    yield return current.Value;
+                    yield return current.Key;
 
                     // if we can go right then do so
                     if (current.Right != null)
@@ -260,7 +252,7 @@ namespace BinarySearchTree
         /// Returns an enumerator that performs an in-order traversal of the binary tree
         /// </summary>
         /// <returns>The in-order enumerator</returns>
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<TKey> GetEnumerator()
         {
             return InOrderTraversal();
         }
@@ -274,77 +266,84 @@ namespace BinarySearchTree
             return GetEnumerator();
         }
 
-        /// <summary>
-        /// Removes all items from the tree
-        /// </summary>
-        public void Clear()
+        public void Print()
         {
-            _head = null;
-            _count = 0;
+            Console.WriteLine($"\n====================================\n");
+            _root.Print();
         }
 
-        // Recursive add algorithm
-        private void AddTo(BinaryTreeNode<T> node, T value)
+        /// <summary>
+        /// Determines if the specified value exists in the binary tree.
+        /// </summary>
+        private bool IsExist(Node r, TKey key)
         {
-            // Case 1: Value is less than the current node value
-            if (value.CompareTo(node.Value) < 0)
+            if (r == null)
             {
-                // if there is no left child make this the new left
-                if (node.Left == null)
-                {
-                    node.Left = new BinaryTreeNode<T>(value);
-                }
-                else
-                {
-                    // else add it to the left node
-                    AddTo(node.Left, value);
-                }
+                return false;
             }
-            else 
+
+            Node current = r;
+            if (key.Equals(current.Key))
             {
-                // Case 2: Value is equal to or greater than the current value
-                // If there is no right, add it to the right
-                if (node.Right == null)
-                {
-                    node.Right = new BinaryTreeNode<T>(value);
-                }
-                else
-                {
-                    // else add it to the right node
-                    AddTo(node.Right, value);
-                }
+                return true;
+            }
+
+            if (key.CompareTo(current.Key) < 0)
+            {
+                return IsExist(current.Left, key);
+            }
+            else
+            {
+                return IsExist(current.Right, key);
             }
         }
 
         /// <summary>
-        /// Finds and returns the first node containing the specified value.  If the value
-        /// is not found, returns null.  Also returns the parent of the found node (or null)
-        /// which is used in Remove.
+        /// Adds the value to the binary tree.
         /// </summary>
-        /// <param name="value">The value to search for</param>
-        /// <param name="parent">The parent of the found node (or null)</param>
-        /// <returns>The found node (or null)</returns>
-        private BinaryTreeNode<T> FindWithParent(T value, out BinaryTreeNode<T> parent)
+        private void Insert(ref Node r, TKey key)
+        {
+            if (r == null)
+            {
+                r = new Node() { Key = key };
+            }
+            else
+            {
+                Node current = r;
+                if (key.CompareTo(current.Key) < 0)
+                {
+                    Insert(ref current.Left, key);
+                    ///RotationRight(ref current);
+                }
+                else
+                {
+                    Insert(ref current.Right, key);
+                    ////RotationLeft(ref current);
+                }
+            }
+        }
+
+        private Node FindNode(TKey key, out Node r)
         {
             // Now, try to find data in the tree
-            BinaryTreeNode<T> current = _head;
-            parent = null;
+            Node current = _root;
+            r = null;
 
             // while we don't have a match
             while (current != null)
             {
-                int result = current.CompareTo(value);
+                int result = current.Key.CompareTo(key);
 
                 if (result > 0)
                 {
                     // if the value is less than current, go left.
-                    parent = current;
+                    r = current;
                     current = current.Left;
                 }
                 else if (result < 0)
                 {
                     // if the value is more than current, go right.
-                    parent = current;
+                    r = current;
                     current = current.Right;
                 }
                 else
@@ -357,62 +356,68 @@ namespace BinarySearchTree
             return current;
         }
 
-        private void PreOrderTraversal(Action<T> action, BinaryTreeNode<T> node)
+        private void PreOrderTraversal(Action<TKey> action, Node node)
         {
             if (node != null)
             {
-                action(node.Value);
+                action(node.Key);
                 PreOrderTraversal(action, node.Left);
                 PreOrderTraversal(action, node.Right);
             }
         }
 
-        private void PostOrderTraversal(Action<T> action, BinaryTreeNode<T> node)
+        private void PostOrderTraversal(Action<TKey> action, Node node)
         {
             if (node != null)
             {
                 PostOrderTraversal(action, node.Left);
                 PostOrderTraversal(action, node.Right);
-                action(node.Value);
+                action(node.Key);
             }
         }
 
-        private void InOrderTraversal(Action<T> action, BinaryTreeNode<T> node)
+        private void InOrderTraversal(Action<TKey> action, Node node)
         {
             if (node != null)
             {
                 InOrderTraversal(action, node.Left);
 
-                action(node.Value);
+                action(node.Key);
 
                 InOrderTraversal(action, node.Right);
             }
         }
 
-        /// <summary>
-        /// A binary tree node class - encapsulates the value and left/right pointers.
-        /// </summary>
-        private class BinaryTreeNode<TNode> : IComparable<TNode> where TNode : IComparable<TNode>
+        // Class represents binary tree node
+        private class Node
         {
-            public BinaryTreeNode(TNode value)
+            public TKey Key;
+            public Node Left;
+            public Node Right;
+
+            public void Print(int level = 0)
             {
-                Value = value;
-            }
+                Node current = this;
 
-            public BinaryTreeNode<TNode> Left { get; set; }
+                if (current != null)
+                {
+                    current.Right?.Print(++level);
+                }
 
-            public BinaryTreeNode<TNode> Right { get; set; }
+                for (int spaces = 0; spaces < level; spaces++)
+                {
+                    Console.Write("  ");
+                }
 
-            public TNode Value { get; private set; }
+                if (current != null)
+                {
+                    Console.WriteLine($"{current.Key}<");
+                }
 
-            /// <summary>
-            /// Compares the current node to the provided value
-            /// </summary>
-            /// <param name="other">The node value to compare to</param>
-            /// <returns>1 if the instance value is greater than the provided value, -1 if less or 0 if equal.</returns>
-            public int CompareTo(TNode other)
-            {
-                return Value.CompareTo(other);
+                if (current != null)
+                {
+                    current.Left?.Print(++level);
+                }
             }
         }
     }
