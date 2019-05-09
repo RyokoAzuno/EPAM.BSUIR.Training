@@ -8,9 +8,13 @@ using UriToXmlExporter.Models;
 
 namespace UriToXmlExporter.Storages
 {
+    /// <summary>
+    /// Class represents XML storage
+    /// </summary>
     public class XmlStorage : IStorage<UrlAddress>
     {
         private readonly string _path = ConfigurationManager.AppSettings["XmlStoragePath"];
+
         private List<UrlAddress> _storage;
 
         public XmlStorage(IEnumerable<UrlAddress> storage)
@@ -18,6 +22,10 @@ namespace UriToXmlExporter.Storages
             _storage = new List<UrlAddress>(storage);
         }
 
+        /// <summary>
+        /// Load from XML storage
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<UrlAddress> Load()
         {
             if (File.Exists(_path))
@@ -26,6 +34,7 @@ namespace UriToXmlExporter.Storages
                 XDocument xDoc = XDocument.Load(_path);
                 List<string> segments = new List<string>();
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
+
                 foreach (XElement urlAddressElement in xDoc.Element("urlAddresses").Elements("urlAddress"))
                 {
                     XElement schemeElement = urlAddressElement.Element("scheme");
@@ -36,6 +45,7 @@ namespace UriToXmlExporter.Storages
                     {
                         segments.Add(segment.Value);
                     }
+
                     XElement parametersElement = urlAddressElement.Element("parameters");
                     foreach (var item in parametersElement.Elements("parameter"))
                     {
@@ -62,8 +72,12 @@ namespace UriToXmlExporter.Storages
             }
         }
 
+        /// <summary>
+        /// Save into XML storage
+        /// </summary>
         public void Save()
         {
+            // Create xml document
             var doc = new XElement(
                                     "urlAddresses",
                                     _storage.Select(elt => new XElement(
@@ -71,8 +85,12 @@ namespace UriToXmlExporter.Storages
                                                     new XElement("scheme", elt.Scheme),
                                                     new XElement("host", new XAttribute("name", elt.Host)),
                                                     new XElement("uri", elt.Segments.Select(seg => new XElement("segment", seg))),
-                                                    new XElement("parameters", new XElement("parameter", elt.Parameters.Select(param => new XAttribute("key", param.Key)),
-                                                                               elt.Parameters.Select(param => new XAttribute("value", param.Value)))))));
+                                                    new XElement(
+                                                                 "parameters", 
+                                                                              new XElement(
+                                                                                           "parameter", 
+                                                                                                    elt.Parameters.Select(param => new XAttribute("key", param.Key)),
+                                                                                                    elt.Parameters.Select(param => new XAttribute("value", param.Value)))))));
 
             foreach (XElement child in doc.Descendants().Reverse())
             {
@@ -81,6 +99,7 @@ namespace UriToXmlExporter.Storages
                     child.Remove();
                 }
             }
+
             // Save Xml document
             doc.Save(_path);
         }
