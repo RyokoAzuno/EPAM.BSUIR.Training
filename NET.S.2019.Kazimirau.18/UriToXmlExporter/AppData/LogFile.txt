@@ -1,0 +1,5 @@
+
+2019-05-09 14:06:56.3439|INFO|UriToXmlExporter.Loggers.MyLogger|Invalid Url: https://git_hub..com/AnzhelikaKr.avchuk.?tab=.repositories
+2019-05-09 14:06:56.3730|INFO|UriToXmlExporter.Loggers.MyLogger|Invalid Url: http://habrahabr.ru/company///it-grad/?blog/341486/
+2019-05-09 14:19:40.4838|INFO|UriToXmlExporter.Loggers.MyLogger|Invalid Url: https://git_hub..com/AnzhelikaKr.avchuk.?tab=.repositories
+2019-05-09 14:19:40.5117|INFO|UriToXmlExporter.Loggers.MyLogger|Invalid Url: http://habrahabr.ru/company///it-grad/?blog/341486/
