@@ -48,10 +48,12 @@
     <Compile Include="Extentions\DictionaryExtentions.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IStorage.cs" />
+    <Compile Include="Interfaces\IValidator.cs" />
     <Compile Include="Models\UrlAddress.cs" />
-    <Compile Include="Models\UrlParser.cs" />
+    <Compile Include="Services\UrlParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UrlValidator.cs" />
     <Compile Include="Storages\XmlStorage.cs" />
   </ItemGroup>
   <ItemGroup>
