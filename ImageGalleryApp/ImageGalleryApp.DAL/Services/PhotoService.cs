@@ -1,7 +1,5 @@
-﻿using ImageGalleryApp.DAL.EFContexts;
-using ImageGalleryApp.DAL.Entities;
+﻿using ImageGalleryApp.DAL.Entities;
 using ImageGalleryApp.DAL.Interfaces;
-using ImageGalleryApp.DAL.Repositories;
 using System.Collections.Generic;
 using System.Drawing;
 

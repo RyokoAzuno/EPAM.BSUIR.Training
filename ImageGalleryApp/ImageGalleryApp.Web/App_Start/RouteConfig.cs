@@ -1,7 +1,4 @@
-﻿using ImageGalleryApp.DAL.EFContexts;
-using ImageGalleryApp.DAL.Repositories;
-using ImageGalleryApp.DAL.Services;
-using ImageGalleryApp.Web.Handlers;
+﻿using ImageGalleryApp.Web.Handlers;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -13,18 +10,12 @@ namespace ImageGalleryApp.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.Add(new Route("handler/{*path}", new ImageRouteHandler(
-            //                    new PhotoService(
-            //                        new PhotoRepository(
-            //                            new GalleryContext("MyDefaultConnection"))))));
+            //routes.Add(new Route("handler/{*path}", new ImageRouteHandler()));
             //routes.MapRoute(
             //    name: "ImageRoute",
             //    url: "images",
             //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            //).RouteHandler = new ImageRouteHandler(
-            //                    new PhotoService(
-            //                        new PhotoRepository(
-            //                            new GalleryContext("MyDefaultConnection"))));
+            //).RouteHandler = new ImageRouteHandler();
 
             routes.MapRoute(
                 name: "Default",

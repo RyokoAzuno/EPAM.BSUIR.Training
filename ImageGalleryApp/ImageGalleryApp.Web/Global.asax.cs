@@ -1,7 +1,4 @@
 ﻿using ImageGalleryApp.DAL.Dependencies;
-using ImageGalleryApp.DAL.EFContexts;
-using ImageGalleryApp.DAL.Repositories;
-using ImageGalleryApp.DAL.Services;
 using ImageGalleryApp.Web.Handlers;
 using ImageGalleryApp.Web.Resolvers;
 using Ninject;
@@ -20,11 +17,7 @@ namespace ImageGalleryApp.Web
             DependencyResolver.SetResolver(new UnityDependencyResolver("MyDefaultConnection"));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            
-            RouteTable.Routes.Add("ImagesRoute", new Route("images/{id}", new ImageRouteHandler(
-                                new PhotoService(
-                                    new PhotoRepository(
-                                        new GalleryContext("MyDefaultConnection"))))));
+            RouteTable.Routes.Add("ImagesRoute", new Route("images/{id}", new ImageRouteHandler()));
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 

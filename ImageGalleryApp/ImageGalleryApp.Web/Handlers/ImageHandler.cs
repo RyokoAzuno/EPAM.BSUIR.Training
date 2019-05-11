@@ -1,5 +1,6 @@
 ﻿using ImageGalleryApp.DAL.Entities;
 using ImageGalleryApp.DAL.Interfaces;
+using ImageGalleryApp.Web.Resolvers;
 using System;
 using System.Web;
 using System.Web.Routing;
@@ -8,13 +9,10 @@ namespace ImageGalleryApp.Web.Handlers
 {
     public class ImageHandler : IHttpHandler
     {
-        private IPhotoService _photoService;
-
         private RequestContext _requestContext;
 
-        public ImageHandler(IPhotoService photoService, RequestContext requestContext)
+        public ImageHandler(RequestContext requestContext)
         {
-            _photoService = photoService;
             _requestContext = requestContext;
         }
 
@@ -29,7 +27,9 @@ namespace ImageGalleryApp.Web.Handlers
             var routeValues = _requestContext.RouteData.Values;
             if (routeValues.ContainsKey("id"))
             {
-                Photo img = _photoService.Get(Convert.ToInt32(routeValues["id"]));
+                var resolver = new UnityDependencyResolver("MyDefaultConnection");
+                var photoService = (IPhotoService)resolver.GetService(typeof(IPhotoService));
+                Photo img = photoService.Get(Convert.ToInt32(routeValues["id"]));
                 string filename = _requestContext.HttpContext.Server.MapPath(img.ThumbPath);
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(filename);
                 if (fileInfo.Exists)
@@ -38,7 +38,7 @@ namespace ImageGalleryApp.Web.Handlers
                     _requestContext.HttpContext.Response.AddHeader("Content-Disposition", "inline;attachment; filename=\""
                                                                     + fileInfo.Name + "\"");
                     _requestContext.HttpContext.Response.AddHeader("Content-Length", fileInfo.Length.ToString());
-                    _requestContext.HttpContext.Response.ContentType = "application/octet-stream";
+                    _requestContext.HttpContext.Response.ContentType = img.MimeType; //"application/octet-stream";
                     _requestContext.HttpContext.Response.TransmitFile(fileInfo.FullName);
                     _requestContext.HttpContext.Response.Flush();
                     // I use in to check !=null equation
@@ -55,7 +55,7 @@ namespace ImageGalleryApp.Web.Handlers
                     // Get image by id from database
                     //Photo img = _photoService.Get(id);
                     // Getting image type(png, jpg, jpeg, bmp, gif)
-                    //_requestContext.HttpContext.Response.ContentType = "application/octet-stream";//img.MimeType;
+                    //_requestContext.HttpContext.Response.ContentType = img.MimeType;
                     //_requestContext.HttpContext.Response.WriteFile(img.ThumbPath);
                     //// Write image bytes to current stream
                     ////context.Response.OutputStream.Write(data, 0, data.Length);
