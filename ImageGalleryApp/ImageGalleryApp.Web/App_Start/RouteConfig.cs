@@ -10,7 +10,6 @@ namespace ImageGalleryApp.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.Add(new Route("handler/{*path}", new ImageRouteHandler()));
             //routes.MapRoute(
             //    name: "ImageRoute",
             //    url: "images",
@@ -22,6 +21,9 @@ namespace ImageGalleryApp.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.Add(new Route("images/{id}", new ImageRouteHandler()));
+            routes.Add(new Route("images", new ImagesRouteHandler()));
         }
     }
 }

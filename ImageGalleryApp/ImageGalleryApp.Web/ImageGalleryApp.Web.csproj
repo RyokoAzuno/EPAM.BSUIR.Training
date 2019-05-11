@@ -162,10 +162,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\ImagesHandler.cs" />
     <Compile Include="Handlers\ImageHandler.cs" />
+    <Compile Include="Handlers\ImagesRouteHandler.cs" />
     <Compile Include="Handlers\ImageRouteHandler.cs" />
     <Compile Include="Models\ImageViewModel.cs" />
     <Compile Include="Models\PageList.cs" />
+    <Compile Include="Modules\ImagesCountModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolvers\UnityDependencyResolver.cs" />
   </ItemGroup>

@@ -17,7 +17,7 @@ namespace ImageGalleryApp.Web
             DependencyResolver.SetResolver(new UnityDependencyResolver("MyDefaultConnection"));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteTable.Routes.Add("ImagesRoute", new Route("images/{id}", new ImageRouteHandler()));
+            //RouteTable.Routes.Add("ImagesRoute", new Route("images/{id}", new ImageRouteHandler()));
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 

@@ -30,7 +30,7 @@ namespace ImageGalleryApp.Web.Handlers
                 var resolver = new UnityDependencyResolver("MyDefaultConnection");
                 var photoService = (IPhotoService)resolver.GetService(typeof(IPhotoService));
                 Photo img = photoService.Get(Convert.ToInt32(routeValues["id"]));
-                string filename = _requestContext.HttpContext.Server.MapPath(img.ThumbPath);
+                string filename = _requestContext.HttpContext.Server.MapPath(img.ImagePath);
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(filename);
                 if (fileInfo.Exists)
                 {

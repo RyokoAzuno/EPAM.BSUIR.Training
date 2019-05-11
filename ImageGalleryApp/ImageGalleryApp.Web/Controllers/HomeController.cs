@@ -94,7 +94,7 @@ namespace ImageGalleryApp.Web.Controllers
                 }
             }
 
-            return RedirectPermanent("/home");
+            return RedirectToAction("Index");
         }
     }
 }

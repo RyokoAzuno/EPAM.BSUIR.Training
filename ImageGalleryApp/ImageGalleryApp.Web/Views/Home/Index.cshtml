@@ -8,6 +8,9 @@
 <div>
     <h2>Image Gallery</h2>
 </div>
+<div>
+    @Session["ImgCount"]
+</div>
 @using (Html.BeginForm("Index", null, FormMethod.Get))
 {
     <div class="row">
