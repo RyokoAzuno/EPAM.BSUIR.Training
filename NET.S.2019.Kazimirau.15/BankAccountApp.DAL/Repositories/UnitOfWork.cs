@@ -10,32 +10,24 @@ namespace BankAccountApp.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private IRepository<BankAccount> _bankAccountRepository;
-        private IStorage<BankAccount> _bankAccountStorage;
+        //private IStorage<BankAccount> _bankAccountStorage;
 
-        public UnitOfWork(IStorage<BankAccount> bankAccountStorage)
+        public UnitOfWork(IRepository<BankAccount> bankAccountRepository)
         {
-            _bankAccountStorage = bankAccountStorage;
+            _bankAccountRepository = bankAccountRepository;
         }
 
         public IRepository<BankAccount> BankAccounts
         {
             get
             {
-                if (_bankAccountRepository == null)
-                {
-                    _bankAccountRepository = new BankAccountRepository(_bankAccountStorage);
-                }
+                //if (_bankAccountRepository == null)
+                //{
+                //    _bankAccountRepository = new BankAccountRepository(_bankAccountStorage);
+                //}
 
                 return _bankAccountRepository;
             }
-        }
-
-        /// <summary>
-        /// Save changes to the storage
-        /// </summary>
-        public void Commit()
-        {
-            _bankAccountStorage.Save();
         }
     }
 }

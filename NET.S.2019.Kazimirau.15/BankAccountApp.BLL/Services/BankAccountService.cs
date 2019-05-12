@@ -26,8 +26,9 @@ namespace BankAccountApp.BLL.Services
         /// <param name="id"></param>
         public void Close(int id)
         {
-            _db.BankAccounts.GetById(id).IsOpened = false;
-            _db.Commit();
+            BankAccount bankAccount = _db.BankAccounts.GetById(id);
+            bankAccount.IsOpened = false;
+            _db.BankAccounts.Update(bankAccount);
         }
 
         /// <summary>
@@ -44,7 +45,6 @@ namespace BankAccountApp.BLL.Services
             BankAccount bankAccount = CustomMapper<BankAccountDTO, BankAccount>.Map(bankAccountDTO); ////new BankAccount
 
             _db.BankAccounts.Create(bankAccount);
-            _db.Commit();
         }
 
         /// <summary>
@@ -70,9 +70,8 @@ namespace BankAccountApp.BLL.Services
             {
                 bankAccount.Balance += amount;
                 bankAccount.BonusPoints += CalculateBonusPoints(bankAccount.Type, amount);
+                _db.BankAccounts.Update(bankAccount);
             }
-
-            _db.Commit();
         }
 
         /// <summary>
@@ -140,10 +139,10 @@ namespace BankAccountApp.BLL.Services
                     {
                         bankAccount.BonusPoints -= bonusPoints;
                     }
+
+                    _db.BankAccounts.Update(bankAccount);
                 }
             }
-
-            _db.Commit();
         }
 
         /// <summary>

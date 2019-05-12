@@ -1,4 +1,6 @@
-﻿namespace BankAccountApp.BLL.DataTransferObjects
+﻿using BankAccountApp.DAL.Interfaces;
+
+namespace BankAccountApp.BLL.DataTransferObjects
 {
     public enum AccountTypeDTO
     {
@@ -10,7 +12,7 @@
     /// <summary>
     /// Data transfer object class
     /// </summary>
-    public class BankAccountDTO
+    public class BankAccountDTO : IEntity
     {
         // Unique identifier
         public int Id { get; set; }

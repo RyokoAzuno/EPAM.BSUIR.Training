@@ -16,7 +16,6 @@ namespace BankAccountApp.ConsoleUI
             IBankAccountService bankService = kernel.Get<IBankAccountService>();
             BankAccountDTO acc1 = new BankAccountDTO
             {
-                Id = 5,
                 FirstName = "Test",
                 SecondName = "Name",
                 Balance = 3000.50m,
@@ -26,7 +25,6 @@ namespace BankAccountApp.ConsoleUI
             };
             BankAccountDTO acc2 = new BankAccountDTO
             {
-                Id = 6,
                 FirstName = "James",
                 SecondName = "Doe",
                 Balance = 13040.50m,
@@ -36,7 +34,6 @@ namespace BankAccountApp.ConsoleUI
             };
             BankAccountDTO acc3 = new BankAccountDTO
             {
-                Id = 7,
                 FirstName = "Steve",
                 SecondName = "McQueen",
                 Balance = 500.50m,
@@ -46,7 +43,6 @@ namespace BankAccountApp.ConsoleUI
             };
             BankAccountDTO acc4 = new BankAccountDTO
             {
-                Id = 8,
                 FirstName = "Alice",
                 SecondName = "Cooper",
                 Balance = 500.50m,

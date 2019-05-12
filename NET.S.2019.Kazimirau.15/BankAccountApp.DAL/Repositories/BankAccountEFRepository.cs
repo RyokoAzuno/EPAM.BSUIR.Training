@@ -1,28 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using BankAccountApp.DAL.EFContexts;
 using BankAccountApp.DAL.Entities;
 using BankAccountApp.DAL.Interfaces;
 
 namespace BankAccountApp.DAL.Repositories
 {
     // Class simulates bank account repository
-    public class BankAccountRepository : IRepository<BankAccount>
+    public class BankAccountEFRepository : IRepository<BankAccount>
     {
-        private List<BankAccount> _bankAccounts;
-        private IStorage<BankAccount> _bankAccountStorage;
+        private BankAccountContext _bankAccountStorage;
 
-        public BankAccountRepository(IStorage<BankAccount> bankAccountStorage)
+        public BankAccountEFRepository(string connectionString)
         {
-            _bankAccountStorage = bankAccountStorage;
-            _bankAccounts = _bankAccountStorage.Load().ToList();
+            _bankAccountStorage = new BankAccountContext(connectionString);
         }
 
         /// <summary>
         /// Get all bank accounts
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BankAccount> GetAll() => _bankAccounts;
+        public IEnumerable<BankAccount> GetAll()
+        {
+            return _bankAccountStorage.BankAccounts;
+        }
 
         /// <summary>
         /// Get bank account by Id
@@ -31,7 +34,7 @@ namespace BankAccountApp.DAL.Repositories
         /// <returns></returns>
         public BankAccount GetById(int id)
         {
-            BankAccount bankAccount = _bankAccounts.Where(a => a.Id.Equals(id)).FirstOrDefault();
+            BankAccount bankAccount = _bankAccountStorage.BankAccounts.Where(a => a.Id.Equals(id)).FirstOrDefault();
 
             if (bankAccount != null)
             {
@@ -49,13 +52,8 @@ namespace BankAccountApp.DAL.Repositories
         {
             if (bankAccount != null)
             {
-                if (_bankAccounts.Select(acc => acc.Id).Contains(bankAccount.Id))
-                {
-                    int id = _bankAccounts.Max(b => b.Id) + 1;
-                    bankAccount.Id = id;
-                }
-                
-                _bankAccounts.Add(bankAccount);
+                _bankAccountStorage.BankAccounts.Add(bankAccount);
+                _bankAccountStorage.SaveChanges();
             }
         }
 
@@ -67,17 +65,8 @@ namespace BankAccountApp.DAL.Repositories
         {
             if (bankAccount != null)
             {
-                BankAccount b = GetById(bankAccount.Id);
-
-                if (b != null)
-                {
-                    b.FirstName = bankAccount.FirstName;
-                    b.SecondName = bankAccount.SecondName;
-                    b.Balance = bankAccount.Balance;
-                    b.BonusPoints = bankAccount.BonusPoints;
-                    b.Type = bankAccount.Type;
-                    b.IsOpened = bankAccount.IsOpened;
-                }
+                _bankAccountStorage.Entry(bankAccount).State = EntityState.Modified;
+                _bankAccountStorage.SaveChanges();
             }
         }
 
@@ -87,11 +76,12 @@ namespace BankAccountApp.DAL.Repositories
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            BankAccount bankAccount = _bankAccounts.Where(a => a.Id.Equals(id)).FirstOrDefault();
+            BankAccount bankAccount = _bankAccountStorage.BankAccounts.Where(a => a.Id.Equals(id)).FirstOrDefault();
 
             if (bankAccount != null)
             {
-                _bankAccounts.Remove(bankAccount);
+                _bankAccountStorage.BankAccounts.Remove(bankAccount);
+                _bankAccountStorage.SaveChanges();
             }
         }
 
@@ -101,7 +91,7 @@ namespace BankAccountApp.DAL.Repositories
         public override string ToString()
         {
             string result = string.Empty;
-            foreach (var bankAccount in _bankAccounts)
+            foreach (var bankAccount in GetAll())
             {
                 result += $"***\n{bankAccount}\n";
             }

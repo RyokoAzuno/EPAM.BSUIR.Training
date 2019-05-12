@@ -23,24 +23,29 @@ namespace BankAccountApp.BLL.Dependencies
 
         public override void Load()
         {
-            IBindingToSyntax<IStorage<BankAccount>> bind = Bind<IStorage<BankAccount>>();
+            IBindingToSyntax<IRepository<BankAccount>> bind = Bind<IRepository<BankAccount>>();
             switch (_storageType.ToLower())
             {
+                case "ef":
+                    {
+                        bind.To<BankAccountEFRepository>().WithConstructorArgument("MyDefaultConnection");
+                        break;
+                    }
                 case "json":
                     {
-                        bind.To<JsonStorage>();
+                        bind.To<BankAccountJsonRepository>();
                         break;
                     }
 
                 case "xml":
                     {
-                        bind.To<XmlStorage>();
+                        bind.To<BankAccountXmlRepository>();
                         break;
                     }
 
                 default:
                     {
-                        bind.To<BinaryStorage>();
+                        bind.To<BankAccountBinaryRepository>();
                         break;
                     }
             }

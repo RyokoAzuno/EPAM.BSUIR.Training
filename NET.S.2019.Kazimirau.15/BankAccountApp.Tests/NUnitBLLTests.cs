@@ -84,9 +84,12 @@ namespace BankAccountApp.Tests
         public void BankAccountService_Tests()
         {
             IEnumerable<BankAccount> accs = CustomMapper<BankAccountDTO, BankAccount>.Map(_bankAccounts);
-            IStorage<BankAccount> storage = new MemoryStorage(accs);
-            storage.Save();
-            IUnitOfWork unitOfWork = new UnitOfWork(storage);
+            IRepository<BankAccount> repository = new BankAccountMemoryRepository();
+            foreach (var item in accs)
+            {
+                repository.Create(item);
+            }
+            IUnitOfWork unitOfWork = new UnitOfWork(repository);
             IBankAccountService service = new BankAccountService(unitOfWork);
 
             BankAccountDTO bankAccount = service.Get(8);

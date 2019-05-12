@@ -1,13 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BankAccounts>
-  <BankAccount Id="1">
-    <FirstName>Jane</FirstName>
-    <SecondName>Doe</SecondName>
-    <Balance>4840.74</Balance>
-    <BonusPoints>281</BonusPoints>
-    <Type>Gold</Type>
-    <Status>true</Status>
-  </BankAccount>
   <BankAccount Id="2">
     <FirstName>John</FirstName>
     <SecondName>Doe</SecondName>
@@ -31,5 +23,13 @@
     <BonusPoints>10</BonusPoints>
     <Type>Base</Type>
     <Status>false</Status>
+  </BankAccount>
+  <BankAccount Id="1">
+    <FirstName>Jane</FirstName>
+    <SecondName>Doe</SecondName>
+    <Balance>4149.54</Balance>
+    <BonusPoints>212</BonusPoints>
+    <Type>Gold</Type>
+    <Status>true</Status>
   </BankAccount>
 </BankAccounts>

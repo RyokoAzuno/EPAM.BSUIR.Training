@@ -1,14 +1,5 @@
 ﻿[
   {
-    "Id": 1,
-    "FirstName": "Jane",
-    "SecondName": "Doe",
-    "Balance": 5384.85,
-    "BonusPoints": 357,
-    "Type": 1,
-    "IsOpened": true
-  },
-  {
     "Id": 2,
     "FirstName": "John",
     "SecondName": "Doe",
@@ -34,5 +25,14 @@
     "BonusPoints": 10,
     "Type": 0,
     "IsOpened": false
+  },
+  {
+    "Id": 1,
+    "FirstName": "Jane",
+    "SecondName": "Doe",
+    "Balance": 4924.05,
+    "BonusPoints": 311,
+    "Type": 1,
+    "IsOpened": true
   }
 ]
