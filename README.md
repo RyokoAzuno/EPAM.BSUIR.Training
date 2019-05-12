@@ -1,4 +1,6 @@
 # EPAM.BSUIR.Training tasks contents
+### **[Image Gallery ASP.NET MVC WebApp](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/ImageGalleryApp)**</br>
+* ASP.NET MVC 5 + Entity Framework 6 + AJAX + DI(Ninject and Unity) + N-tier
 ### **[NET.S.2019.Kazimirau.01](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.01)**</br>
 * MyMultyFileAssembly
 * Sorting algorithms
@@ -42,3 +44,6 @@
 
 ### **[NET.S.2019.Kazimirau.18](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.18)**</br>
 * UriToXmlExporter
+
+### **[NET.S.2019.Kazimirau.21](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.21)**</br>
+* BankAccountApp(n-tier architecture DAL, BLL, PL) + Entity Framework + refactoring of XML, JSON, Binary-, Memory-repositories 
