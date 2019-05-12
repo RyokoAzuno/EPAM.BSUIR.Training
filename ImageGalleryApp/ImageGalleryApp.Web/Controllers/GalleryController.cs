@@ -11,16 +11,16 @@ using System.Web.Mvc;
 
 namespace ImageGalleryApp.Web.Controllers
 {
-    public class HomeController : Controller
+    public class GalleryController : Controller
     {
         private IPhotoService _photoService;
 
-        public HomeController(IPhotoService photoService)
+        public GalleryController(IPhotoService photoService)
         {
             _photoService = photoService;
         }
 
-        public ActionResult Index(string filter = null, int page = 1, int pageSize = 33)
+        public ActionResult Index(string filter = null, int page = 1, int pageSize = 6)
         {
             var records = new PagedList<ImageViewModel>();
             ViewBag.filter = filter;
@@ -34,12 +34,38 @@ namespace ImageGalleryApp.Web.Controllers
 
             // Count
             records.TotalRecords = _photoService.GetAll()
-                            .Where(x => filter == null || (x.Description.Contains(filter))).Count();
+                                                .Where(x => filter == null || x.Description.Contains(filter))
+                                                .Count();
 
             records.CurrentPage = page;
             records.PageSize = pageSize;
+            records.TotalPages = (int)Math.Ceiling((decimal)records.TotalRecords / pageSize);
 
             return View(records);
+        }
+
+        public ActionResult Test(string filter = null, int page = 1, int pageSize = 6)
+        {
+            var records = new PagedList<ImageViewModel>();
+            ViewBag.filter = filter;
+
+            records.Content = CustomMapper<Photo, ImageViewModel>.Map(_photoService.GetAll())
+                        .Where(x => filter == null || (x.Description.Contains(filter)))
+                        .OrderByDescending(x => x.Id)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToList();
+
+            // Count
+            records.TotalRecords = _photoService.GetAll()
+                                                .Where(x => filter == null || x.Description.Contains(filter))
+                                                .Count();
+
+            records.CurrentPage = page;
+            records.PageSize = pageSize;
+            records.TotalPages = (int)Math.Ceiling((decimal)records.TotalRecords / pageSize);
+
+            return PartialView("Test", records);
         }
 
         [HttpGet]

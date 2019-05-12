@@ -38,7 +38,7 @@ namespace ImageGalleryApp.Web.Modules
                     jpegCount++;
                 }
             }
-            
+           
             string result = $" Total images: {pngCount + jpegCount}; PNG images: {pngCount}; JPEG images: {jpegCount};";
             string path = (src as HttpApplication).Server.MapPath("/App_Data/info.txt");
 
@@ -46,8 +46,8 @@ namespace ImageGalleryApp.Web.Modules
             {
                 sw.WriteLine(DateTime.Now.ToString() + result);
             }
-                
         }
+
 
     }
 }
