@@ -20,6 +20,7 @@
 * Polynomial
 
 ### **[NET.S.2019.Kazimirau.05](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.05)**</br>
+* BooksWebApp (ASP.NET MVC 5 + AngularJS + AJAX + AZURE) **[BooksWebApp on AZURE](https://bookapp2019.azurewebsites.net)**
 * BooksApp
 * BankAccountApp
 
