@@ -1,4 +1,5 @@
-﻿using Books.WebApp.Models;
+﻿using Books.WebApp.Interfaces;
+using Books.WebApp.Models;
 using Books.WebApp.Services;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,13 @@ namespace Books.WebApp.Controllers
 {
     public class BookController : ApiController
     {
-        private BookService _service;
+        private IRepository<Book> _service;
 
         public BookController()
         {
             _service = new BookService();
         }
+
         // GET api/book
         [HttpGet]
         public IEnumerable<Book> GetAllBooks()
