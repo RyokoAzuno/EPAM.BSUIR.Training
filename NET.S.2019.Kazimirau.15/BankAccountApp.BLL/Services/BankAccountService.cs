@@ -32,6 +32,17 @@ namespace BankAccountApp.BLL.Services
         }
 
         /// <summary>
+        /// Open again bank account by Id
+        /// </summary>
+        /// <param name="id"></param>
+        public void Open(int id)
+        {
+            BankAccount bankAccount = _db.BankAccounts.GetById(id);
+            bankAccount.IsOpened = true;
+            _db.BankAccounts.Update(bankAccount);
+        }
+
+        /// <summary>
         /// Create new bank account 
         /// </summary>
         /// <param name="bankAccountDTO"></param>

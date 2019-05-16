@@ -1,0 +1,77 @@
+﻿@model BankAccountApp.Web.Models.PageViewModel<BankAccountApp.Web.Models.BankAccountViewModel>
+@using BankAccountApp.Web.HtmlHelpers
+
+@{
+    ViewBag.Title = "BankAccount Page";
+}
+
+<h2 class="text-white">Information about bank accounts</h2>
+
+<table class="table table-striped table-hover">
+    <thead class="bg-warning">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().SecondName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().BonusPoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().IsOpened)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Type)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+        <tr class="bg-dark text-white">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BonusPoints)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOpened)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.ActionLink("Close", "Close", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == false) ? " disabled" : "") })
+            </td>
+            <td>
+                @Html.ActionLink("Open", "Open", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == true) ? " disabled" : "") })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div class="btn-group">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }), "btn btn-default")
+    </div>
+<br /><br />
+<div>
+    <div><p>@Html.ActionLink("Create New", "Create", "BankAccount", new { @class = "btn btn-primary btn-lg" })</p></div>
+</div>

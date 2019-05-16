@@ -13,6 +13,8 @@ namespace BankAccountApp.BLL.Interfaces
 
         void Close(int id);
 
+        void Open(int id);
+
         IEnumerable<BankAccountDTO> GetAll();
 
         BankAccountDTO Get(int id);
