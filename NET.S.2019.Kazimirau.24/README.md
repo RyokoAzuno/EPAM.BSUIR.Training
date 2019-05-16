@@ -1,6 +1,6 @@
 <b>TO DO(20.05.2019(deadline))</b>
 
-**[Click here](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**
+**[CLICH HERE](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**
 
 Добавить в Solution с проектами для работы с банковским счетом (Homework Day 15) проект ASP.NET MVC.
 Для web-приложения реализовать следующие возможности: 
