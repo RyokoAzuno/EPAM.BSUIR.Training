@@ -1,15 +1,15 @@
-<b>TO DO(22.05.2019(deadline))</b>
+<b>TO DO(20.05.2019(deadline))</b>
+**[Click here](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**
+Добавить в Solution с проектами для работы с банковским счетом (Homework Day 15) проект ASP.NET MVC.
+Для web-приложения реализовать следующие возможности: 
+-	выполнить пополнение на счет;
+-	выполнить списание со счета; 
+-	выполнить перевод с одного счета на другой, в случае принадлежности счетов как одному владельцу, так и различным;
+-	создать новый счет; 
+-	закрыть счет. 
 
-К понедельнику обязательно послушать лекцию
-Веб-разработка. Введение, сетевые протоколы Технострим2
-Материалы по ADO.NET Entity Framework.
-1. **[Entity Framework Tutorial (!)](https://www.entityframeworktutorial.net/)**
-2. **[Entity Framework Database First](https://docs.microsoft.com/ru-ru/ef/ef6/modeling/designer/workflows/database-first)**
-3. **[Entity Framework Code First to an Existing Database](https://docs.microsoft.com/ru-ru/ef/ef6/modeling/code-first/workflows/existing-database)**
-4. **[Entity Framework Code First to a New Database](https://docs.microsoft.com/ru-ru/ef/ef6/modeling/code-first/workflows/new-database)**
+В логику работы приложения добавить функциональную возможность рассылки владельцу счета сообщений с информацией о списанной или пополненной сумме на его счету, а также о начисленных бонусных баллах.
 
-Добавить в проект (Homework. Day 15) для работы с банковским счетом реализацию
-DAL, реализуя его как обертку над ORM ADO.NET Entity Framework. Протестировать
-работу в консоли. Если возникнет необходимость, выполнить ”сквозные” изменения в
-solution-e. (BLL,BLL.Interface и т.п.).**[Click here](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**
+Для стилизации web-приложения использовать Bootstrap css-фреймворк.
+
 
