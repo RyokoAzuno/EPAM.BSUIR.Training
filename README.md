@@ -41,13 +41,13 @@
 * MyQueue
 
 ### **[NET.S.2019.Kazimirau.15](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.15)**</br>
-* BankAccountApp refactoring(n-tier architecture DAL, BLL, PL)
+* BankAccountApp refactoring(N-tier architecture DAL, BLL, PL)
 
 ### **[NET.S.2019.Kazimirau.18](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.18)**</br>
 * UriToXmlExporter
 
 ### **[NET.S.2019.Kazimirau.21](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.21)**</br>
-* BankAccountApp refactoring(n-tier architecture DAL, BLL, PL) + Entity Framework + refactoring of XML, JSON, Binary-, Memory-repositories
+* BankAccountApp refactoring(N-tier architecture DAL, BLL, PL) + Entity Framework + refactoring of XML, JSON, Binary-, Memory-repositories
 
 ### **[NET.S.2019.Kazimirau.24](https://github.com/RyokoAzuno/EPAM.BSUIR.Training/tree/master/NET.S.2019.Kazimirau.24)**</br>
-* BankAccountApp refactoring(n-tier architecture DAL, BLL, PL) + MVC5 + EF + Ninject + Bootstrap 4
+* BankAccountApp refactoring(N-tier architecture DAL, BLL, PL) + MVC5 + EF + Ninject + Bootstrap 4
