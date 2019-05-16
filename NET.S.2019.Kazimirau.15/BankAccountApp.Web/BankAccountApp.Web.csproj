@@ -151,7 +151,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HtmlHelpers\PrintHelper.cs" />
+    <Compile Include="HtmlHelpers\PageHelper.cs" />
     <Compile Include="Models\BankAccountViewModel.cs" />
     <Compile Include="Models\PageViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
