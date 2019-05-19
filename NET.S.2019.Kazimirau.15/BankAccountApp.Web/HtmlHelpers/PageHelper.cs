@@ -10,6 +10,7 @@ namespace BankAccountApp.Web.HtmlHelpers
         public static MvcHtmlString PageLinks(this HtmlHelper helper, PagingInfo pagingInfo, Func<int, string> pageUrl, string css)
         {
             StringBuilder sb = new StringBuilder();
+
             for (int i = 1; i <= pagingInfo.TotalPages; i++)
             {
                 TagBuilder a = new TagBuilder("a");
@@ -20,9 +21,11 @@ namespace BankAccountApp.Web.HtmlHelpers
                     a.AddCssClass("selected");
                     a.AddCssClass("btn-primary");
                 }
+
                 a.AddCssClass(css);
                 sb.Append(a.ToString());
             }
+
             return MvcHtmlString.Create(sb.ToString());
         }
     }

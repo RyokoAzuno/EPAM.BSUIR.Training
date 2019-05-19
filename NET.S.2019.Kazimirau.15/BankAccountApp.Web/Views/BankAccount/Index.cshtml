@@ -36,42 +36,53 @@
     <tbody>
         @foreach (var item in Model.Items)
         {
-        <tr class="bg-dark text-white">
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecondName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BonusPoints)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsOpened)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.ActionLink("Close", "Close", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == false) ? " disabled" : "") })
-            </td>
-            <td>
-                @Html.ActionLink("Open", "Open", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == true) ? " disabled" : "") })
-            </td>
-        </tr>
+            <tr class="bg-dark text-white">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)$
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BonusPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsOpened)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.ActionLink("Deposit", "Deposit", "BankAccount", new { id = item.Id }, new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @Html.ActionLink("Withdraw", "Withdraw", "BankAccount", new { id = item.Id }, new { @class = "btn btn-info" })
+                </td>
+                <td>
+                    @Html.ActionLink("Close", "Close", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == false) ? " disabled" : "") })
+                </td>
+                <td>
+                    @Html.ActionLink("Open", "Open", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == true) ? " disabled" : "") })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 <div class="btn-group">
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }), "btn btn-default")
-    </div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }), "btn btn-default")
+</div>
 <br /><br />
-<div>
-    <div><p>@Html.ActionLink("Create New", "Create", "BankAccount", new { @class = "btn btn-primary btn-lg" })</p></div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("Create New", "Create", "BankAccount", new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div>
+        @Html.ActionLink("Make Transfer", "Transfer", "BankAccount", new { @class = "btn btn-primary btn-lg" })
+    </div>
 </div>
