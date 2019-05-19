@@ -11,13 +11,7 @@
     <nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand/logo -->
         @*<a class="navbar-brand" href="#">Logo</a>*@
-        @Html.ActionLink("BankAccount app", "Index", "BankAccount", new { area = "" }, new { @class = "navbar-brand" })
-        <!-- Links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                @Html.ActionLink("BankAccount", "Index", "BankAccount", new { @class = "nav-link" })
-            </li>
-        </ul>
+        @Html.ActionLink("BankAccount Web-application", "Index", "BankAccount", new { area = "" }, new { @class = "navbar-brand text-warning" })
     </nav>
     <div class="container body-content">
         @RenderBody()

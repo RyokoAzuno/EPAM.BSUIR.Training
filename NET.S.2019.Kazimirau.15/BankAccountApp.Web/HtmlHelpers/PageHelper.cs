@@ -18,8 +18,8 @@ namespace BankAccountApp.Web.HtmlHelpers
                 a.InnerHtml = i.ToString();
                 if (i == pagingInfo.CurrentPage)
                 {
-                    a.AddCssClass("selected");
-                    a.AddCssClass("btn-primary");
+                    a.AddCssClass("active"); // selected
+                    a.AddCssClass("btn-dark");
                 }
 
                 a.AddCssClass(css);

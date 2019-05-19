@@ -108,6 +108,21 @@ namespace BankAccountApp.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Transfer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Transfer(int firstId, int secondId, decimal amount)
+        {
+            _service.Withdraw(firstId, amount);
+            _service.Deposit(secondId, amount);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Close(int id)
         {
             if (_service.Get(id) != null)
