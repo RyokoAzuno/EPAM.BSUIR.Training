@@ -12,7 +12,7 @@ namespace BankAccountApp.BLL.DataTransferObjects
     /// <summary>
     /// Data transfer object class
     /// </summary>
-    public class BankAccountDTO : IEntity
+    public class BankAccountDTO/* : IEntity*/
     {
         // Unique identifier
         public int Id { get; set; }

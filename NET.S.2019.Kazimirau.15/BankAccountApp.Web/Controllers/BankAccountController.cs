@@ -23,7 +23,7 @@ namespace BankAccountApp.Web.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            IEnumerable<BankAccountViewModel> bankAccounts = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.GetAll()) ;
+            IEnumerable<BankAccountViewModel> bankAccounts = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.GetAll());
 
             PageViewModel<BankAccountViewModel> pvm = new PageViewModel<BankAccountViewModel>
             {
@@ -64,6 +64,47 @@ namespace BankAccountApp.Web.Controllers
             }
 
             return HttpNotFound("Can't create bank account");
+        }
+
+        [HttpGet]
+        public ActionResult Deposit(int id)
+        {
+            BankAccountViewModel bankAccount = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.Get(id));
+            if (bankAccount?.IsOpened == true)
+            {
+                return View(bankAccount);
+            }
+
+            return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult Deposit(int id, decimal amount)
+        {
+            _service.Deposit(id, amount);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Withdraw(int id)
+        {
+            BankAccountViewModel bankAccount = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.Get(id));
+            if (bankAccount?.IsOpened == true)
+            {
+                return View(bankAccount);
+            }
+
+            return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult Withdraw(int id, decimal amount)
+        {
+            _service.Withdraw(id, amount);
+
+            return RedirectToAction("Index");
+
         }
 
         [HttpGet]

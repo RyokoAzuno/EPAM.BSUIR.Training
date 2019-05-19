@@ -1,0 +1,68 @@
+﻿@model BankAccountApp.Web.Models.BankAccountViewModel
+
+@{
+    ViewBag.Title = "Deposit";
+}
+
+<h2>Deposit money</h2>
+
+@using (Html.BeginForm(new { htmlAttributes = new { @class = "form-inline" } }))
+{
+    @Html.AntiForgeryToken()
+    <table class="table table-striped table-hover">
+        <thead class="bg-warning">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SecondName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BonusPoints)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-dark text-white">
+                <td>
+                    @Html.DisplayFor(model => model.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Balance)$
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.BonusPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Type)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <div>
+            <label for="money">Enter amount of money: </label>
+            <input type="text" class="form-control" name="amount" id="money" />
+            <br />
+        </div>
+        <input type="submit" value="Deposit" class="btn btn-primary btn-lg" />
+    </div>
+}
+
+

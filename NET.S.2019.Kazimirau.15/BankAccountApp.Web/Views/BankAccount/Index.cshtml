@@ -59,10 +59,10 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.ActionLink("Deposit", "Deposit", "BankAccount", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Deposit", "Deposit", "BankAccount", new { id = item.Id }, new { @class = "btn btn-success" + ((item.IsOpened == false) ? " disabled" : "") })
                 </td>
                 <td>
-                    @Html.ActionLink("Withdraw", "Withdraw", "BankAccount", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Withdraw", "Withdraw", "BankAccount", new { id = item.Id }, new { @class = "btn btn-info" + ((item.IsOpened == false) ? " disabled" : "") })
                 </td>
                 <td>
                     @Html.ActionLink("Close", "Close", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == false) ? " disabled" : "") })
