@@ -46,7 +46,7 @@ namespace BankAccountApp.Web.Controllers
             SelectList accTypes = new SelectList(lst);
             ViewBag.AccountTypes = accTypes;
 
-            return View();
+            return PartialView("CreatePartial");
         }
 
         [HttpPost]
@@ -72,7 +72,7 @@ namespace BankAccountApp.Web.Controllers
             BankAccountViewModel bankAccount = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.Get(id));
             if (bankAccount?.IsOpened == true)
             {
-                return View(bankAccount);
+                return PartialView("DepositPartial", bankAccount);
             }
 
             return HttpNotFound();
@@ -92,7 +92,7 @@ namespace BankAccountApp.Web.Controllers
             BankAccountViewModel bankAccount = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.Get(id));
             if (bankAccount?.IsOpened == true)
             {
-                return View(bankAccount);
+                return PartialView("WithdrawPartial", bankAccount);
             }
 
             return HttpNotFound();
@@ -110,7 +110,7 @@ namespace BankAccountApp.Web.Controllers
         [HttpGet]
         public ActionResult Transfer()
         {
-            return View();
+            return PartialView("TransferPartial");
         }
 
         [HttpPost]
@@ -125,11 +125,13 @@ namespace BankAccountApp.Web.Controllers
         [HttpGet]
         public ActionResult Close(int id)
         {
-            if (_service.Get(id) != null)
+            BankAccountViewModel bankAccount = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.Get(id));
+            if (bankAccount != null)
             {
                 _service.Close(id);
+                bankAccount.IsOpened = false;
 
-                return RedirectToAction("Index");
+                return PartialView("OpenClosePartial", bankAccount);
             }
 
             return HttpNotFound("Can't close bank account");
@@ -138,11 +140,13 @@ namespace BankAccountApp.Web.Controllers
         [HttpGet]
         public ActionResult Open(int id)
         {
+            BankAccountViewModel bankAccount = CustomMapper<BankAccountDTO, BankAccountViewModel>.Map(_service.Get(id));
             if (_service.Get(id) != null)
             {
                 _service.Open(id);
+                bankAccount.IsOpened = true;
 
-                return RedirectToAction("Index");
+                return PartialView("OpenClosePartial", bankAccount);
             }
 
             return HttpNotFound("Can't open bank account");

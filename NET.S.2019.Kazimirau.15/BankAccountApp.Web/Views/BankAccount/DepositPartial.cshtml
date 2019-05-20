@@ -1,12 +1,8 @@
 ﻿@model BankAccountApp.Web.Models.BankAccountViewModel
 
-@{
-    ViewBag.Title = "Withdraw";
-}
+<h2>Deposit money</h2>
 
-<h2>Withdraw money</h2>
-
-@*@using (Ajax.BeginForm("Withdraw", null, new AjaxOptions { UpdateTargetId = "information" }, new { htmlAttributes = new { @class = "form-inline" } }))*@
+@*@using (Ajax.BeginForm("Deposit", null, new AjaxOptions { UpdateTargetId = "information" }, new { htmlAttributes = new { @class = "form-inline" } }))*@
 @using (Html.BeginForm(new { htmlAttributes = new { @class = "form-inline" } }))
 {
     @Html.AntiForgeryToken()
@@ -62,7 +58,8 @@
             <input type="text" class="form-control" name="amount" id="money" />
             <br />
         </div>
-        <input type="submit" value="Withdraw" class="btn btn-primary btn-lg" />
+        <input type="submit" value="Deposit" class="btn btn-primary btn-lg" />
     </div>
 }
+
 

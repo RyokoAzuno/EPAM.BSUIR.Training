@@ -15,12 +15,11 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer></footer>
     </div>
-
+    <hr />
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,37 @@
+﻿@model BankAccountApp.Web.Models.BankAccountViewModel
+
+<td>
+    @Html.DisplayFor(model => Model.Id)
+</td>
+<td>
+    @Html.DisplayFor(model => Model.FirstName)
+</td>
+<td>
+    @Html.DisplayFor(model => Model.SecondName)
+</td>
+<td>
+    @Html.DisplayFor(model => Model.Balance)$
+</td>
+<td>
+    @Html.DisplayFor(model => Model.BonusPoints)
+</td>
+<td>
+    @Html.DisplayFor(model => Model.IsOpened)
+</td>
+<td>
+    @Html.DisplayFor(model => Model.Type)
+</td>
+<td>
+    @Ajax.ActionLink("Deposit", "Deposit", "BankAccount", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = Model.Id.ToString() }, new { @class = "btn btn-success" + ((Model.IsOpened == false) ? " disabled" : "") })
+</td>
+<td>
+    @Ajax.ActionLink("Withdraw", "Withdraw", "BankAccount", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = Model.Id.ToString() }, new { @class = "btn btn-info" + ((Model.IsOpened == false) ? " disabled" : "") })
+</td>
+<td>
+    @Ajax.ActionLink("Close", "Close", "BankAccount", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = Model.Id.ToString() }, new { @class = "btn btn-danger" + ((Model.IsOpened == false) ? " disabled" : "") })
+</td>
+<td>
+    @*@Html.ActionLink("Open", "Open", "BankAccount", new { id = item.Id }, new { @class = "btn btn-danger" + ((item.IsOpened == true) ? " disabled" : "") })*@
+    @Ajax.ActionLink("Open", "Open", "BankAccount", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = Model.Id.ToString() }, new { @class = "btn btn-danger" + ((Model.IsOpened == true) ? " disabled" : "") })
+</td>
+

@@ -6,6 +6,7 @@
 
 <h2>Deposit money</h2>
 
+@*@using (Ajax.BeginForm("Deposit", null, new AjaxOptions { UpdateTargetId = "information" }, new { htmlAttributes = new { @class = "form-inline" } }))*@
 @using (Html.BeginForm(new { htmlAttributes = new { @class = "form-inline" } }))
 {
     @Html.AntiForgeryToken()
@@ -57,7 +58,7 @@
     </table>
     <div>
         <div>
-            <label for="money">Enter amount of money: </label>
+            <label for="money" class="font-weight-bolder">Enter amount of money: </label>
             <input type="text" class="form-control" name="amount" id="money" />
             <br />
         </div>
